@@ -1,0 +1,29 @@
+@prefix rabo: <https://linq.example.org/ontology/rabo-mortgage#> .
+
+# ---------------------------------------------------------------------------------------------
+# Applicants (Acceptatiebeleid chapter 2)
+# ---------------------------------------------------------------------------------------------
+
+# AB-2.1  "Een aanvrager is een natuurlijk persoon en is minimaal 18 jaar."
+[?app, rabo:checked, rabo:R_MinAge] :- [?app, rabo:hasApplicant, ?p] .
+[?p, rabo:violates, rabo:R_MinAge] :- [?app, rabo:hasApplicant, ?p], [?p, rabo:age, ?age], FILTER(?age < 18) .
+[?p, rabo:missingFact, rabo:R_MinAge] :- [?app, rabo:hasApplicant, ?p], NOT EXISTS ?a IN [?p, rabo:age, ?a] .
+
+# AB-2.2  "Een aanvraag is met 1 of 2 debiteuren. Een aanvraag met 3 tot 5 debiteuren kan alleen
+#          door een adviseur van het Intermediair worden ingediend en alleen met Plusvoorwaarden."
+[?app, rabo:numberOfDebtors, ?n] :- AGGREGATE([?app, rabo:hasApplicant, ?p] ON ?app BIND COUNT(?p) AS ?n) .
+[?app, rabo:checked, rabo:R_Debtors] :- [?app, rabo:numberOfDebtors, ?n] .
+[?app, rabo:violates, rabo:R_Debtors] :- [?app, rabo:numberOfDebtors, ?n], FILTER(?n > 5) .
+[?app, rabo:violates, rabo:R_Debtors] :-
+    [?app, rabo:numberOfDebtors, ?n], FILTER(?n >= 3), NOT [?app, rabo:channel, rabo:Intermediair] .
+[?app, rabo:violates, rabo:R_Debtors] :-
+    [?app, rabo:numberOfDebtors, ?n], FILTER(?n >= 3), NOT [?app, rabo:conditions, rabo:Plus] .
+
+# AB-2.4.2  RRR 1 t/m 16 accepted; a higher RRR (R17-R20) only in specific situations via Explain
+#           (AB-6.2.1.1: examples in the document Kapitaalmodel Hypotheken).
+[?app, rabo:checked, rabo:R_RRR] :- [?app, rabo:rrr, ?r] .
+[?app, rabo:needsExplain, rabo:R_RRR] :- [?app, rabo:rrr, ?r], FILTER(?r >= 17 && ?r <= 20) .
+[?app, rabo:violates, rabo:R_RRR] :- [?app, rabo:rrr, ?r], FILTER(?r < 1 || ?r > 20) .
+# Only ask for the RRR when applicants are described (a full application check)
+[?app, rabo:missingFact, rabo:R_RRR] :-
+    [?app, rabo:hasApplicant, ?p], NOT EXISTS ?r IN [?app, rabo:rrr, ?r] .

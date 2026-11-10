@@ -1,0 +1,141 @@
+@prefix rabo: <https://linq.example.org/ontology/rabo-mortgage#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+# ---------------------------------------------------------------------------------------------
+# Collateral: valuation, maximum loan, type-specific conditions (Acceptatiebeleid 1.3, 5.4, 5.5.x)
+# The limits themselves are DATA in ontology/taxonomy_collateral.ttl; these rules apply them.
+# A property can belong to several classes (building type + use + construction + legal right):
+# every class's limits apply, and for the LTV the lowest norm wins.
+# ---------------------------------------------------------------------------------------------
+
+# AB-5.4  Market value and valuation method are needed
+[?c, rabo:missingFact, rabo:R_ValuationKnown] :-
+    [?app, rabo:hasCollateral, ?c], NOT EXISTS ?mv IN [?c, rabo:marketValue, ?mv] .
+[?c, rabo:missingFact, rabo:R_ValuationKnown] :-
+    [?app, rabo:hasCollateral, ?c], NOT EXISTS ?v IN [?c, rabo:valuedBy, ?v] .
+
+# AB-5.4 / 5.5.x  The valuation method must be allowed for EVERY class the property belongs to
+[?app, rabo:checked, rabo:R_ValuationMethod] :- [?app, rabo:hasCollateral, ?c], [?c, rabo:valuedBy, ?v] .
+# A generic 'valuation report' for collateral that needs a specialised one (E.M.C.I. for a houseboat, NRVT for a
+# recreation home, LAV for an agricultural farmhouse): we don't know yet who made it -> missing fact, not a violation
+[?c, rabo:valuationTypeUnclear, true] :-
+    [?c, a, ?type], [?type, rabo:allowedValuation, ?special], [?special, rdfs:subClassOf, rabo:ValuationReport],
+    [?c, rabo:valuedBy, ?v], [?v, a, rabo:ValuationReport], NOT [?v, a, ?special] .
+[?c, rabo:missingFact, rabo:R_ValuationMethod] :- [?c, rabo:valuationTypeUnclear, true] .
+[?c, rabo:violates, rabo:R_ValuationMethod] :-
+    [?c, a, ?type], [?type, rabo:allowedValuation, ?anyAllowed], [?c, rabo:valuedBy, ?v],
+    NOT EXISTS ?allowed IN ([?type, rabo:allowedValuation, ?allowed], [?v, a, ?allowed]),
+    NOT [?c, rabo:valuationTypeUnclear, true] .
+
+# Which LTV norms apply: norms that depend on the valuation method ...
+[?c, rabo:applicableLTV, ?n] :-
+    [?c, a, ?type], [?norm, rabo:forCollateral, ?type], [?norm, rabo:forValuation, ?vtype],
+    [?c, rabo:valuedBy, ?v], [?v, a, ?vtype], [?norm, rabo:maxLTV, ?n] .
+# ... and norms that do not (houseboat, recreation home, letting, farmhouse, ...)
+[?c, rabo:applicableLTV, ?n] :-
+    [?c, a, ?type], [?norm, rabo:forCollateral, ?type], [?norm, rabo:maxLTV, ?n],
+    NOT EXISTS ?vt IN [?norm, rabo:forValuation, ?vt] .
+# Several norms can apply (e.g. regular house 100% AND partly let 85%): the lowest one wins
+[?c, rabo:effectiveLTV, ?min] :- AGGREGATE([?c, rabo:applicableLTV, ?n] ON ?c BIND MIN(?n) AS ?min) .
+[?c, rabo:mooringMaxLTV, ?n] :-
+    [?c, a, ?type], [?norm, rabo:forCollateral, ?type], [?norm, rabo:mooringMaxLTV, ?n] .
+[?c, rabo:businessPartMaxLTV, ?n] :-
+    [?c, a, ?type], [?norm, rabo:forCollateral, ?type], [?norm, rabo:businessPartMaxLTV, ?n] .
+
+# AB-1.3 / 5.5.x  Maximum loan = the sum of the parts:
+#   main value x norm  +  mooring value x mooring norm (houseboat)  +  business part x business norm (5.5.4)
+[?c, rabo:mainCapacity, ?x] :- [?c, rabo:effectiveLTV, ?n], [?c, rabo:marketValue, ?mv], BIND(?n * ?mv AS ?x) .
+[?c, rabo:mooringCapacity, ?x] :-
+    [?c, rabo:mooringValue, ?mo], [?c, rabo:mooringMaxLTV, ?mn], BIND(?mn * ?mo AS ?x) .
+[?c, rabo:mooringCapacity, 0] :-
+    [?app, rabo:hasCollateral, ?c], NOT EXISTS ?mo, ?mn IN ([?c, rabo:mooringValue, ?mo], [?c, rabo:mooringMaxLTV, ?mn]) .
+[?c, rabo:businessCapacity, ?x] :-
+    [?c, rabo:businessPartValue, ?bv], [?c, rabo:businessPartMaxLTV, ?bn], BIND(?bn * ?bv AS ?x) .
+[?c, rabo:businessCapacity, 0] :-
+    [?app, rabo:hasCollateral, ?c], NOT EXISTS ?bv, ?bn IN ([?c, rabo:businessPartValue, ?bv], [?c, rabo:businessPartMaxLTV, ?bn]) .
+[?app, rabo:baseMaxLoan, ?m] :-
+    [?app, rabo:hasCollateral, ?c], [?c, rabo:mainCapacity, ?a], [?c, rabo:mooringCapacity, ?b],
+    [?c, rabo:businessCapacity, ?d], BIND(?a + ?b + ?d AS ?m) .
+
+# AB-1.3  Energy-saving measures only (collateral with a 100% norm, main residence):
+#   max = 100% of the value before renovation + the actual costs, and not more than 106% of the value after.
+[?app, rabo:checked, rabo:R_Energy106] :- [?app, rabo:hasEnergyInvestment, ?e] .
+[?app, rabo:missingFact, rabo:R_Energy106] :-
+    [?app, rabo:hasEnergyInvestment, ?e], NOT EXISTS ?k IN [?e, rabo:cost, ?k] .
+[?app, rabo:missingFact, rabo:R_Energy106] :-
+    [?app, rabo:hasEnergyInvestment, ?e], NOT EXISTS ?va IN [?e, rabo:valueAfterRenovation, ?va] .
+[?app, rabo:energyMaxLoan, ?m] :-
+    [?app, rabo:hasEnergyInvestment, ?e], [?e, rabo:onlyEnergyMeasures, true],
+    [?e, rabo:cost, ?k], [?e, rabo:valueAfterRenovation, ?va],
+    [?app, rabo:hasCollateral, ?c], [?c, rabo:effectiveLTV, ?n], FILTER(?n = 1.0), [?c, rabo:marketValue, ?mv],
+    BIND(?mv + ?k AS ?a1), BIND(?va * 1.06 AS ?a2), BIND(IF(?a1 < ?a2, ?a1, ?a2) AS ?m) .
+# The 106% rule does not apply to collateral with a lower norm (e.g. a recreation home at 90%)
+[?app, rabo:energyRuleNotApplicable, true] :-
+    [?app, rabo:hasEnergyInvestment, ?e], [?app, rabo:hasCollateral, ?c], [?c, rabo:effectiveLTV, ?n], FILTER(?n < 1.0) .
+
+[?app, rabo:maxLoan, ?m] :- [?app, rabo:energyMaxLoan, ?m] .
+[?app, rabo:maxLoan, ?m] :- [?app, rabo:baseMaxLoan, ?m], NOT EXISTS ?e IN [?app, rabo:energyMaxLoan, ?e] .
+
+[?app, rabo:checked, rabo:R_MaxLoan] :- [?app, rabo:maxLoan, ?m], [?app, rabo:loanAmount, ?a] .
+[?app, rabo:violates, rabo:R_MaxLoan] :- [?app, rabo:loanAmount, ?a], [?app, rabo:maxLoan, ?m], FILTER(?a > ?m) .
+# The loan can also be given as a percentage of the value (e.g. "85% of the value")
+[?app, rabo:checked, rabo:R_MaxLoan] :- [?app, rabo:requestedLTV, ?x], [?app, rabo:hasCollateral, ?c], [?c, rabo:effectiveLTV, ?n] .
+[?app, rabo:violates, rabo:R_MaxLoan] :-
+    [?app, rabo:requestedLTV, ?x], [?app, rabo:hasCollateral, ?c], [?c, rabo:effectiveLTV, ?n], FILTER(?x > ?n) .
+
+# What-if for the advisor: with a desktop valuation, what would a full valuation report allow?
+#   The other norms that apply (e.g. 85% for a partly let home) still count: the lowest wins.
+[?c, rabo:reportLTVCandidate, ?n] :-
+    [?c, rabo:valuedBy, ?v], [?v, a, rabo:DesktopValuation],
+    [?c, a, ?type], [?norm, rabo:forCollateral, ?type], [?norm, rabo:forValuation, rabo:ValuationReport],
+    [?norm, rabo:maxLTV, ?n] .
+[?c, rabo:reportLTVCandidate, ?n] :-
+    [?c, rabo:valuedBy, ?v], [?v, a, rabo:DesktopValuation],
+    [?c, a, ?type], [?norm, rabo:forCollateral, ?type], [?norm, rabo:maxLTV, ?n],
+    NOT EXISTS ?vt IN [?norm, rabo:forValuation, ?vt] .
+[?c, rabo:reportLTV, ?min] :- AGGREGATE([?c, rabo:reportLTVCandidate, ?n] ON ?c BIND MIN(?n) AS ?min) .
+[?app, rabo:maxLoanWithValuationReport, ?m] :-
+    [?app, rabo:hasCollateral, ?c], [?c, rabo:reportLTV, ?n], [?c, rabo:marketValue, ?mv], BIND(?n * ?mv AS ?m) .
+
+# AB-5.5.12  Houseboat
+[?app, rabo:checked, rabo:R_HouseboatLifetime] :- [?app, rabo:hasCollateral, ?c], [?c, a, rabo:Houseboat] .
+[?c, rabo:violates, rabo:R_HouseboatLifetime] :-
+    [?app, rabo:hasCollateral, ?c], [?c, a, rabo:Houseboat], [?c, rabo:expectedLifetimeYears, ?l],
+    [?app, rabo:termYears, ?y], FILTER(?y > ?l) .
+[?c, rabo:missingFact, rabo:R_HouseboatLifetime] :-
+    [?app, rabo:hasCollateral, ?c], [?c, a, rabo:Houseboat], NOT EXISTS ?l IN [?c, rabo:expectedLifetimeYears, ?l] .
+
+[?app, rabo:checked, rabo:R_MooringTerm] :- [?app, rabo:hasCollateral, ?c], [?c, rabo:mooringValue, ?mo], [?app, rabo:termYears, ?y] .
+[?c, rabo:violates, rabo:R_MooringTerm] :-
+    [?app, rabo:hasCollateral, ?c], [?c, a, ?type], [?type, rabo:mooringMaxTermYears, ?max],
+    [?c, rabo:mooringValue, ?mo], FILTER(?mo > 0), [?app, rabo:termYears, ?y], FILTER(?y > ?max) .
+
+[?app, rabo:checked, rabo:R_HouseboatRegister] :- [?app, rabo:hasCollateral, ?c], [?c, a, rabo:Houseboat] .
+[?c, rabo:violates, rabo:R_HouseboatRegister] :- [?c, a, rabo:Houseboat], [?c, rabo:inShipRegister, false] .
+[?c, rabo:missingFact, rabo:R_HouseboatRegister] :-
+    [?c, a, rabo:Houseboat], NOT EXISTS ?x IN [?c, rabo:inShipRegister, ?x] .
+
+[?app, rabo:checked, rabo:R_HouseboatShore] :- [?app, rabo:hasCollateral, ?c], [?c, a, rabo:Houseboat] .
+[?c, rabo:violates, rabo:R_HouseboatShore] :- [?c, a, rabo:Houseboat], [?c, rabo:shoreConnection, false] .
+[?c, rabo:missingFact, rabo:R_HouseboatShore] :-
+    [?c, a, rabo:Houseboat], NOT EXISTS ?x IN [?c, rabo:shoreConnection, ?x] .
+
+[?app, rabo:checked, rabo:R_HouseboatMooringPermit] :- [?app, rabo:hasCollateral, ?c], [?c, a, rabo:Houseboat] .
+[?c, rabo:violates, rabo:R_HouseboatMooringPermit] :- [?c, a, rabo:Houseboat], [?c, rabo:mooringFromGovernment, false] .
+[?c, rabo:missingFact, rabo:R_HouseboatMooringPermit] :-
+    [?c, a, rabo:Houseboat], NOT EXISTS ?x IN [?c, rabo:mooringFromGovernment, ?x] .
+
+# AB-5.5.13  Recreation home: no permanent living, except (1) double zoning recreation + residential,
+#            or (2) the seller already lives there permanently and is an existing Rabobank mortgage client.
+[?app, rabo:checked, rabo:R_RecreationPermanent] :- [?app, rabo:hasCollateral, ?c], [?c, a, rabo:RecreationHome] .
+[?c, rabo:violates, rabo:R_RecreationPermanent] :-
+    [?c, a, rabo:RecreationHome], [?c, rabo:permanentLiving, true],
+    NOT [?c, rabo:zoning, rabo:ZoningRecreationAndResidential],
+    NOT [?c, rabo:sellerIsPermanentResidentAndRaboClient, true] .
+
+# AB-5.5.14 / 5.5.15  Some collateral classes are only possible with Plus conditions (garage box, letting)
+[?app, rabo:checked, rabo:R_RequiredConditions] :-
+    [?app, rabo:hasCollateral, ?c], [?c, a, ?type], [?type, rabo:requiresConditions, ?cond] .
+[?app, rabo:violates, rabo:R_RequiredConditions] :-
+    [?app, rabo:hasCollateral, ?c], [?c, a, ?type], [?type, rabo:requiresConditions, ?cond],
+    NOT [?app, rabo:conditions, ?cond] .

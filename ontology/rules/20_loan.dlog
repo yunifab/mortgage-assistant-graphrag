@@ -1,0 +1,48 @@
+@prefix rabo: <https://linq.example.org/ontology/rabo-mortgage#> .
+
+# ---------------------------------------------------------------------------------------------
+# The loan: term and interest-only (Acceptatiebeleid 1.1, 1.1.3, 5.4)
+# ---------------------------------------------------------------------------------------------
+
+# AB-1.1  "De looptijd van een lening is maximaal 30 jaar."
+[?app, rabo:checked, rabo:R_MaxTerm] :- [?app, rabo:termYears, ?y] .
+[?app, rabo:violates, rabo:R_MaxTerm] :- [?app, rabo:termYears, ?y], FILTER(?y > 30) .
+[?app, rabo:missingFact, rabo:R_TermKnown] :-
+    [?app, rabo:loanAmount, ?a], NOT EXISTS ?y IN [?app, rabo:termYears, ?y] .
+
+# AB-1.1.3  What counts as interest-only (classification rule):
+#   - an interest-only part
+#   - a part with a build-up product that is NOT pledged ("verkapt aflossingsvrij": the whole part counts)
+[?p, rabo:countsAsInterestOnly, true] :- [?p, a, rabo:InterestOnlyPart] .
+[?p, rabo:countsAsInterestOnly, true] :- [?p, a, rabo:SavingsPart], NOT [?p, rabo:pledged, true] .
+[?app, rabo:checked, rabo:R_InterestOnlyCounts] :- [?app, rabo:hasLoanPart, ?p], [?p, a, rabo:SavingsPart] .
+[?p, rabo:hiddenInterestOnly, true] :- [?p, a, rabo:SavingsPart], NOT [?p, rabo:pledged, true] .
+
+[?app, rabo:interestOnlyTotal, ?t] :-
+    AGGREGATE([?app, rabo:hasLoanPart, ?p], [?p, rabo:countsAsInterestOnly, true], [?p, rabo:amount, ?x]
+              ON ?app BIND SUM(?x) AS ?t) .
+
+# AB-1.1.3  "Aflossingsvrij lenen is toegestaan tot maximaal 30% van de marktwaarde van de woning
+#            en niet meer dan EUR 150.000."  (the lower of the two)
+[?app, rabo:interestOnlyCap, ?cap] :-
+    [?app, rabo:hasCollateral, ?c], [?c, rabo:marketValue, ?mv],
+    BIND(?mv * 0.30 AS ?pct), BIND(IF(?pct < 150000, ?pct, 150000) AS ?cap) .
+[?app, rabo:checked, rabo:R_InterestOnlyCap] :- [?app, rabo:interestOnlyTotal, ?t], [?app, rabo:interestOnlyCap, ?c] .
+[?app, rabo:violates, rabo:R_InterestOnlyCap] :-
+    [?app, rabo:interestOnlyTotal, ?t], [?app, rabo:interestOnlyCap, ?cap], FILTER(?t > ?cap),
+    NOT [?app, rabo:interestOnlyForbiddenForCollateral, true] .   # then R_InterestOnlyType already says it
+
+# AB-5.5.x  Interest-only not allowed at all for some collateral types (houseboat, recreation home, letting)
+[?app, rabo:checked, rabo:R_InterestOnlyType] :- [?app, rabo:interestOnlyTotal, ?t], [?app, rabo:hasCollateral, ?c] .
+[?app, rabo:interestOnlyForbiddenForCollateral, true] :-
+    [?app, rabo:interestOnlyTotal, ?t], FILTER(?t > 0),
+    [?app, rabo:hasCollateral, ?c], [?c, a, ?type], [?type, rabo:interestOnlyAllowed, false] .
+[?app, rabo:violates, rabo:R_InterestOnlyType] :- [?app, rabo:interestOnlyForbiddenForCollateral, true] .
+
+# AB-5.4  "Een Rabobank Desktop Taxatie van Calcasa is niet toegestaan als de aanvrager
+#          aflossingsvrij heeft of wil lenen."  (the standard desktop valuation, not the Plus)
+[?app, rabo:violates, rabo:R_DesktopInterestOnly] :-
+    [?app, rabo:interestOnlyTotal, ?t], FILTER(?t > 0),
+    [?app, rabo:hasCollateral, ?c], [?c, rabo:valuedBy, ?v], [?v, a, rabo:DesktopTaxatie] .
+[?app, rabo:checked, rabo:R_DesktopInterestOnly] :-
+    [?app, rabo:interestOnlyTotal, ?t], [?app, rabo:hasCollateral, ?c], [?c, rabo:valuedBy, ?v], [?v, a, rabo:DesktopValuation] .

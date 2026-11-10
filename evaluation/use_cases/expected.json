@@ -1,0 +1,103 @@
+{
+  "metadata": {
+    "description": "Expected outcome per use case (UC1-UC9), written from the policy text. Seed of the case test set for the ontology/rules.",
+    "status": "DRAFT: checked against the policy by the assistant, to be reviewed by a person",
+    "verdicts": "reject = not acceptable | accept = acceptable | explain = not under standard rules, only via the Explain route | amount = the answer is a maximum amount"
+  },
+  "cases": {
+    "UC1": {
+      "verdict": "reject",
+      "required": [
+        "The maximum loan is 90% of the boat (EUR 270,000) plus 90% of the mooring (EUR 45,000) = EUR 315,000, so EUR 320,000 is too high (AB 5.5.12)",
+        "Interest-only is not allowed for a houseboat (AB 5.5.12)",
+        "The boat loan must be repaid within the expected lifetime (25 years), so 30 years is too long (AB 5.5.12)",
+        "The mooring part must be repaid in 20 years (AB 5.5.12)"
+      ],
+      "forbidden": []
+    },
+    "UC2": {
+      "verdict": "reject",
+      "required": [
+        "A savings mortgage whose savings product is not pledged counts as interest-only in full (verkapt aflossingsvrij, AB 1.1.3)",
+        "Total interest-only is EUR 300,000, above the cap of EUR 150,000 (and above 30% of EUR 600,000 = EUR 180,000) (AB 1.1.3)"
+      ],
+      "forbidden": [
+        "Saying the interest-only limit is met",
+        "Counting only the EUR 100,000 as interest-only"
+      ]
+    },
+    "UC3": {
+      "verdict": "reject",
+      "required": [
+        "With a Desktop Taxatie the maximum is 90% of market value = EUR 360,000, so EUR 380,000 is too high (AB 5.5.2)",
+        "With a (validated) valuation report the maximum is 100% = EUR 400,000, so the advisor can order a full valuation report (AB 5.5.2)"
+      ],
+      "forbidden": []
+    },
+    "UC4": {
+      "verdict": "amount",
+      "required": [
+        "Maximum mortgage is EUR 325,000 = 100% of the value before renovation (EUR 300,000) plus the energy costs (EUR 25,000), provided the collateral has the 100% norm (e.g. a validated valuation report) (AB 1.3)",
+        "The 106% cap of the value after renovation (EUR 339,200) is not exceeded (AB 1.3)"
+      ],
+      "forbidden": [
+        "Giving a maximum other than EUR 325,000 for the 100%-norm situation"
+      ],
+      "note": "Changed 2026-11-05: the case text does not say how the house was valued. The policy gives a regular house 90% with a desktop valuation and 100% with a valuation report, and the 106% rule only applies at 100%. So an answer that gives EUR 325,000 on the condition of a valuation report (or asks for the valuation method) is correct."
+    },
+    "UC5": {
+      "verdict": "reject",
+      "required": [
+        "A combination of maatwerk by using assets (inzet van vermogen) and exceptions that deviate on income is not allowed (AB 6.1)"
+      ],
+      "forbidden": [
+        "Saying the combination is allowed"
+      ]
+    },
+    "UC6": {
+      "verdict": "reject",
+      "required": [
+        "Clients moving temporarily to the United Kingdom are not eligible for the diplomat clause (BB 4.1.1)",
+        "A new diplomat-clause request requires having lived in the home again for at least 1 year; 6 months is not enough (BB 4.1.1)"
+      ],
+      "forbidden": []
+    },
+    "UC7": {
+      "verdict": "reject",
+      "required": [
+        "The son is 17; an applicant must be at least 18 (AB 2.1)",
+        "3 debtors are only possible via an Intermediair advisor AND with Plus conditions; this case is a Rabobank advisor with Basis conditions (AB 2.2)"
+      ],
+      "forbidden": [
+        "Saying interest-only is not allowed or exceeds the limit (EUR 60,000 is within 30% of EUR 350,000 = EUR 105,000 and within EUR 150,000)",
+        "Applying family-loan (leen-schenkconstructie / familielening) rules to this mortgage",
+        "Saying the loan-to-value is too high (EUR 340,000 = 97% is within 100% with a valuation report)",
+        "Saying the term of 30 years is too long"
+      ]
+    },
+    "UC8": {
+      "verdict": "reject",
+      "required": [
+        "Interest-only is not allowed for a recreation home (AB 5.5.13)",
+        "Permanent living in a recreation-only home is not allowed; the exception requires a seller who already lives there permanently and is an existing Rabobank mortgage client (AB 5.5.13)"
+      ],
+      "forbidden": [
+        "Saying the loan-to-value is too high (EUR 180,000 = exactly 90% is allowed)"
+      ]
+    },
+    "UC9": {
+      "verdict": "explain",
+      "required": [
+        "RRR R18 is outside the standard 1-16; acceptance is only possible via the Explain route (R17-R20 in specific situations, AB 2.4.2 / 6.2.1.1)",
+        "The houseboat rules apply to a woonark and the 85% loan is within the 90% limit (AB 5.5.12)"
+      ],
+      "bonus": [
+        "Asks for missing facts, e.g. the expected lifetime of the boat or the shore connection (walaansluiting)"
+      ],
+      "forbidden": [
+        "Saying the application can simply be accepted (ignoring the RRR)",
+        "Saying the loan-to-value is too high"
+      ]
+    }
+  }
+}

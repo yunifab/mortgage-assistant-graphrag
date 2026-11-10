@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[oc]
+build/
+dist/
+*.egg-info
+.pytest_cache/
+
+# Virtual environment
+.venv/
+
+# Secrets (copy .env.example to .env and fill it in)
+.env
+
+# Editor
+.vscode/
+.idea/
+
+# FIBO ontology: an external git clone (~800 MB). Re-clone with:
+#   git clone https://github.com/edmcouncil/fibo.git
+fibo/
+
+# Model caches
+.cache/
+
+# Evaluation run outputs (one file per run; keep locally)
+evaluation/results/*.jsonl
+
+# RDFox vendor binary + licence (commercial/private, never commit)
+RDFox-win64-x86_64-7.5b/
+*.lic
+
+# Personal / internal, not shared
+docs/presentation/
+docs/MEETING_PREP_refinement.md
+docs/REFINEMENT_KG_and_Evals.md

@@ -1,0 +1,244 @@
+@prefix rabo:  <https://linq.example.org/ontology/rabo-mortgage#> .
+@prefix fibo-debt: <https://spec.edmcouncil.org/fibo/ontology/FBC/DebtAndEquities/Debt/> .
+@prefix fibo-assessments: <https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Assessments/> .
+@prefix fibo-loans: <https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/> .
+@prefix fibo-realproperty: <https://spec.edmcouncil.org/fibo/ontology/FND/Places/RealProperty/> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+
+# =====================================================================================
+# Collateral taxonomy (Acceptatiebeleid chapter 5) - DRAFT for review
+#
+# A property is described along FOUR independent dimensions. One property can be in a class of
+# each dimension at the same time, e.g. a regular house (building type) that is partly let (use),
+# newly built (construction) on erfpacht (legal right). Rules and limits are attached to the class
+# they belong to; the rule engine combines them (e.g. the LOWEST applicable LTV norm wins).
+#
+#   1. building type   what the property is            5.5.2 - 5.5.14
+#   2. use             how it is used                  5.5.15 (partly let)
+#   3. construction    existing or new build (+ kind)  5.5.1
+#   4. legal right     erfpacht / opstal               5.2
+#
+# Limits are DATA on the classes (properties prefixed rabo:):
+#   allowedValuation, interestOnlyAllowed, lettingAllowed, requiresConditions, requiresNHG,
+#   requiresOwnHomeAtRabobank, maxTermYears, maxAreaHectares, noBusinessUse, requiresValuationReport
+# and LTV norms are rabo:LTVNorm nodes (per type, optionally per valuation method).
+# =====================================================================================
+
+rabo:Collateral a owl:Class ;
+    rdfs:subClassOf fibo-debt:Collateral ;
+    rabo:relatedFiboConcept fibo-realproperty:RealProperty ;
+    skos:prefLabel "collateral"@en, "onderpand"@nl ; skos:altLabel "property"@en, "woning"@nl ;
+    rabo:definedIn "AB-5.5" .
+
+# ===================================================================== dimension 1: building type
+rabo:DwellingOnLand a owl:Class ; rdfs:subClassOf rabo:Collateral ; rabo:dimension "building type" ;
+    skos:prefLabel "dwelling on land"@en, "woning op het land"@nl .
+rabo:DwellingOnWater a owl:Class ; rdfs:subClassOf rabo:Collateral ; rabo:dimension "building type" ;
+    skos:prefLabel "dwelling on water"@en, "woning op het water"@nl .
+rabo:NonResidentialProperty a owl:Class ; rdfs:subClassOf rabo:Collateral ; rabo:dimension "building type" ;
+    skos:prefLabel "non-residential property"@en, "object zonder woonfunctie"@nl .
+
+rabo:RegularHouse a owl:Class ; rdfs:subClassOf rabo:DwellingOnLand ;
+    skos:prefLabel "regular house"@en, "reguliere woning"@nl ;
+    skos:altLabel "detached house"@en, "terraced house"@en, "semi-detached house"@en, "corner house"@en,
+        "vrijstaande woning"@nl, "tussenwoning"@nl, "hoekwoning"@nl, "2-onder-1-kapwoning"@nl, "geschakelde woning"@nl ;
+    rabo:definedIn "AB-5.5.2" ;
+    rabo:allowedValuation rabo:DesktopValuation, rabo:ValuationReport, rabo:ConstructionCostsValuation ;
+    rabo:interestOnlyAllowed true ; rabo:lettingAllowed true .
+
+rabo:Apartment a owl:Class ; rdfs:subClassOf rabo:DwellingOnLand ;
+    skos:prefLabel "apartment"@en, "appartement"@nl ; skos:altLabel "flat"@en, "appartementsrecht"@nl ;
+    rabo:definedIn "AB-5.5.3" ;
+    rabo:allowedValuation rabo:DesktopValuation, rabo:ValuationReport, rabo:ConstructionCostsValuation ;
+    rabo:interestOnlyAllowed true ; rabo:lettingAllowed true .
+
+rabo:MixedUseProperty a owl:Class ; rdfs:subClassOf rabo:DwellingOnLand ;
+    rdfs:comment "The applicant lives there and uses the business part for their own company; more than 50% of the floor area is the main residence. Valuation report with the residential and business part valued separately."@en ;
+    skos:prefLabel "home with shop or practice"@en, "woon-/winkelpand of woon-/praktijkruimte"@nl ;
+    rabo:definedIn "AB-5.5.4" ;
+    rabo:allowedValuation rabo:ValuationReport ; rabo:lettingAllowed true .
+rabo:ShopHouse a owl:Class ; rdfs:subClassOf rabo:MixedUseProperty ;
+    skos:prefLabel "home with shop"@en, "woon-/winkelpand"@nl ; skos:altLabel "shop with dwelling"@en, "winkelwoning"@nl .
+rabo:PracticeHouse a owl:Class ; rdfs:subClassOf rabo:MixedUseProperty ;
+    skos:prefLabel "home with practice"@en, "woon-/praktijkruimte"@nl ; skos:altLabel "praktijkwoning"@nl .
+
+rabo:Farmhouse a owl:Class ; rdfs:subClassOf rabo:DwellingOnLand ;
+    skos:prefLabel "farmhouse"@en, "woonboerderij"@nl ; skos:altLabel "boerderij"@nl, "farm house"@en ;
+    rabo:lettingAllowed true .
+rabo:FarmhouseResidential a owl:Class ; rdfs:subClassOf rabo:Farmhouse ;
+    rdfs:comment "Zoning residential, or agricultural with a function designation (plattelandswoning, voormalig agrarisch bedrijf, burgerwoning); own residence without business use."@en ;
+    skos:prefLabel "farmhouse with residential zoning"@en, "woonboerderij bestemming wonen of functieaanduiding"@nl ;
+    skos:altLabel "plattelandswoning"@nl, "burgerwoning"@nl ;
+    rabo:definedIn "AB-5.5.5" ; rabo:allowedValuation rabo:ValuationReport .
+rabo:FarmhouseAgricultural a owl:Class ; rdfs:subClassOf rabo:Farmhouse ;
+    rdfs:comment "Agricultural zoning, the whole (dwelling + buildings + land) at most 3 hectares, own residence, no business use. Otherwise see 5.5.7 / 5.5.8."@en ;
+    skos:prefLabel "farmhouse with agricultural zoning, at most 3 ha"@en, "woonboerderij bestemming agrarisch en ≤ 3 HA"@nl ;
+    rabo:definedIn "AB-5.5.6" ; rabo:allowedValuation rabo:LAVValuationReport ;
+    rabo:maxAreaHectares 3 ; rabo:noBusinessUse true .
+
+rabo:BusinessDwelling a owl:Class ; rdfs:subClassOf rabo:DwellingOnLand ;
+    rdfs:comment "Dwelling with associated (business) buildings and land with a business or agricultural zoning, judged as a whole. No letting."@en ;
+    skos:prefLabel "business dwelling"@en, "bedrijfswoning"@nl ; skos:altLabel "dienstwoning"@nl ;
+    rabo:interestOnlyAllowed false .
+rabo:BusinessDwellingPrivate a owl:Class ; rdfs:subClassOf rabo:BusinessDwelling ;
+    skos:prefLabel "business dwelling, private use only"@en, "bedrijfswoning met bijbehorende (bedrijfs)opstallen en gronden: privégebruik"@nl ;
+    rabo:definedIn "AB-5.5.7" ;
+    rabo:allowedValuation rabo:LAVValuationReport, rabo:BusinessPropertyValuation .
+rabo:BusinessDwellingMixedUse a owl:Class ; rdfs:subClassOf rabo:BusinessDwelling ;
+    rdfs:comment "Own residence with business use of the buildings or land. The 80% norm is of the market value of the PRIVATELY used part (enter that value as the market value)."@en ;
+    skos:prefLabel "business dwelling, private and business use"@en, "bedrijfswoning met bijbehorende (bedrijfs)opstallen en gronden: privé en zakelijk gebruik"@nl ;
+    rabo:definedIn "AB-5.5.8" ; rabo:allowedValuation rabo:BusinessPropertyValuation .
+
+rabo:MobileHome a owl:Class ; rdfs:subClassOf rabo:DwellingOnLand ;
+    rdfs:comment "Immovable mobile home on a fixed pitch with zoning 'woonwagenstandplaats'; only with NHG, total loan not above the NHG cost limit."@en ;
+    skos:prefLabel "mobile home on a fixed pitch"@en, "woonwagen met vaste standplaats"@nl ;
+    skos:altLabel "woonwagen"@nl, "caravan home"@en, "static caravan"@en ;
+    rabo:definedIn "AB-5.5.10" ; rabo:allowedValuation rabo:ValuationReport ;
+    rabo:interestOnlyAllowed false ; rabo:requiresNHG true .
+
+rabo:RecreationHome a owl:Class ; rdfs:subClassOf rabo:DwellingOnLand ;
+    skos:prefLabel "recreation home"@en, "recreatiewoning"@nl ;
+    skos:altLabel "holiday home"@en, "holiday chalet"@en, "chalet"@en, "vakantiewoning"@nl, "vakantiehuis"@nl ;
+    rabo:definedIn "AB-5.5.13" ; rabo:allowedValuation rabo:NRVTValuationReport ;
+    rabo:interestOnlyAllowed false .
+
+rabo:WaterHome a owl:Class ; rdfs:subClassOf rabo:DwellingOnWater ;
+    skos:prefLabel "water home"@en, "waterwoning"@nl ; skos:altLabel "floating home"@en ;
+    rabo:definedIn "AB-5.5.11" ; rabo:allowedValuation rabo:ValuationReport ; rabo:lettingAllowed true .
+
+rabo:Houseboat a owl:Class ; rdfs:subClassOf rabo:DwellingOnWater ;
+    skos:prefLabel "houseboat"@en, "woonboot met vaste ligplaats"@nl ;
+    skos:altLabel "woonboot"@nl, "woonark"@nl, "woonschip"@nl, "house boat"@en, "ark"@en ;
+    rabo:definedIn "AB-5.5.12" ; rabo:allowedValuation rabo:EMCIValuationReport ;
+    rabo:interestOnlyAllowed false ; rabo:maxTermYears 30 ; rabo:mooringMaxTermYears 20 .
+
+rabo:StandaloneGarage a owl:Class ; rdfs:subClassOf rabo:NonResidentialProperty ;
+    rdfs:comment "Not used for own business, not let to or used by others; the applicant owns a home financed by Rabobank."@en ;
+    skos:prefLabel "standalone garage box"@en, "losse garagebox"@nl ; skos:altLabel "garage"@en, "garagebox"@nl ;
+    rabo:definedIn "AB-5.5.14" ; rabo:allowedValuation rabo:NRVTValuationReport ;
+    rabo:interestOnlyAllowed false ; rabo:requiresConditions rabo:Plus ; rabo:requiresOwnHomeAtRabobank true ;
+    rabo:maxTermYears 20 .
+
+rabo:OtherCommercialProperty a owl:Class ; rdfs:subClassOf rabo:NonResidentialProperty ;
+    rdfs:comment "A shed, barn or business hall in the Netherlands, fully private use (no letting, no business use); the applicant owns a home financed by Rabobank."@en ;
+    skos:prefLabel "other property with a business zoning"@en, "overige panden met zakelijke bestemming"@nl ;
+    skos:altLabel "loods"@nl, "schuur"@nl, "bedrijfshal"@nl, "shed"@en, "barn"@en ;
+    rabo:definedIn "AB-5.5.9" ; rabo:allowedValuation rabo:BusinessPropertyValuation ;
+    rabo:interestOnlyAllowed false ; rabo:requiresOwnHomeAtRabobank true .
+
+# ===================================================================== dimension 2: use
+rabo:PartlyLetHome a owl:Class ; rdfs:subClassOf rabo:Collateral ; rabo:dimension "use" ;
+    rdfs:comment "Private (partial) letting with permission; the let part is not the main residence. Possible for a regular house, apartment, home with shop/practice, farmhouse and water home. Letting one room under the Hospitaregeling does not count."@en ;
+    skos:prefLabel "home for (partial) letting"@en, "woning voor (gedeeltelijke) verhuur"@nl ;
+    skos:altLabel "rental home"@en, "buy-to-let"@en, "partly let out"@en, "partially rented"@en, "let out"@en,
+        "home with a rented part"@en, "verhuurde woning"@nl, "gedeeltelijk verhuurd"@nl, "deels verhuurd"@nl ;
+    rabo:definedIn "AB-5.5.15" ; rabo:allowedValuation rabo:ValuationReport ;
+    rabo:interestOnlyAllowed false ; rabo:requiresConditions rabo:Plus .
+
+# ===================================================================== dimension 3: construction
+rabo:NewBuild a owl:Class ; rdfs:subClassOf rabo:Collateral ; rabo:dimension "construction" ;
+    rdfs:comment "Possible for the collateral types of chapter 5. Value from the construction costs (stichtingskosten) or a valuation report; a report is required for some types and kinds of new build (5.5.1.6). A desktop valuation is not possible for a home delivered in the current or previous calendar year (5.4)."@en ;
+    skos:prefLabel "new build"@en, "nieuwbouwwoning"@nl ; skos:altLabel "nieuwbouw"@nl, "newly built"@en, "new-build home"@en ;
+    rabo:definedIn "AB-5.5.1" .
+rabo:ProjectBuild a owl:Class ; rdfs:subClassOf rabo:NewBuild ;
+    skos:prefLabel "project build"@en, "projectbouw"@nl ; rabo:definedIn "AB-5.5.1" .
+rabo:TransformationBuild a owl:Class ; rdfs:subClassOf rabo:NewBuild ;
+    skos:prefLabel "transformation build"@en, "transformatiebouw"@nl ; rabo:definedIn "AB-5.5.1" .
+rabo:TurnkeyBuild a owl:Class ; rdfs:subClassOf rabo:NewBuild ;
+    skos:prefLabel "turnkey home"@en, "turnkey woning"@nl ; rabo:definedIn "AB-5.5.1.2" ; rabo:requiresValuationReport true .
+rabo:SelfBuild a owl:Class ; rdfs:subClassOf rabo:NewBuild ;
+    skos:prefLabel "self-build"@en, "zelfbouw"@nl ; rabo:definedIn "AB-5.5.1.3" ; rabo:requiresValuationReport true .
+rabo:CPOBuild a owl:Class ; rdfs:subClassOf rabo:NewBuild ;
+    skos:prefLabel "collective private commissioning (CPO)"@en, "Collectief Particulier Opdrachtgeverschap (CPO)"@nl ;
+    skos:altLabel "CPO"@nl ; rabo:definedIn "AB-5.5.1.4" ; rabo:requiresValuationReport true .
+rabo:DemolitionRebuild a owl:Class ; rdfs:subClassOf rabo:NewBuild ;
+    skos:prefLabel "demolition and rebuild"@en, "sloopwoning"@nl ; rabo:definedIn "AB-5.5.1.5" ; rabo:requiresValuationReport true .
+
+# ===================================================================== dimension 4: legal right
+rabo:ErfpachtCollateral a owl:Class ; rdfs:subClassOf rabo:Collateral ; rabo:dimension "legal right" ;
+    rdfs:comment "Ground lease. The erfpacht conditions are reviewed by a specialist, unless they are approved municipal conditions (Bijlage 1), KoopGarant/KoopStart, or a bridging loan with erfpacht on the old home."@en ;
+    skos:prefLabel "collateral on ground lease"@en, "recht van erfpacht"@nl ; skos:altLabel "erfpacht"@nl, "ground lease"@en, "leasehold"@en ;
+    rabo:definedIn "AB-5.2.1" .
+rabo:OpstalCollateral a owl:Class ; rdfs:subClassOf rabo:Collateral ; rabo:dimension "legal right" ;
+    rdfs:comment "Right of superficies. Reviewed by a specialist, unless it is for energy, water or communication utilities."@en ;
+    skos:prefLabel "collateral with a right of superficies"@en, "recht van opstal"@nl ; skos:altLabel "opstal"@nl, "opstalrecht"@nl ;
+    rabo:definedIn "AB-5.2.2" .
+rabo:OpstalUtilityCollateral a owl:Class ; rdfs:subClassOf rabo:OpstalCollateral ;
+    skos:prefLabel "right of superficies for utilities"@en, "recht van opstal voor een nutsvoorziening"@nl ;
+    rabo:definedIn "AB-5.2.2" .
+
+# ===================================================================== valuation types
+rabo:Valuation a owl:Class ;
+    rdfs:subClassOf fibo-assessments:Appraisal ;
+    skos:prefLabel "valuation"@en, "waardebepaling"@nl ; skos:altLabel "taxatie"@nl, "appraisal"@en ;
+    rabo:definedIn "AB-5.4" .
+rabo:DesktopValuation a owl:Class ; rdfs:subClassOf rabo:Valuation ;
+    skos:prefLabel "desktop valuation (Calcasa)"@en, "Rabobank Desktop Taxatie (Plus) van Calcasa"@nl ; skos:altLabel "desktop valuation"@en, "model valuation"@en ;
+    rabo:definedIn "AB-5.4" .
+rabo:DesktopTaxatie a owl:Class ; rdfs:subClassOf rabo:DesktopValuation ;
+    skos:prefLabel "standard desktop valuation"@en, "Rabobank Desktop Taxatie van Calcasa"@nl ; skos:altLabel "desktop valuation (standard)"@en .
+rabo:DesktopTaxatiePlus a owl:Class ; rdfs:subClassOf rabo:DesktopValuation ;
+    skos:prefLabel "desktop valuation Plus"@en, "Rabobank Desktop Taxatie Plus van Calcasa"@nl ; skos:altLabel "desktop valuation Plus"@en .
+rabo:ValuationReport a owl:Class ; rdfs:subClassOf rabo:Valuation ;
+    skos:prefLabel "validated valuation report"@en, "gevalideerd taxatierapport (NWWI)"@nl ;
+    skos:altLabel "taxatierapport"@nl, "valuation report"@en, "full valuation"@en .
+rabo:EMCIValuationReport a owl:Class ; rdfs:subClassOf rabo:ValuationReport ;
+    skos:prefLabel "valuation report by an E.M.C.I. certified houseboat valuer"@en, "taxatierapport E.M.C.I. woonbotentaxateur"@nl .
+rabo:NRVTValuationReport a owl:Class ; rdfs:subClassOf rabo:ValuationReport ;
+    skos:prefLabel "valuation report by an NRVT registered valuer"@en, "taxatierapport NRVT-taxateur"@nl .
+rabo:LAVValuationReport a owl:Class ; rdfs:subClassOf rabo:ValuationReport ;
+    skos:prefLabel "valuation report by an NRVT valuer (chamber LAV) with a plausibility statement"@en,
+        "taxatierapport taxateur kamer LAV van het NRVT met plausibiliteitsverklaring"@nl ;
+    skos:altLabel "LAV"@nl, "agricultural valuation"@en .
+rabo:BusinessPropertyValuation a owl:Class ; rdfs:subClassOf rabo:Valuation ;
+    skos:prefLabel "valuation under the Rabobank business valuation policy"@en, "taxatierapport volgens het taxatiebeleid van Rabobank bedrijven"@nl ;
+    skos:altLabel "business property valuation"@en, "taxateur bedrijfsmatig vastgoed"@nl .
+rabo:ConstructionCostsValuation a owl:Class ; rdfs:subClassOf rabo:Valuation ;
+    rdfs:comment "Value of a new build based on the construction costs (land, contract sum, extra work up to 20%, ...)."@en ;
+    skos:prefLabel "value based on construction costs"@en, "waardebepaling op basis van stichtingskosten"@nl ;
+    skos:altLabel "stichtingskosten"@nl, "construction costs"@en, "koop-/aanneemsom"@nl ;
+    rabo:definedIn "AB-5.5.1.6" .
+
+# ===================================================================== LTV norms (policy limits as data)
+rabo:LTVNorm a owl:Class ;
+    rdfs:subClassOf fibo-loans:LoanToValueRatio ;
+    rdfs:comment "Maximum loan as a share of the market value. If several norms apply to one property (e.g. a regular house that is partly let), the LOWEST applies."@en ;
+    skos:prefLabel "maximum loan-to-value norm"@en, "maximale verstrekkingsnorm"@nl .
+
+rabo:Norm_RegularHouse_Desktop a rabo:LTVNorm ; rabo:forCollateral rabo:RegularHouse ;
+    rabo:forValuation rabo:DesktopValuation ; rabo:maxLTV "0.90"^^xsd:decimal ; rabo:source "AB-5.5.2" .
+rabo:Norm_RegularHouse_Report a rabo:LTVNorm ; rabo:forCollateral rabo:RegularHouse ;
+    rabo:forValuation rabo:ValuationReport ; rabo:maxLTV "1.00"^^xsd:decimal ; rabo:source "AB-5.5.2" .
+rabo:Norm_RegularHouse_Costs a rabo:LTVNorm ; rabo:forCollateral rabo:RegularHouse ;
+    rabo:forValuation rabo:ConstructionCostsValuation ; rabo:maxLTV "1.00"^^xsd:decimal ; rabo:source "AB-1.3" .
+rabo:Norm_Apartment_Desktop a rabo:LTVNorm ; rabo:forCollateral rabo:Apartment ;
+    rabo:forValuation rabo:DesktopValuation ; rabo:maxLTV "0.90"^^xsd:decimal ; rabo:source "AB-5.5.3" .
+rabo:Norm_Apartment_Report a rabo:LTVNorm ; rabo:forCollateral rabo:Apartment ;
+    rabo:forValuation rabo:ValuationReport ; rabo:maxLTV "1.00"^^xsd:decimal ; rabo:source "AB-5.5.3" .
+rabo:Norm_Apartment_Costs a rabo:LTVNorm ; rabo:forCollateral rabo:Apartment ;
+    rabo:forValuation rabo:ConstructionCostsValuation ; rabo:maxLTV "1.00"^^xsd:decimal ; rabo:source "AB-1.3" .
+rabo:Norm_MixedUse a rabo:LTVNorm ; rabo:forCollateral rabo:MixedUseProperty ;
+    rabo:maxLTV "1.00"^^xsd:decimal ; rabo:businessPartMaxLTV "0.80"^^xsd:decimal ; rabo:source "AB-5.5.4" .
+rabo:Norm_FarmhouseResidential a rabo:LTVNorm ; rabo:forCollateral rabo:FarmhouseResidential ;
+    rabo:maxLTV "1.00"^^xsd:decimal ; rabo:source "AB-5.5.5" .
+rabo:Norm_FarmhouseAgricultural a rabo:LTVNorm ; rabo:forCollateral rabo:FarmhouseAgricultural ;
+    rabo:maxLTV "1.00"^^xsd:decimal ; rabo:source "AB-5.5.6" .
+rabo:Norm_BusinessDwelling a rabo:LTVNorm ; rabo:forCollateral rabo:BusinessDwelling ;
+    rabo:maxLTV "0.80"^^xsd:decimal ; rabo:source "AB-5.5.7" .
+rabo:Norm_OtherCommercial a rabo:LTVNorm ; rabo:forCollateral rabo:OtherCommercialProperty ;
+    rabo:maxLTV "0.80"^^xsd:decimal ; rabo:source "AB-5.5.9" .
+rabo:Norm_MobileHome a rabo:LTVNorm ; rabo:forCollateral rabo:MobileHome ;
+    rabo:maxLTV "1.00"^^xsd:decimal ; rabo:source "AB-5.5.10" .
+rabo:Norm_WaterHome a rabo:LTVNorm ; rabo:forCollateral rabo:WaterHome ;
+    rabo:maxLTV "1.00"^^xsd:decimal ; rabo:source "AB-5.5.11" .
+rabo:Norm_Houseboat a rabo:LTVNorm ; rabo:forCollateral rabo:Houseboat ;
+    rabo:maxLTV "0.90"^^xsd:decimal ; rabo:mooringMaxLTV "0.90"^^xsd:decimal ; rabo:source "AB-5.5.12" .
+rabo:Norm_RecreationHome a rabo:LTVNorm ; rabo:forCollateral rabo:RecreationHome ;
+    rabo:maxLTV "0.90"^^xsd:decimal ; rabo:source "AB-5.5.13" .
+rabo:Norm_StandaloneGarage a rabo:LTVNorm ; rabo:forCollateral rabo:StandaloneGarage ;
+    rabo:maxLTV "0.90"^^xsd:decimal ; rabo:source "AB-5.5.14" .
+rabo:Norm_PartlyLet a rabo:LTVNorm ; rabo:forCollateral rabo:PartlyLetHome ;
+    rabo:maxLTV "0.85"^^xsd:decimal ; rabo:source "AB-5.5.15" .

@@ -1,0 +1,513 @@
+{
+  "metadata": {
+    "source_document": "Rabobank Acceptatie- en Beheerbeleid, 14 september 2026 (resources/pdfs/rabobank_mortgage.pdf)",
+    "language": "nl",
+    "paired_file": "qa_rabobank_en.json (zelfde ids, Engelse vraag/antwoord/hop_reasoning)",
+    "created": "2026-11-04",
+    "status": "CONCEPT: antwoorden moeten door een persoon (bij voorkeur een hypotheekexpert) worden gecontroleerd voor gebruik",
+    "page_numbering": "page = fysieke PDF-pagina (1-95), niet het gedrukte paginanummer",
+    "quote_normalization": "Citaten zijn overgenomen uit de PDF-tekst. Afbrekingen en witruimte zijn samengevoegd. Het euroteken (€), het maalteken (×) en tekens als ï/é/ë zijn hersteld waar tekstextractie ze wegliet of verminkte. Tabelcitaten geven het rijlabel gevolgd door de waarde.",
+    "categories": ["single-hop", "two-hop", "multi-hop", "comparison-aggregation"]
+  },
+  "questions": [
+    {
+      "id": "S01",
+      "category": "single-hop",
+      "question": "Wat is de langste looptijd die een klant voor een hypothecaire lening kan afsluiten?",
+      "answer": "30 jaar.",
+      "evidence": [
+        {"page": 8, "section": "1.1 Algemene regels", "quote": "De looptijd van een lening is maximaal 30 jaar."}
+      ],
+      "hop_reasoning": "Eén zin in de algemene regels noemt de maximale looptijd."
+    },
+    {
+      "id": "S02",
+      "category": "single-hop",
+      "question": "Wie mag aanvrager zijn, gekeken naar rechtsvorm en leeftijd?",
+      "answer": "Alleen een natuurlijk persoon van minimaal 18 jaar.",
+      "evidence": [
+        {"page": 13, "section": "2.1 Algemeen", "quote": "Een aanvrager is een natuurlijk persoon en is minimaal 18 jaar."}
+      ],
+      "hop_reasoning": "Eén zin in het hoofdstuk Aanvrager bevat beide voorwaarden."
+    },
+    {
+      "id": "S03",
+      "category": "single-hop",
+      "question": "Drie broers en zussen willen samen één hypotheek afsluiten. Kan dat, en via welk kanaal en onder welke voorwaarden?",
+      "answer": "Normaal heeft een aanvraag 1 of 2 debiteuren. Een aanvraag met 3 tot 5 debiteuren is mogelijk, maar alleen ingediend door een adviseur van het Intermediair en alleen met Plusvoorwaarden.",
+      "evidence": [
+        {"page": 13, "section": "2.2 Eigenaar, bewoner en debiteur", "quote": "Een aanvraag is met 1 of 2 debiteuren. Een aanvraag met 3 tot 5 debiteuren kan alleen door een adviseur van het Intermediair worden ingediend en alleen met Plusvoorwaarden."}
+      ],
+      "hop_reasoning": "Eén opsommingspunt noemt zowel het normale aantal debiteuren als de voorwaarden voor 3 tot 5 debiteuren."
+    },
+    {
+      "id": "S04",
+      "category": "single-hop",
+      "question": "Een klant koopt een woning om zelf te bewonen met energielabel A+. Welk bedrag mag door dat label buiten beschouwing blijven bij het vaststellen van de financieringslast?",
+      "answer": "Maximaal € 20.000 (de tabelrij voor A+ en A++).",
+      "evidence": [
+        {"page": 9, "section": "1.2.2 Verruimingen maximale hypotheek (Energielabel woning)", "quote": "Heeft of koopt de aanvrager een eigen woning als hoofdverblijf? Dan wordt, afhankelijk van het energielabel van deze woning, een bedrag buiten beschouwing gelaten bij het vaststellen van de financieringslast."},
+        {"page": 9, "section": "1.2.2 table Energielabel woning", "quote": "A+, A++ € 20.000"}
+      ],
+      "hop_reasoning": "De regel en de bijbehorende tabel vormen één passage (alinea 'Energielabel woning'). Let op: een tweede energietabel in dezelfde paragraaf gaat over energiebesparende maatregelen en hoort hier niet gebruikt te worden."
+    },
+    {
+      "id": "S05",
+      "category": "single-hop",
+      "question": "Welke uitkomsten van de Rabo Risk Rating zijn zonder bijzondere route acceptabel?",
+      "answer": "Ratings 1 tot en met 16 mogen geaccepteerd worden. Hogere ratings zijn alleen mogelijk in specifieke situaties uit het hoofdstuk Explain.",
+      "evidence": [
+        {"page": 14, "section": "2.4.2 Rabo Risk Rating (RRR)", "quote": "Aanvragen met een RRR 1 t/m 16 mogen geaccepteerd worden."}
+      ],
+      "hop_reasoning": "De acceptabele range staat in één opsommingspunt van de RRR-paragraaf."
+    },
+    {
+      "id": "S06",
+      "category": "single-hop",
+      "question": "Van welke AOW-ingangsleeftijd gaat het beleid standaard uit, en wanneer wordt een andere datum gebruikt?",
+      "answer": "Standaard wordt de huidige maximale AOW-leeftijd van 67 jaar en 3 maanden als ingangsdatum AOW gebruikt. Bereikt de aanvrager binnen 5 jaar de AOW-leeftijd, dan wordt de definitief vastgestelde ingangsdatum AOW gebruikt.",
+      "evidence": [
+        {"page": 16, "section": "Hoofdstuk 3 Inkomen, AOW-leeftijd", "quote": "De huidige maximale AOW-leeftijd is 67 jaar en 3 maanden. Dit wordt standaard gebruikt als de ingangsdatum AOW. Bereikt de aanvrager binnen 5 jaar de AOW-leeftijd? Dan wordt de definitief vastgestelde ingangsdatum AOW gebruikt."}
+      ],
+      "hop_reasoning": "Eén alinea in het inkomenshoofdstuk geeft de standaardleeftijd en de uitzondering."
+    },
+    {
+      "id": "S07",
+      "category": "single-hop",
+      "question": "Welke bruteringsfactor wordt bij de correctie van een DUO-studieschuld gebruikt als de toetsrente van de aanvraag nog niet bekend is?",
+      "answer": "Factor 1,40.",
+      "evidence": [
+        {"page": 24, "section": "4.7 Studielening DUO", "quote": "Is er nog geen toetsrente bekend? Dan wordt factor 1,40 gebruikt"}
+      ],
+      "hop_reasoning": "De terugvalfactor staat direct in de paragraaf over de studielening."
+    },
+    {
+      "id": "S08",
+      "category": "single-hop",
+      "question": "Een klant blijft in de huurwoning wonen en koopt een pand dat niet het hoofdverblijf wordt. Welke minimale huur per maand wordt als verplichting meegenomen?",
+      "answer": "De huurlast wordt gecorrigeerd, met een minimum van € 750 per maand.",
+      "evidence": [
+        {"page": 24, "section": "4.10 Lasten huurwoning", "quote": "Koopt de aanvrager een onderpand dat niet bedoeld is als hoofdverblijf? En blijft de aanvrager in de huurwoning wonen? Dan worden deze lasten gecorrigeerd."},
+        {"page": 24, "section": "4.10 Lasten huurwoning", "quote": "De huurlast die gecorrigeerd wordt is minimaal € 750 per maand."}
+      ],
+      "hop_reasoning": "Beide zinnen staan in dezelfde korte alinea, dus het is single-hop."
+    },
+    {
+      "id": "S09",
+      "category": "single-hop",
+      "question": "Een klant die voor werk naar het buitenland gaat, wil de woning verhuren op basis van de diplomatenclausule. Voor hoe lang kan toestemming worden gegeven, en wanneer mag opnieuw worden aangevraagd?",
+      "answer": "De goedkeuring is voor maximaal 3 jaar. Verhuur op basis van de diplomatenclausule voor langer dan 3 jaar is niet mogelijk. Een nieuw verzoek kan pas als de aanvrager weer minimaal 1 jaar in de woning heeft gewoond.",
+      "evidence": [
+        {"page": 57, "section": "Beheerbeleid 4.1.1 Verhuur op basis van de diplomatenclausule", "quote": "De goedkeuring is voor maximaal 3 jaar. Verhuur op basis van de diplomatenclausule voor een periode langer dan 3 jaar is niet mogelijk."},
+        {"page": 57, "section": "Beheerbeleid 4.1.1 Verhuur op basis van de diplomatenclausule", "quote": "Wil de aanvrager een nieuw verzoek doen voor tijdelijke verhuur op basis van de diplomatenclausule? Dan kan dit alleen wanneer de aanvrager weer minimaal 1 jaar in de woning heeft gewoond."}
+      ],
+      "hop_reasoning": "Beide feiten zijn opeenvolgende punten in dezelfde lijst met voorwaarden."
+    },
+    {
+      "id": "S10",
+      "category": "single-hop",
+      "question": "Hoe vaak moet het onderpand opnieuw worden gewaardeerd als de totale lening van een klant boven de drie miljoen euro uitkomt?",
+      "answer": "Elke 3 jaar, met een taxatierapport dat voldoet aan de regels van het Acceptatiebeleid.",
+      "evidence": [
+        {"page": 44, "section": "Beheerbeleid 1.6 Onderpanden met een lening van meer dan € 3 miljoen", "quote": "Onderpanden waarbij de totale lening van de aanvrager meer dan € 3 miljoen is, worden elke 3 jaar met een taxatierapport geherwaardeerd."}
+      ],
+      "hop_reasoning": "Eén zin in het Beheerbeleid beantwoordt de vraag."
+    },
+
+    {
+      "id": "T01",
+      "category": "two-hop",
+      "question": "Een klant koopt een vakantiehuisje en wil met het Energiebespaarbudget tot 106% van de waarde lenen. Kan dat?",
+      "answer": "Nee. Het Energiebespaarbudget kan alleen tot 106% worden gefinancierd bij onderpanden met een maximale verstrekkingsnorm van 100%. Voor een recreatiewoning is de maximale verstrekkingsnorm 90%, dus de verruiming naar 106% geldt niet.",
+      "evidence": [
+        {"page": 10, "section": "1.3 Maximale hypotheek op basis van het onderpand (Energiebespaarbudget)", "quote": "Het Energiebespaarbudget kan tot 106% van de marktwaarde van de woning worden gefinancierd."},
+        {"page": 10, "section": "1.3 Maximale hypotheek op basis van het onderpand (Energiebespaarbudget)", "quote": "Deze situatie geldt alleen voor de onderpanden waarbij de maximale verstrekkingsnorm 100% is."},
+        {"page": 31, "section": "5.5.13 Recreatiewoning", "quote": "De maximale verstrekkingsnorm is 90% van de marktwaarde-."}
+      ],
+      "hop_reasoning": "Hoofdstuk 1 geeft de 106%-regel en beperkt die tot 100%-onderpanden, maar zegt niet welke typen daaronder vallen. Hoofdstuk 5 geeft de 90%-norm voor recreatiewoningen. Geen van beide passages is alleen voldoende."
+    },
+    {
+      "id": "T02",
+      "category": "two-hop",
+      "question": "Wat is bij een tussenwoning die is gewaardeerd met de standaard Calcasa-desktoptaxatie de maximale verstrekking, en mag die taxatie worden gebruikt als de klant een deel aflossingsvrij wil lenen?",
+      "answer": "Met een Calcasa-desktoptaxatie is het maximum 90% van de marktwaarde (100% kan alleen met een taxatierapport). De standaard Rabobank Desktop Taxatie van Calcasa is niet toegestaan als de aanvrager aflossingsvrij heeft of wil lenen, dus de klant heeft een taxatierapport nodig. Het verbod noemt alleen de standaard desktoptaxatie, en er is een uitzondering als een OverbruggingsHypotheek het enige aflossingsvrije product op de nieuwe woning is.",
+      "evidence": [
+        {"page": 29, "section": "5.5.2 Reguliere woning", "quote": "De maximale verstrekkingsnorm is 90% van de marktwaarde uit de Rabobank Desktop Taxatie (Plus) van Calcasa of 100% van de marktwaarde uit het taxatierapport."},
+        {"page": 27, "section": "5.4 Waardebepaling onderpand", "quote": "Een Rabobank Desktop Taxatie van Calcasa is niet toegestaan als de aanvrager aflossingsvrij heeft of wil lenen."}
+      ],
+      "hop_reasoning": "De onderpandparagraaf (5.5.2) geeft de norm voor desktop versus rapport, terwijl de waardebepalingsparagraaf (5.4) de beperking bij aflossingsvrij lenen bevat."
+    },
+    {
+      "id": "T03",
+      "category": "two-hop",
+      "question": "Een klant koopt een bestaande woning met energielabel E en wil € 12.000 besteden aan een warmtepomp en zonnepanelen. Welk bedrag mag buiten beschouwing blijven bij het vaststellen van de financieringslast?",
+      "answer": "€ 12.000. Warmtepompen en zonnepanelen zijn energiebesparende maatregelen. Bij een bestaande woning met label E, F of G mag tot € 20.000 buiten beschouwing blijven, maar nooit meer dan de werkelijke kosten, dus het bedrag is € 12.000.",
+      "evidence": [
+        {"page": 63, "section": "Bijlage 2 Definitielijst: Energiebesparende maatregelen", "quote": "douche-warmteterugwinningsysteem, energiezuinig ventilatiesysteem indien deze maatregel wordt getroffen in combinatie met andere energiebesparende maatregelen, warmtepompen en zonnepanelen."},
+        {"page": 9, "section": "1.2.2 Verruimingen maximale hypotheek (Energiebesparende maatregelen)", "quote": "Dan mag, afhankelijk van het energielabel, een bedrag buiten beschouwing worden gelaten bij het vaststellen van de financieringslast."},
+        {"page": 9, "section": "1.2.2 table Energielabel bestaande woning", "quote": "E, F, G 20.000"},
+        {"page": 9, "section": "1.2.2 Verruimingen maximale hypotheek (Energiebesparende maatregelen)", "quote": "Dit bedrag mag niet hoger zijn dan de werkelijke kosten."}
+      ],
+      "hop_reasoning": "De regel in 1.2.2 spreekt alleen van 'energiebesparende maatregelen' (met een voetnoot naar de definities). Of warmtepompen en zonnepanelen daaronder vallen, staat alleen in de definitielijst."
+    },
+    {
+      "id": "T04",
+      "category": "two-hop",
+      "question": "Kan een woonwagen op een vaste standplaats zonder Nationale Hypotheek Garantie worden gefinancierd, en wiens regels gelden bij NHG als die verschillen?",
+      "answer": "Nee, een woonwagen met vaste standplaats is alleen met NHG mogelijk, en de totale lening mag niet hoger zijn dan de NHG-kostengrens voor de woonwagen. Bij NHG gelden zowel het Acceptatiebeleid als de voorwaarden en normen van NHG. Zijn de regels van Rabobank strenger, dan gelden de regels van Rabobank.",
+      "evidence": [
+        {"page": 31, "section": "5.5.10 Woonwagen met vaste standplaats", "quote": "Alleen met NHG mogelijk"},
+        {"page": 31, "section": "5.5.10 Woonwagen met vaste standplaats", "quote": "De totale lening is niet hoger dan de NHG-kostengrens voor de woonwagen."},
+        {"page": 8, "section": "1.1.2 Nationale Hypotheek Garantie (NHG)", "quote": "Als de regels uit het Acceptatiebeleid strenger zijn dan de voorwaarden en normen van NHG, dan gelden de regels uit het Acceptatiebeleid."}
+      ],
+      "hop_reasoning": "De NHG-eis staat in de onderpandparagraaf (5.5.10), maar de voorrangsregel tussen Rabobank en NHG staat in de algemene regels (1.1.2)."
+    },
+    {
+      "id": "T05",
+      "category": "two-hop",
+      "question": "Vier aanvragers dienen samen een aanvraag in, en één van hen staat in het register van EVA/SFH, maar het onderzoek staat financiering toe. Via welk kanaal en onder welke voorwaarden kan dit worden ingediend?",
+      "answer": "Alleen via een adviseur van het Intermediair, en alleen met Plusvoorwaarden. Een registermelding die goed afloopt betekent dat de aanvraag alleen met Plusvoorwaarden kan worden ingediend, en een aanvraag met 3 tot 5 debiteuren kan alleen door een adviseur van het Intermediair met Plusvoorwaarden worden ingediend.",
+      "evidence": [
+        {"page": 14, "section": "2.4.1 EVA en SFH", "quote": "Mag er met de uitkomst van het onderzoek gefinancierd worden? Dan kan de aanvraag alleen met Plusvoorwaarden worden ingediend."},
+        {"page": 13, "section": "2.2 Eigenaar, bewoner en debiteur", "quote": "Een aanvraag met 3 tot 5 debiteuren kan alleen door een adviseur van het Intermediair worden ingediend en alleen met Plusvoorwaarden."}
+      ],
+      "hop_reasoning": "De registerregel (2.4.1) legt de Plus-eis vast, terwijl de kanaalbeperking voor 4 debiteuren uit 2.2 komt. Beide zijn nodig voor het volledige antwoord."
+    },
+    {
+      "id": "T06",
+      "category": "two-hop",
+      "question": "Een alleenstaande aanvrager bereikt over zes jaar de AOW-leeftijd en heeft de maatwerkoplossing voor een tijdelijk tekort bij senioren nodig. Valt deze aanvrager onder senioren, en hoe lang moet de rente vaststaan?",
+      "answer": "Ja. Bij 1 aanvrager valt de aanvrager onder senior als de AOW-leeftijd binnen 10 jaar wordt bereikt. Bij 'Tijdelijk tekort senioren' staat de rente minimaal vast tot de AOW-leeftijd van de aanvrager. De algemene minimale rentevaste periode voor senioren geldt bij deze oplossing niet. Op de AOW-leeftijd moet de lening passen op de annuïtaire I/L-toets.",
+      "evidence": [
+        {"page": 34, "section": "6.1.1.1 Definitie senior", "quote": "Bij 1 aanvrager valt de aanvrager onder de doelgroep senior als: - de aanvrager de AOW-leeftijd heeft bereikt; of - de aanvrager binnen 10 jaar de AOW-leeftijd bereikt."},
+        {"page": 35, "section": "6.1.1.2 Tijdelijk tekort senioren", "quote": "De rente staat vast tot minimaal de AOW-leeftijd van de jongste of enige aanvrager, de minimale rentevaste periode bij senioren is hier niet van toepassing."}
+      ],
+      "hop_reasoning": "De definitie van senior staat in de algemene regels van 6.1.1.1, en de rentevaste regel specifiek voor deze oplossing staat in 6.1.1.2. De ene is nodig om in aanmerking te komen, de andere voor de rentevaste periode."
+    },
+    {
+      "id": "T07",
+      "category": "two-hop",
+      "question": "Een klant koopt een bestaande woning voordat de oude woning is verkocht. Met hoeveel maanden dubbele lasten wordt gerekend, en als de klant de oude woning tijdelijk verhuurt op basis van de Leegstandwet, voor hoe lang maximaal en in welke box komt de lening?",
+      "answer": "Is de oude woning nog niet (definitief) verkocht, dan is de periode van dubbele lasten 12 maanden. Voor verhuur op basis van de Leegstandwet is een vergunning van de gemeente nodig voor maximaal 5 jaar (niet verlengbaar), en de lening wordt in box 3 geplaatst.",
+      "evidence": [
+        {"page": 11, "section": "1.4.1.3 Dubbele lasten (Aankoop bestaande bouw)", "quote": "Is de oude woning nog niet (definitief) verkocht? Dan is de periode van dubbele lasten 12 maanden."},
+        {"page": 58, "section": "Beheerbeleid 4.1.2 Verhuur op basis van de Leegstandwet", "quote": "Deze vergunning is verleend voor maximaal 5 jaar. De vergunning kan niet worden verlengd."},
+        {"page": 58, "section": "Beheerbeleid 4.1.2 Verhuur op basis van de Leegstandwet", "quote": "De lening wordt in box 3 geplaatst."}
+      ],
+      "hop_reasoning": "De periode dubbele lasten staat in het Acceptatiebeleid (overbrugging), en de regels voor verhuur onder de Leegstandwet staan in het Beheerbeleid. Dit zijn twee verschillende delen van het document."
+    },
+    {
+      "id": "T08",
+      "category": "two-hop",
+      "question": "Een winkelier woont boven de eigen winkel. Hoeveel kan voor elk deel van het pand worden gefinancierd, en mag de waarde met een desktoptaxatie worden bepaald?",
+      "answer": "Maximaal 100% van de marktwaarde van het woongedeelte en 80% van het bedrijvengedeelte, mits meer dan 50% van de gebruiksoppervlakte het eigen hoofdverblijf is en de klant de bedrijfsruimte voor de eigen onderneming gebruikt. Een Calcasa-desktoptaxatie is niet mogelijk voor een woon-/winkelpand; een door NWWI gevalideerd taxatierapport met gesplitste waarden is verplicht.",
+      "evidence": [
+        {"page": 29, "section": "5.5.4 Woon-/winkelpand of woon-/praktijkruimte", "quote": "De maximale verstrekkingsnorm is 100% van de marktwaarde van het woongedeelte en 80% van de marktwaarde van het bedrijvengedeelte."},
+        {"page": 29, "section": "5.5.4 Woon-/winkelpand of woon-/praktijkruimte", "quote": "Meer dan 50% van de gebruiksoppervlakte van de woning is de eigen woning als hoofdverblijf."},
+        {"page": 27, "section": "5.4 Waardebepaling onderpand", "quote": "Het onderpand is een woonboerderij, woon-/winkelpand of woon/praktijkruimte, bedrijfswoning, woonwagen met vaste standplaats, waterwoning, woonboot met vaste ligplaats, recreatiewoning, verhuurde woning."}
+      ],
+      "hop_reasoning": "5.5.4 geeft de gesplitste norm en voorwaarden, maar noemt alleen het taxatierapport. De expliciete uitsluiting van desktoptaxaties staat in de aparte lijst in 5.4."
+    },
+    {
+      "id": "T09",
+      "category": "two-hop",
+      "question": "Mag bij zelfbouw de waarde op de stichtingskosten worden gebaseerd, en kan de aanvraag via de route Afwijkingen als hij niet binnen het beleid past?",
+      "answer": "Bij zelfbouw is een taxatierapport verplicht, dus de waarde wordt niet zomaar op de stichtingskosten gebaseerd. Een aanvraag voor zelfbouw of turnkey waarbij de marktwaarde op basis van stichtingskosten wordt bepaald, is uitdrukkelijk uitgesloten van de route Afwijkingen.",
+      "evidence": [
+        {"page": 28, "section": "5.5.1.6 Waardebepaling nieuwbouwwoning", "quote": "Er is sprake van zelfbouw, turnkey, CPO of een sloopwoning;"},
+        {"page": 34, "section": "Hoofdstuk 6 Explain (inleiding)", "quote": "Een aanvraag voor zelfbouw of turnkey waarbij de marktwaarde bepaald wordt op basis van stichtingskosten."}
+      ],
+      "hop_reasoning": "De waarderingsregel voor nieuwbouw staat in hoofdstuk 5, terwijl de lijst van situaties die van de route Afwijkingen zijn uitgesloten in de inleiding van hoofdstuk 6 staat."
+    },
+    {
+      "id": "T10",
+      "category": "two-hop",
+      "question": "Op een bestaande woning rust een opstalrecht dat alleen voor een nutsaansluiting is. Moet een specialist dit beoordelen, en kan een Calcasa-desktoptaxatie worden gebruikt?",
+      "answer": "Er is geen beoordeling door een specialist nodig bij een bestaand opstalrecht bij bestaande bouw voor energie-, water- en communicatievoorzieningen. Een desktoptaxatie is normaal uitgesloten bij erfpacht of opstal, maar die uitsluiting geldt niet als het opstalrecht voor een nutsvoorziening is. Een desktoptaxatie blijft dus mogelijk, voor zover het deze regel betreft.",
+      "evidence": [
+        {"page": 26, "section": "5.2.2 Recht van opstal", "quote": "een bestaand opstalrecht bij bestaande bouw voor energie-, water- en communicatievoorzieningen"},
+        {"page": 27, "section": "5.4 Waardebepaling onderpand", "quote": "Er is sprake van het recht van erfpacht of opstal. Dit geldt niet als het recht van opstal voor een nutsvoorziening is."}
+      ],
+      "hop_reasoning": "De vrijstelling van specialistische beoordeling staat in 5.2.2 (beperkte zakelijke rechten), en de uitsluiting van desktoptaxatie met de uitzondering voor nutsvoorzieningen staat in 5.4 (waardebepaling)."
+    },
+
+    {
+      "id": "M01",
+      "category": "multi-hop",
+      "question": "Mijn klant wil een woonboot met vaste ligplaats kopen en een deel van de lening aflossingsvrij houden. Kan dat, hoe wordt de waarde bepaald, en hoe moet de lening worden afgelost?",
+      "answer": "Aflossingsvrij lenen kan niet: het beleid bepaalt per type onderpand of aflossingsvrij is toegestaan, en bij een woonboot is dat niet zo. De maximale financiering is 90% van de marktwaarde van de woonboot plus 90% van die van de ligplaats. De lening op de woonboot moet binnen de verwachte levensduur van de boot volledig zijn afgelost (maximaal 30 jaar), en de lening op de ligplaats binnen 20 jaar. De waarde wordt bepaald door een E.M.C.I. gecertificeerde woonbotentaxateur, met gesplitste waarden voor boot en ligplaats. NWWI-validatie is niet verplicht, en een Calcasa-desktoptaxatie is niet toegestaan voor een woonboot.",
+      "evidence": [
+        {"page": 8, "section": "1.1.3 Aflossingsvrij lenen", "quote": "In het hoofdstuk Onderpand en waardebepaling staat per type onderpand of aflossingsvrij lenen is toegestaan."},
+        {"page": 31, "section": "5.5.12 Woonboot met vaste ligplaats", "quote": "De maximale verstrekkingsnorm is 90% van de marktwaarde van de woonboot en 90% van de marktwaarde van de ligplaats (de ligplaats hoeft hiervoor niet in eigendom te zijn)."},
+        {"page": 31, "section": "5.5.12 Woonboot met vaste ligplaats", "quote": "Aflossingsvrij lenen is niet toegestaan."},
+        {"page": 31, "section": "5.5.12 Woonboot met vaste ligplaats", "quote": "De marktwaarde van het onderpand wordt bepaald met een taxatierapport opgesteld door een E.M.C.I. gecertificeerde woonbotentaxateur. De waarde van de woonboot en de ligplaats zijn gesplitst. Validatie door NWWI is niet verplicht."},
+        {"page": 31, "section": "5.5.12 Woonboot met vaste ligplaats", "quote": "De lening op de ligplaats wordt in 20 jaar volledig afgelost."},
+        {"page": 27, "section": "5.4 Waardebepaling onderpand", "quote": "Het onderpand is een woonboerderij, woon-/winkelpand of woon/praktijkruimte, bedrijfswoning, woonwagen met vaste standplaats, waterwoning, woonboot met vaste ligplaats, recreatiewoning, verhuurde woning."}
+      ],
+      "hop_reasoning": "1.1.3 verwijst van de algemene aflossingsvrij-regel naar het onderpandhoofdstuk. 5.5.12 geeft de grenzen en aflossing voor de woonboot. 5.4 voegt de uitsluiting van desktoptaxatie toe, die 5.5.12 niet noemt."
+    },
+    {
+      "id": "M02",
+      "category": "multi-hop",
+      "question": "Een stel wil goedkoper gaan wonen: de oudste partner ontvangt al AOW, de jongste bereikt over acht jaar de AOW-leeftijd. Vallen zij onder senioren, wat is de maximale verstrekking vanaf de AOW-leeftijd, en welke rentevaste periode en onderbouwing zijn nodig?",
+      "answer": "Ja, zij vallen onder senioren, omdat de oudste de AOW-leeftijd heeft bereikt en de jongste die binnen 10 jaar bereikt. Vanaf de AOW-leeftijd van de jongste is de maximale hypotheek 80% van de marktwaarde op het moment van aanvraag, en het meerdere moet vóór dat moment met een annuïtaire of lineaire lening worden afgelost. Omdat de jongste nog geen AOW ontvangt, staat de rente minimaal vast tot 10 jaar na de AOW-datum van de jongste. Voor elke maatwerkoplossing moet een Explainformulier met onderbouwing aanwezig zijn, en de aanvrager heeft een aantoonbare minimale vermogensbuffer nodig van 30% van de adviesuitkomst van de Nibud BufferBerekenaar. Twee maatwerkoplossingen kunnen niet worden gecombineerd.",
+      "evidence": [
+        {"page": 34, "section": "6.1.1.1 Definitie senior", "quote": "de oudste aanvrager de AOW-leeftijd heeft bereikt en de jongste aanvrager deze binnen 10 jaar bereikt."},
+        {"page": 35, "section": "6.1.1.1 Voorwaarden senior: Maximale Loan to Value (LTV)", "quote": "De maximaal toegestane hypotheek vanaf de AOW-leeftijd van de (jongste) aanvrager is 80% van de marktwaarde van de woning op het moment van de aanvraag."},
+        {"page": 35, "section": "6.1.1.1 Voorwaarden senior: Minimale rentevaste periode", "quote": "De (jongste) aanvrager ontvangt nog geen AOW: de rente staat minimaal vast tot 10 jaar na AOW-datum van de (jongste) aanvrager."},
+        {"page": 34, "section": "6.1 Maatwerk, Algemene regels", "quote": "Er is een Explainformulier met onderbouwing aanwezig."},
+        {"page": 34, "section": "6.1.1.1 Minimale vermogensbuffer", "quote": "Voor iedere aanvraag geldt dat de aanvrager een aantoonbare minimale vermogensbuffer heeft van 30% van de adviesuitkomst van de Nibud BufferBerekenaar."}
+      ],
+      "hop_reasoning": "De definitie van senior, de LTV- en rentevaste voorwaarden voor senioren, de algemene maatwerkregels (Explainformulier) en de bufferregel staan in aparte subparagrafen op pagina 34–35. Elk voegt een vereiste voorwaarde toe."
+    },
+    {
+      "id": "M03",
+      "category": "multi-hop",
+      "question": "Na een scheiding wil één partner in de woning blijven met een NHG-hypotheek via de maatwerkoplossing ontslag hoofdelijke aansprakelijkheid. Welke inkomenstoetsen moeten akkoord zijn, geldt de verruiming van € 17.000 voor alleenstaanden, en wat gebeurt er met een groot aflossingsvrij deel?",
+      "answer": "Bij NHG moeten zowel de niet-annuïtaire I/L-toets als de NHG Beheertoets akkoord zijn (de niet-annuïtaire toets is de strengste). Bij deze oplossing worden de financieringslastpercentages in beheer voor alleenstaanden gebruikt, en de verruiming van € 17.000 voor alleenstaanden geldt NIET. Is meer dan 30% van de marktwaarde of € 150.000 aflossingsvrij, dan mag de achterblijvende debiteur het bestaande aflossingsvrije bedrag houden tot maximaal 50% van de marktwaarde. Volgens het Beheerbeleid krijgt een Aflossingsvrije hypotheek bij ontslag hoofdelijke aansprakelijkheid altijd een einddatum, en op het moment van toetsen mogen er geen actuele betalingsachterstanden of BKR-bijzonderheden zijn.",
+      "evidence": [
+        {"page": 34, "section": "6.1.1.1 Algemene regels niet-annuïtaire I/L-toets", "quote": "De niet-annuïtaire I/L-toets is strenger dan de NHG Beheertoets. De voorwaarde bij een aanvraag met NHG is dat beide toetsingen akkoord zijn."},
+        {"page": 35, "section": "6.1.1.2 Ontslag hoofdelijke aansprakelijkheid", "quote": "Bij deze maatwerkoplossing worden de financieringslastpercentages in beheer voor alleenstaanden gebruikt en is de verruiming van € 17.000 bij alleenstaanden niet van toepassing."},
+        {"page": 35, "section": "6.1.1.2 Ontslag hoofdelijke aansprakelijkheid", "quote": "Dan mag de achterblijvende debiteur het bestaande aflossingsvrije bedrag houden tot maximaal 50% van de marktwaarde van de woning"},
+        {"page": 53, "section": "Beheerbeleid 3.1 Ontslag hoofdelijke aansprakelijkheid", "quote": "Als er sprake is van een Aflossingsvrije hypotheek dan krijgt deze altijd een einddatum."},
+        {"page": 53, "section": "Beheerbeleid 3.1 Ontslag hoofdelijke aansprakelijkheid", "quote": "Op moment van toetsen is er geen sprake van actuele betalingsachterstanden op de lening, overige financiële verplichtingen of bijzonderheden zoals vermeld in BKR."}
+      ],
+      "hop_reasoning": "De dubbele NHG-toets staat in de algemene regels van 6.1.1.1, de € 17.000- en 50%-regels staan in de maatwerkoplossing zelf (6.1.1.2), en de einddatum- en achterstandsvoorwaarden staan in het hoofdstuk Life events van het Beheerbeleid, waar de maatwerkoplossing naar verwijst."
+    },
+    {
+      "id": "M04",
+      "category": "multi-hop",
+      "question": "Een klant koopt een appartement dat vorig jaar is opgeleverd, wil 95% van de waarde lenen en 20% van de lening aflossingsvrij maken. Kan een Calcasa-desktoptaxatie worden gebruikt, en is de gevraagde financiering mogelijk met de juiste waardebepaling?",
+      "answer": "Een Calcasa-desktoptaxatie kan niet worden gebruikt, om drie afzonderlijke redenen: het onderpand is in het huidige of vorige kalenderjaar opgeleverd, de lening is meer dan 90% van de marktwaarde, en de standaard desktoptaxatie is niet toegestaan bij aflossingsvrij lenen. Met een door NWWI gevalideerd taxatierapport kan een appartement tot 100% van de marktwaarde worden gefinancierd, dus 95% is mogelijk. Een aflossingsvrij deel van 20% valt binnen de grens van 30% / € 150.000, mits 20% van de waarde niet hoger is dan € 150.000.",
+      "evidence": [
+        {"page": 27, "section": "5.4 Waardebepaling onderpand", "quote": "Het onderpand is opgeleverd in het huidige of vorige kalenderjaar."},
+        {"page": 27, "section": "5.4 Waardebepaling onderpand", "quote": "De benodigde of totale lening is meer dan 90% van de marktwaarde van het onderpand."},
+        {"page": 27, "section": "5.4 Waardebepaling onderpand", "quote": "Een Rabobank Desktop Taxatie van Calcasa is niet toegestaan als de aanvrager aflossingsvrij heeft of wil lenen."},
+        {"page": 29, "section": "5.5.3 Appartement", "quote": "De maximale verstrekkingsnorm is 90% van de marktwaarde uit de Rabobank Desktop Taxatie (Plus) van Calcasa of 100% van de marktwaarde uit het taxatierapport."},
+        {"page": 8, "section": "1.1.3 Aflossingsvrij lenen", "quote": "Aflossingsvrij lenen is toegestaan tot maximaal 30% van de marktwaarde van de woning en niet meer dan € 150.000."}
+      ],
+      "hop_reasoning": "5.4 sluit de desktoptaxatie uit, maar of 95% mogelijk is vraagt de normen voor appartementen in 5.5.3, en de toets op de omvang van het aflossingsvrije deel vraagt de algemene grens uit 1.1.3."
+    },
+    {
+      "id": "M05",
+      "category": "multi-hop",
+      "question": "Een klant koopt een nieuwbouwwoning voordat de huidige woning is verkocht, en die is gewaardeerd met een Calcasa Desktop Taxatie Plus. Hoe wordt de maximale OverbruggingsHypotheek bepaald, hoe lang is de periode van dubbele lasten, en hoe lang kan het bouwdepot lopen?",
+      "answer": "Is de oude woning nog niet verkocht, dan is de OverbruggingsHypotheek maximaal 90% van de marktwaarde uit de Calcasa Desktop Taxatie Plus min de huidige hoogte van de bestaande leningen op de oude woning. Wordt een spaar- of beleggingsproduct beëindigd en ingebracht, dan wordt de afkoopwaarde opgeteld: 100% van het spaartegoed of 70% van het beleggingstegoed. Bij nieuwbouw met een nog niet verkochte oude woning loopt de periode van dubbele lasten tot de opleverdatum van de nieuwbouwwoning, met een minimum van 12 en een maximum van 24 maanden. Het bouwdepot loopt maximaal 24 maanden, of korter als het werk eerder klaar is.",
+      "evidence": [
+        {"page": 10, "section": "1.4.1.1 Hoogte OverbruggingsHypotheek (Overige situaties)", "quote": "90% van de marktwaarde uit een Rabobank Desktop Taxatie Plus van Calcasa."},
+        {"page": 10, "section": "1.4.1.1 Hoogte OverbruggingsHypotheek (Overige situaties)", "quote": "de huidige hoogte van de bestaande leningen op de oude woning."},
+        {"page": 11, "section": "1.4.1.3 Dubbele lasten (Aankoop nieuwbouw)", "quote": "Is de oude woning nog niet (definitief) verkocht? Dan is de periode van dubbele lasten tot en met de opleverdatum van de nieuwbouwwoning met een minimum van 12 maanden en een maximum van 24 maanden."},
+        {"page": 11, "section": "1.4.2 Bouwdepot", "quote": "De looptijd van het bouwdepot is maximaal 24 maanden of eerder, als de bouw, verduurzaming of verbouwing van de woning klaar is."}
+      ],
+      "hop_reasoning": "De hoogte van de overbrugging (1.4.1.1), de periode dubbele lasten bij nieuwbouw (1.4.1.3) en de looptijd van het bouwdepot (1.4.2) zijn drie aparte subparagrafen, en elk beantwoordt één deel."
+    },
+    {
+      "id": "M06",
+      "category": "multi-hop",
+      "question": "Mag een adviseur de maatwerkoplossing tijdelijk tekort senioren combineren met het meetellen van rendement op vermogen als inkomen? En mag daar ook het onttrekken uit privévermogen bij?",
+      "answer": "'Tijdelijk tekort senioren' (een maatwerkoplossing) plus 'Rendement uit vermogen' (een uitzondering op inkomen) mag: een maatwerkoplossing mag worden gecombineerd met één of meer uitzonderingen. 'Onttrekken uit privévermogen' toevoegen mag niet. Dat is een tweede maatwerkoplossing (maatwerkoplossingen mogen niet worden gecombineerd), en maatwerk door inzet van vermogen mag niet worden gecombineerd met uitzonderingen die afwijken op inkomen. Daarnaast is bij maatwerk door inzet van vermogen de niet-annuïtaire toets niet toegestaan.",
+      "evidence": [
+        {"page": 34, "section": "6.1 Maatwerk, Combinatie van Explain", "quote": "Een combinatie van een maatwerkoplossing en één of meerdere uitzonderingen."},
+        {"page": 34, "section": "6.1 Maatwerk, Combinatie van Explain", "quote": "Een combinatie van maatwerkoplossingen. - Een combinatie van de maatwerkoplossingen door inzet van vermogen en de uitzonderingen die afwijken op inkomen."},
+        {"page": 35, "section": "6.1.1.2 Tijdelijk tekort senioren", "quote": "De niet-annuïtaire I/L-toets kan toegepast worden tot maximaal de AOW-leeftijd van de (jongste) aanvrager."},
+        {"page": 36, "section": "6.1.2 Maatwerk door inzet van vermogen", "quote": "Bij maatwerk door inzet van vermogen is het gebruik van de niet-annuïtaire I/L-toets niet toegestaan."},
+        {"page": 38, "section": "6.2.1.2 Inkomen: Rendement uit vermogen", "quote": "De aanvrager heeft vermogen waarvan het rendement als inkomen kan worden ingezet."}
+      ],
+      "hop_reasoning": "De combinatieregels (6.1) spreken alleen over categorieën. Om ze toe te passen moet je opzoeken dat 'Tijdelijk tekort' een maatwerkoplossing is (6.1.1.2), dat 'Onttrekken' maatwerk door inzet van vermogen is (6.1.2), en dat 'Rendement uit vermogen' een uitzondering op inkomen is (6.2.1.2)."
+    },
+    {
+      "id": "M07",
+      "category": "multi-hop",
+      "question": "Een klant wil een woonboerderij met agrarische bestemming op vier hectare kopen, er wonen en de schuren en grond ook zakelijk gebruiken. Welke onderpandregels gelden, hoeveel kan worden gefinancierd, mag aflossingsvrij, en hoe wordt de waarde bepaald?",
+      "answer": "Omdat het groter is dan 3 hectare en er zakelijk gebruik is, gelden de regels voor een bedrijfswoning met privé en zakelijk gebruik (5.5.8), niet die voor een woonboerderij ≤ 3 ha. Het maximum is 80% van de marktwaarde van het particulier gebruikte gedeelte. Aflossingsvrij lenen is niet toegestaan, en de woning mag niet worden verhuurd. De waarde wordt bepaald met een taxatierapport volgens het taxatiebeleid van Rabobank bedrijven, en een Calcasa-desktoptaxatie is niet mogelijk voor woonboerderijen of bedrijfswoningen. Is financiering met zekerheid voor de schuren of grond nodig, dan moet die zakelijk bij Rabobank gefinancierd zijn of worden (combifinanciering).",
+      "evidence": [
+        {"page": 29, "section": "5.5.6 Woonboerderij bestemming agrarisch en ≤ 3 HA", "quote": "Is er sprake van meer dan 3 hectare of zakelijk gebruik? Zie dan paragraaf 5.5.7 of 5.5.8."},
+        {"page": 30, "section": "5.5.8 Bedrijfswoning: privé en zakelijk gebruik", "quote": "De maximale verstrekkingsnorm is 80% van de marktwaarde van het particulier gebruikte gedeelte uit het taxatierapport."},
+        {"page": 30, "section": "5.5.8 Bedrijfswoning: privé en zakelijk gebruik", "quote": "Dan is de voorwaarde dat deze zakelijk gefinancierd (combifinanciering) is of wordt bij Rabobank."},
+        {"page": 30, "section": "5.5.8 Bedrijfswoning: privé en zakelijk gebruik", "quote": "De marktwaarde van het onderpand wordt bepaald met een taxatierapport opgesteld volgens het taxatiebeleid van Rabobank bedrijven."},
+        {"page": 27, "section": "5.4 Waardebepaling onderpand", "quote": "Het onderpand is een woonboerderij, woon-/winkelpand of woon/praktijkruimte, bedrijfswoning, woonwagen met vaste standplaats, waterwoning, woonboot met vaste ligplaats, recreatiewoning, verhuurde woning."}
+      ],
+      "hop_reasoning": "5.5.6 verwijst situaties boven 3 ha of met zakelijk gebruik door. 5.5.8 bevat de werkelijke grenzen. 5.4 voegt de uitsluiting van desktoptaxatie toe. De keten begint in de ene paragraaf en gaat verder in een andere."
+    },
+    {
+      "id": "M08",
+      "category": "multi-hop",
+      "question": "Een klant die in het buitenland werkt, verhuurt de woning op basis van de diplomatenclausule en wil na de maximale termijn blijven verhuren. Wat gebeurt er met de hypotheek, en wat betekent dat voor aflossingsvrij lenen en de maximale financiering?",
+      "answer": "Na 3 jaar is tijdelijke verhuur op basis van de diplomatenclausule niet meer mogelijk en wordt de woning een beleggingspand. De hypotheek moet worden gewijzigd naar een Hypotheek voor de verhuurde woning, met volledige toetsing van de aanvrager en een annuïtaire I/L-toets. Aflossingsvrij lenen is niet toegestaan. Volgens de onderpandregels voor een woning voor (gedeeltelijke) verhuur gelden alleen Plusvoorwaarden, en het maximum is 85% van de marktwaarde in verhuurde staat. Past de aanvraag niet en blijft de klant verhuren, dan is er sprake van ongeoorloofde verhuur.",
+      "evidence": [
+        {"page": 57, "section": "Beheerbeleid 4.1.1 Verhuur op basis van de diplomatenclausule", "quote": "Na 3 jaar is tijdelijke verhuur op basis van de diplomatenclausule niet meer mogelijk. De woning wordt dan een beleggingspand. Hiervoor gelden de acceptatieregels voor de Hypotheek voor de verhuurde woning."},
+        {"page": 58, "section": "Beheerbeleid 4.3 Hypotheek voor de verhuurde woning", "quote": "De hypotheek wordt gewijzigd naar een Hypotheek voor de verhuurde woning."},
+        {"page": 58, "section": "Beheerbeleid 4.3 Hypotheek voor de verhuurde woning (schema)", "quote": "Aflossingsvrij lenen is niet toegestaan."},
+        {"page": 32, "section": "5.5.15 Woning voor (gedeeltelijke) verhuur", "quote": "De maximale verstrekkingsnorm is 85% van de marktwaarde in verhuurde staat."}
+      ],
+      "hop_reasoning": "De paragraaf over de diplomatenclausule verwijst naar de verhuurhypotheek. Diens eigen paragraaf (4.3) geeft de toetsing en aflossingsvrij-regels. De financieringsgrens staat alleen in onderpandparagraaf 5.5.15 van het Acceptatiebeleid."
+    },
+    {
+      "id": "M09",
+      "category": "multi-hop",
+      "question": "Een klant koopt een bestaande woning met energielabel F en een marktwaarde van € 300.000, en investeert alleen € 15.000 in zonnepanelen en een warmtepomp. Wat is de maximale hypotheek, welk bedrag blijft buiten de I/L-toets, en welke waardebepaling is nodig?",
+      "answer": "Zonnepanelen en warmtepompen zijn energiebesparende maatregelen. Worden alleen energiebesparende voorzieningen aangebracht, dan is de maximale hypotheek 100% van de marktwaarde vóór verbouwing plus de werkelijke kosten: € 300.000 + € 15.000 = € 315.000, met een plafond van 106% van de marktwaarde na verbouwing. Deze verruiming geldt alleen bij onderpanden met een norm van 100%. Voor een reguliere woning betekent dat een taxatierapport, omdat een desktoptaxatie de norm op 90% zet, en de maatregelen moeten in de verbouwingsspecificatie of het taxatierapport staan. Bij label F mag tot € 20.000 buiten de I/L-toets blijven, maar niet meer dan de werkelijke kosten, dus € 15.000.",
+      "evidence": [
+        {"page": 63, "section": "Bijlage 2 Definitielijst: Energiebesparende maatregelen", "quote": "maatregelen, warmtepompen en zonnepanelen."},
+        {"page": 9, "section": "1.3 Maximale hypotheek op basis van het onderpand (Energiebesparende voorzieningen)", "quote": "De maximale hypotheek is 100% van de marktwaarde voor verbouwing plus de werkelijke kosten voor energiebesparende voorzieningen. De maximale hypotheek is niet hoger dan 106% van de marktwaarde na verbouwing (inclusief energiebesparende voorzieningen)."},
+        {"page": 9, "section": "1.3 Maximale hypotheek op basis van het onderpand", "quote": "Deze situatie geldt alleen voor de onderpanden waarbij de maximale verstrekkingsnorm 100% is."},
+        {"page": 29, "section": "5.5.2 Reguliere woning", "quote": "De maximale verstrekkingsnorm is 90% van de marktwaarde uit de Rabobank Desktop Taxatie (Plus) van Calcasa of 100% van de marktwaarde uit het taxatierapport."},
+        {"page": 9, "section": "1.2.2 table Energielabel bestaande woning", "quote": "E, F, G 20.000"},
+        {"page": 9, "section": "1.2.2 Verruimingen maximale hypotheek", "quote": "Dit bedrag mag niet hoger zijn dan de werkelijke kosten."}
+      ],
+      "hop_reasoning": "De definitielijst bevestigt dat de maatregelen meetellen. 1.3 geeft de 106%-formule en de voorwaarde van een 100%-onderpand. 5.5.2 laat zien dat alleen een taxatierapport de 100%-norm geeft. 1.2.2 geeft het bedrag buiten de I/L-toets. Vier aparte vindplaatsen."
+    },
+    {
+      "id": "M10",
+      "category": "multi-hop",
+      "question": "Een klant koopt een woning op gemeentelijke erfpacht onder de Amsterdamse Algemene Bepalingen 2016, en de canon wordt over vijf jaar herzien. Is een beoordeling door een specialist nodig, hoe telt de canon mee in de I/L-toets, en kan een desktoptaxatie worden gebruikt?",
+      "answer": "Er is geen specialistische beoordeling nodig: gemeentelijke erfpachtvoorwaarden die al zijn goedgekeurd, met de gemeente als grondeigenaar, zijn vrijgesteld, en Amsterdam 2016 staat in Bijlage 1 bij de goedgekeurde voorwaarden. Omdat de herziening binnen 10 jaar valt, wordt het hoogste bedrag van de huidige of toekomstige canon meegenomen: de toekomstige canon als die bekend is, anders de huidige canon × 1,5. Een Calcasa-desktoptaxatie is niet mogelijk bij erfpacht.",
+      "evidence": [
+        {"page": 26, "section": "5.2.1 Recht van erfpacht", "quote": "Er is geen beoordeling door een specialist nodig als er sprake is van: - gemeentelijke erfpachtvoorwaarden die al zijn goedgekeurd en waarbij de gemeente grondeigenaar is."},
+        {"page": 62, "section": "Bijlage 1 Goedgekeurde erfpachtvoorwaarden", "quote": "Amsterdam 2016"},
+        {"page": 24, "section": "4.9.1 Canon en retributie", "quote": "Het hoogste bedrag van de huidige of toekomstige canon/retributie: - De toekomstige canon/retributie als deze bekend is; of - De huidige canon/retributie × factor 1,5 als de toekomstige canon/retributie niet bekend is."},
+        {"page": 27, "section": "5.4 Waardebepaling onderpand", "quote": "Er is sprake van het recht van erfpacht of opstal."}
+      ],
+      "hop_reasoning": "De vrijstellingsregel (5.2.1) verwijst naar een lijst in Bijlage 1. De canoncorrectie staat in het hoofdstuk financiële verplichtingen (4.9.1), en de desktopuitsluiting in 5.4. Vier aparte vindplaatsen."
+    },
+
+    {
+      "id": "C01",
+      "category": "comparison-aggregation",
+      "question": "Bij welke soorten onderpand sluit het acceptatiebeleid aflossingsvrij lenen uit?",
+      "answer": "Bedrijfswoning met privégebruik (5.5.7), bedrijfswoning met privé en zakelijk gebruik (5.5.8), overige panden met zakelijke bestemming (5.5.9), woonwagen met vaste standplaats (5.5.10), woonboot met vaste ligplaats (5.5.12), recreatiewoning (5.5.13), losse garagebox (5.5.14) en woning voor (gedeeltelijke) verhuur (5.5.15). In het hoofdstuk Explain is het ook uitgesloten bij een onderpand van een bestaande klant dat niet meer in het beleid staat en bij een lidmaatschapsrecht (6.2.1.3).",
+      "evidence": [
+        {"page": 30, "section": "5.5.7 / 5.5.8 / 5.5.9", "quote": "Aflossingsvrij lenen is niet toegestaan."},
+        {"page": 31, "section": "5.5.10 / 5.5.12 / 5.5.13", "quote": "Aflossingsvrij lenen is niet toegestaan."},
+        {"page": 32, "section": "5.5.14 / 5.5.15", "quote": "Aflossingsvrij lenen is niet toegestaan."},
+        {"page": 39, "section": "6.2.1.3 Onderpand", "quote": "Aflossingsvrij lenen is niet toegestaan."}
+      ],
+      "hop_reasoning": "Dezelfde beperking komt terug in acht onderpandparagrafen en twee Explain-paragrafen. Het antwoord ontstaat alleen door ze allemaal te verzamelen, terwijl de algemene regel (1.1.3) alleen naar hoofdstuk 5 verwijst."
+    },
+    {
+      "id": "C02",
+      "category": "comparison-aggregation",
+      "question": "Vergelijk een drijvende waterwoning met een woonboot met vaste ligplaats: hoe verschillen de maximale financiering, aflossingsvrij lenen en de waardebepaling?",
+      "answer": "Waterwoning: maximaal 100% van de marktwaarde uit het taxatierapport, een door NWWI gevalideerd rapport, en geen beperking op aflossingsvrij in de paragraaf. Woonboot: maximaal 90% van de boot plus 90% van de ligplaats, aflossingsvrij niet toegestaan, gewaardeerd door een E.M.C.I. gecertificeerde woonbotentaxateur zonder verplichte NWWI-validatie, en strengere aflossingseisen. Calcasa-desktoptaxaties zijn voor beide uitgesloten.",
+      "evidence": [
+        {"page": 31, "section": "5.5.11 Waterwoning", "quote": "De maximale verstrekkingsnorm is 100% van de marktwaarde uit het taxatierapport."},
+        {"page": 31, "section": "5.5.12 Woonboot met vaste ligplaats", "quote": "De maximale verstrekkingsnorm is 90% van de marktwaarde van de woonboot en 90% van de marktwaarde van de ligplaats (de ligplaats hoeft hiervoor niet in eigendom te zijn)."},
+        {"page": 31, "section": "5.5.12 Woonboot met vaste ligplaats", "quote": "De marktwaarde van het onderpand wordt bepaald met een taxatierapport opgesteld door een E.M.C.I. gecertificeerde woonbotentaxateur."},
+        {"page": 27, "section": "5.4 Waardebepaling onderpand", "quote": "Het onderpand is een woonboerderij, woon-/winkelpand of woon/praktijkruimte, bedrijfswoning, woonwagen met vaste standplaats, waterwoning, woonboot met vaste ligplaats, recreatiewoning, verhuurde woning."}
+      ],
+      "hop_reasoning": "Twee naast elkaar liggende maar aparte onderpandparagrafen moeten worden vergeleken, en de gedeelde desktopuitsluiting komt uit 5.4."
+    },
+    {
+      "id": "C03",
+      "category": "comparison-aggregation",
+      "question": "Hoe verschillen de eisen aan de waardebepaling tussen een agrarische woonboerderij onder drie hectare, een recreatiewoning en een losse garagebox?",
+      "answer": "Woonboerderij met agrarische bestemming ≤ 3 ha: een taxatierapport van een taxateur in de kamer LAV van het NRVT, plus een plausibiliteitsverklaring van een tweede taxateur. Recreatiewoning (recreatief gebruik): een rapport van een bij het NRVT ingeschreven taxateur volgens het actuele model 'Taxatierapport woonruimte', NWWI-validatie niet verplicht. Garagebox: een rapport van een bij het NRVT ingeschreven taxateur, NWWI-validatie niet verplicht.",
+      "evidence": [
+        {"page": 29, "section": "5.5.6 Woonboerderij bestemming agrarisch en ≤ 3 HA", "quote": "De marktwaarde van het onderpand wordt bepaald met een taxatierapport opgesteld door een taxateur ingeschreven in de kamer LAV van het NRVT. Er is een plausibiliteitsverklaring door een tweede taxateur afgegeven."},
+        {"page": 31, "section": "5.5.13 Recreatiewoning", "quote": "De marktwaarde van het onderpand, bij recreatief gebruik, wordt bepaald met een taxatierapport opgesteld door een taxateur ingeschreven bij het NRVT."},
+        {"page": 32, "section": "5.5.14 Losse garagebox", "quote": "De marktwaarde van het onderpand wordt bepaald met een taxatierapport opgesteld door een taxateur ingeschreven bij het NRVT. Validatie door NWWI is niet verplicht."}
+      ],
+      "hop_reasoning": "Elke eis staat in een andere onderpandparagraaf op een andere pagina. De vergelijking heeft ze alle drie nodig."
+    },
+    {
+      "id": "C04",
+      "category": "comparison-aggregation",
+      "question": "Noem de situaties waarin de maximale verstrekking lager is dan 100% van de marktwaarde.",
+      "answer": "Reguliere woning en appartement met een Calcasa-desktoptaxatie: 90%. Bedrijfsgedeelte van een woon-/winkelpand of praktijkruimte: 80%. Bedrijfswoning (privégebruik, of privé en zakelijk gebruik): 80% (bij 5.5.8 van het particulier gebruikte gedeelte). Overige panden met zakelijke bestemming: 80%. Woonboot: 90% van de boot + 90% van de ligplaats. Recreatiewoning: 90%. Garagebox: 90%. Woning voor (gedeeltelijke) verhuur: 85% van de waarde in verhuurde staat. Onderpand van een bestaande klant dat niet meer in het beleid staat (Explain): 90%. Senioren vanaf de AOW-leeftijd: 80%.",
+      "evidence": [
+        {"page": 29, "section": "5.5.2 Reguliere woning / 5.5.3 Appartement", "quote": "De maximale verstrekkingsnorm is 90% van de marktwaarde uit de Rabobank Desktop Taxatie (Plus) van Calcasa of 100% van de marktwaarde uit het taxatierapport."},
+        {"page": 29, "section": "5.5.4 Woon-/winkelpand of woon-/praktijkruimte", "quote": "De maximale verstrekkingsnorm is 100% van de marktwaarde van het woongedeelte en 80% van de marktwaarde van het bedrijvengedeelte."},
+        {"page": 30, "section": "5.5.7 Bedrijfswoning: privégebruik", "quote": "De maximale verstrekkingsnorm is 80% van de marktwaarde uit het taxatierapport."},
+        {"page": 30, "section": "5.5.9 Overige panden met zakelijke bestemming", "quote": "De maximale verstrekkingsnorm is 80% van de marktwaarde van het object uit het taxatierapport."},
+        {"page": 32, "section": "5.5.14 Losse garagebox", "quote": "De maximale verstrekkingsnorm is 90% van de marktwaarde van de garagebox."},
+        {"page": 32, "section": "5.5.15 Woning voor (gedeeltelijke) verhuur", "quote": "De maximale verstrekkingsnorm is 85% van de marktwaarde in verhuurde staat."},
+        {"page": 39, "section": "6.2.1.3 Bestaande hypotheekklant met een onderpand dat niet meer in het Acceptatiebeleid is opgenomen", "quote": "De maximale verstrekkingsnorm is 90% van de marktwaarde uit het taxatierapport."},
+        {"page": 35, "section": "6.1.1.1 Voorwaarden senior: Maximale Loan to Value (LTV)", "quote": "De maximaal toegestane hypotheek vanaf de AOW-leeftijd van de (jongste) aanvrager is 80% van de marktwaarde van de woning op het moment van de aanvraag."}
+      ],
+      "hop_reasoning": "De algemene 100%-regel (1.3) zegt alleen dat lagere normen 'bij het onderpand in hoofdstuk 5' staan. De volledige lijst is verspreid over veel onderpandparagrafen plus het hoofdstuk Explain."
+    },
+    {
+      "id": "C05",
+      "category": "comparison-aggregation",
+      "question": "Vergelijk tijdelijke verhuur op basis van de diplomatenclausule met verhuur op basis van de Leegstandwet: maximale duur, doel, box, en hoe de huur kan worden beëindigd.",
+      "answer": "Diplomatenclausule: voor een klant die in het buitenland werkt, in dienst blijft bij de Nederlandse werkgever en terugkeert naar de woning; goedkeuring voor maximaal 3 jaar; lening in box 3; de klant kan alleen tegen de afgesproken einddatum opzeggen als hij zelf weer gaat wonen, met een wettelijke opzegtermijn van 3, 4 of 5 maanden afhankelijk van de huurduur, en de huurder moet instemmen (anders is de rechter nodig). Klanten die tijdelijk naar het Verenigd Koninkrijk verhuizen zijn uitgesloten. Leegstandwet: om de dubbele lasten van de oude woning betaalbaar te maken; vergunning van de gemeente voor maximaal 5 jaar (niet verlengbaar); de woning blijft actief in de verkoop; lening in box 3; schriftelijk opzegbaar tegen de afgesproken einddatum met minimaal 3 maanden opzegtermijn, zonder toestemming van de huurder en zonder reden. De huur eindigt automatisch als de vergunning verloopt.",
+      "evidence": [
+        {"page": 57, "section": "Beheerbeleid 4.1.1 Diplomatenclausule", "quote": "De goedkeuring is voor maximaal 3 jaar."},
+        {"page": 57, "section": "Beheerbeleid 4.1.1 Diplomatenclausule", "quote": "De huurder moet met de opzegging instemmen."},
+        {"page": 57, "section": "Beheerbeleid 4.1.1 Diplomatenclausule", "quote": "Klanten die tijdelijk naar het Verenigd Koninkrijk verhuizen komen niet in aanmerking voor goedkeuring voor verhuur op basis van de diplomatenclausule."},
+        {"page": 58, "section": "Beheerbeleid 4.1.2 Leegstandwet", "quote": "De aanvrager kan goedkeuring vragen voor het tijdelijk verhuren van de oude woning op basis van de Leegstandwet om de periode van dubbele lasten betaalbaar te maken."},
+        {"page": 58, "section": "Beheerbeleid 4.1.2 Leegstandwet", "quote": "De woning blijft actief in de verkoop."},
+        {"page": 58, "section": "Beheerbeleid 4.1.2 Leegstandwet", "quote": "Er geldt een minimale opzegtermijn van 3 maanden. Toestemming van de huurder is niet vereist en er hoeft geen reden te worden opgegeven."}
+      ],
+      "hop_reasoning": "De twee regelingen staan in aparte subparagrafen (4.1.1 en 4.1.2). Om ze te vergelijken zijn feiten uit beide nodig."
+    },
+    {
+      "id": "C06",
+      "category": "comparison-aggregation",
+      "question": "Paragraaf 1.2.2 heeft twee energielabeltabellen. Welk bedrag mag volgens elke tabel buiten de I/L-toets blijven bij een woning met label C en bij een woning met label A+++?",
+      "answer": "Tabel 'Energielabel woning' (label van de woning zelf): C → € 5.000; A+++ → € 25.000. Tabel 'Energielabel bestaande woning' (bij investering in energiebesparende maatregelen): C → € 15.000; A+++ → € 0, en nooit meer dan de werkelijke kosten. De twee tabellen bewegen dus in tegengestelde richting: een beter label geeft meer ruimte in de eerste tabel en minder in de tweede.",
+      "evidence": [
+        {"page": 9, "section": "1.2.2 table Energielabel woning", "quote": "C, D 5.000"},
+        {"page": 9, "section": "1.2.2 table Energielabel woning", "quote": "A+++ 25.000"},
+        {"page": 9, "section": "1.2.2 table Energielabel bestaande woning (energiebesparende maatregelen)", "quote": "C, D 15.000"},
+        {"page": 9, "section": "1.2.2 table Energielabel bestaande woning (energiebesparende maatregelen)", "quote": "A+++, A++++, A++++ met EP- 0"}
+      ],
+      "hop_reasoning": "De waarden komen uit twee verschillende tabellen met een verschillende betekenis. Een systeem dat maar één tabel leest, geeft een fout antwoord."
+    },
+    {
+      "id": "C07",
+      "category": "comparison-aggregation",
+      "question": "In welke situaties kan een klant meer lenen dan 100% van de marktwaarde van de woning, en wat is in elk geval het plafond?",
+      "answer": "Tot 106%: investeren in energiebesparende voorzieningen (106% van de marktwaarde na verbouwing) en het Energiebespaarbudget, beide alleen bij onderpanden met een norm van 100%. Tot 115%: meefinancieren van een restschuld bij verkoop van de oude woning (115% van de waarde van de nieuwe woning, via een Restschuldlening van maximaal 15 jaar), het overnemen van achterstallige VvE-betalingen van de verkoper (115% van de lagere marktwaarde), noodzakelijke woningverbetering met een gemeentelijke regeling, en oversluiten van het rentecontract met meefinancieren van oversluitkosten (maatwerk, totale lening maximaal 115%).",
+      "evidence": [
+        {"page": 9, "section": "1.3 Energiebesparende voorzieningen", "quote": "De maximale hypotheek is niet hoger dan 106% van de marktwaarde na verbouwing (inclusief energiebesparende voorzieningen)."},
+        {"page": 10, "section": "1.3 Energiebespaarbudget", "quote": "Het Energiebespaarbudget kan tot 106% van de marktwaarde van de woning worden gefinancierd."},
+        {"page": 10, "section": "1.3 Meefinancieren restschuld", "quote": "De restschuld kan tot maximaal 115% van de marktwaarde van de nieuwe woning worden gefinancierd."},
+        {"page": 10, "section": "1.3 Achterstallige betaling VvE", "quote": "De werkelijke kosten van de achterstallige betalingen mogen tot 115% van deze lagere marktwaarde van de woning worden gefinancierd."},
+        {"page": 10, "section": "1.3 Noodzakelijke woningverbetering", "quote": "De werkelijke kosten van de noodzakelijke woningverbetering kunnen tot 115% van de marktwaarde van de woning worden gefinancierd."},
+        {"page": 36, "section": "6.1.1.2 Oversluiten rentecontract met meefinancieren oversluitkosten", "quote": "De totale lening is maximaal 115% van de marktwaarde van de woning."}
+      ],
+      "hop_reasoning": "De situaties boven 100% zijn verspreid over meerdere alinea's van 1.3 op twee pagina's, plus een maatwerkoplossing in hoofdstuk 6. Ze moeten allemaal worden verzameld."
+    },
+    {
+      "id": "C08",
+      "category": "comparison-aggregation",
+      "question": "Vergelijk hoe het toetsinkomen wordt bepaald voor een werknemer met een tijdelijk contract zonder intentieverklaring en voor een flexwerker zonder perspectiefverklaring.",
+      "answer": "Beide: inkomen via IBL, of het gemiddelde jaarinkomen van de laatste 3 volledige kalenderjaren, gemaximeerd op het inkomen van het laatste kalenderjaar. Inkomen uit een uitkering mag in het gemiddelde worden meegenomen, en een jaar zonder inkomen telt als € 0. Verschil: bij de tijdelijke werknemer is het gemiddelde ook gemaximeerd op het totale inkomen uit de werkgeversverklaring. Bij flexwerkers mag een uitzendcontract in fase C als vast dienstverband worden behandeld.",
+      "evidence": [
+        {"page": 17, "section": "3.1.3 Dienstverband voor bepaalde tijd zonder intentieverklaring", "quote": "Dit gemiddelde jaarinkomen is gemaximeerd op het totale inkomen vastgesteld met de werkgeversverklaring (3.1.2)."},
+        {"page": 17, "section": "3.1.3 Flexibel dienstverband zonder perspectiefverklaring", "quote": "Toetsinkomen: inkomen vastgesteld met IBL (3.1.1) of het gemiddelde jaarinkomen van de laatste 3 volledige kalenderjaren, het gemiddelde jaarinkomen is gemaximeerd tot het jaarinkomen van het laatste kalenderjaar."},
+        {"page": 17, "section": "3.1.3 Flexibel dienstverband zonder perspectiefverklaring", "quote": "Is er sprake van een uitzendcontract in fase C? Dan mag het toetsinkomen worden bepaald op basis van een dienstverband voor onbepaalde tijd."}
+      ],
+      "hop_reasoning": "De twee soorten dienstverband zijn aparte alinea's met bijna gelijke tekst. De vergelijking hangt af van het opmerken van het extra maximum en de fase C-regel."
+    },
+    {
+      "id": "C09",
+      "category": "comparison-aggregation",
+      "question": "Vergelijk de twee maatwerkoplossingen met privévermogen: tijdelijk onttrekken uit privévermogen versus onttrekken uit privévermogen. Wat hebben ze gemeen en waarin verschillen ze?",
+      "answer": "Gemeen: de aanvrager valt onder de doelgroep Sr. PB of Wealth Management; het vermogen bestaat uit particuliere spaar-, deposito- of beleggingstegoeden bij Rabobank, op naam van de aanvrager, in euro's, niet verpand en alleen bestemd voor de hypotheeklasten; de rekentool 'Inkomen uit vermogen' wordt gebruikt; en onttrekkingen mogen het vrij besteedbaar vermogen niet onder € 1 miljoen brengen. Verschillen: 'Tijdelijk onttrekken' dekt een tekort van maximaal 1 jaar door een inkomensdaling binnen 10 jaar. 'Onttrekken' dekt een tekort gedurende de hele looptijd of een deel daarvan, en vraagt daarnaast een totale financiering ≤ 67,5% van de marktwaarde en ≤ € 5 miljoen, een Rabo Vermogensplan van maximaal 3 maanden oud, en de berekening 70% × beschikbaar vermogen ÷ looptijd langste lening (maximaal 30 jaar) ≥ het tekort.",
+      "evidence": [
+        {"page": 36, "section": "6.1.2 Tijdelijk onttrekken uit privévermogen", "quote": "Is er sprake van een tekort van maximaal 1 jaar op de toegestane last door een inkomensdaling binnen 10 jaar? Dan kan de aanvrager het tekort overbruggen door inzet van privévermogen."},
+        {"page": 36, "section": "6.1.2 Onttrekken uit privévermogen", "quote": "De totale financiering is niet hoger dan 67,5% van de marktwaarde van het onderpand en niet hoger dan € 5 miljoen."},
+        {"page": 36, "section": "6.1.2 Onttrekken uit privévermogen", "quote": "Er is een Rabo Vermogensplan niet ouder dan 3 maanden en de beoogde financiering is meegenomen in dit plan."},
+        {"page": 36, "section": "6.1.2 (beide oplossingen)", "quote": "De onttrekkingen zorgen er niet voor dat het vrij besteedbaar vermogen minder wordt dan € 1 miljoen."}
+      ],
+      "hop_reasoning": "De twee oplossingen herhalen de meeste voorwaarden, dus de vergelijking vraagt om twee lange lijsten naast elkaar te leggen en de voorwaarden te vinden die maar één van beide heeft."
+    },
+    {
+      "id": "C10",
+      "category": "comparison-aggregation",
+      "question": "Welke maatwerkoplossingen op basis van de niet-annuïtaire I/L-toets kunnen met NHG worden gecombineerd, en welke niet?",
+      "answer": "Gemarkeerd met 'NHG mogelijk': Goedkoper wonen voor senioren, Tijdelijk tekort senioren, Ontslag hoofdelijke aansprakelijkheid, en Oversluiten rentecontract met meefinancieren oversluitkosten. Niet gemarkeerd: Aanvullende lening woningverbetering senioren, Herfinancieren restschuld na te lage verkoopopbrengst, en Herfinancieren aflossingsvrij op einddatum. Bij NHG moeten zowel de niet-annuïtaire toets als de NHG Beheertoets akkoord zijn, en de NHG-normen kunnen extra voorwaarden toevoegen.",
+      "evidence": [
+        {"page": 34, "section": "6.1 Maatwerk (NHG)", "quote": "In een aantal situaties is het mogelijk om maatwerk toe te passen bij een aanvraag met NHG. Is dit mogelijk? Dan staat er NHG mogelijk bij de maatwerkoplossing."},
+        {"page": 35, "section": "6.1.1.2 Goedkoper wonen voor senioren", "quote": "Goedkoper wonen voor senioren NHG mogelijk"},
+        {"page": 35, "section": "6.1.1.2 Tijdelijk tekort senioren", "quote": "Tijdelijk tekort senioren NHG mogelijk"},
+        {"page": 35, "section": "6.1.1.2 Ontslag hoofdelijke aansprakelijkheid", "quote": "Ontslag hoofdelijke aansprakelijkheid NHG mogelijk"},
+        {"page": 36, "section": "6.1.1.2 Oversluiten rentecontract met meefinancieren oversluitkosten", "quote": "Oversluiten rentecontract met meefinancieren oversluitkosten NHG mogelijk"},
+        {"page": 34, "section": "6.1.1.1 Algemene regels niet-annuïtaire I/L-toets", "quote": "De voorwaarde bij een aanvraag met NHG is dat beide toetsingen akkoord zijn."}
+      ],
+      "hop_reasoning": "De regel dat een markering betekent dat NHG mogelijk is, staat in 6.1, maar de markeringen staan bij de kop van elke oplossing op pagina 35–36. De lijst 'niet mogelijk' vind je alleen door te kijken welke koppen de markering missen."
+    }
+  ]
+}

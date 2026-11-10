@@ -1,0 +1,513 @@
+{
+  "metadata": {
+    "source_document": "Rabobank Acceptatie- en Beheerbeleid, 14 september 2026 (resources/pdfs/rabobank_mortgage.pdf)",
+    "language": "en",
+    "paired_file": "qa_rabobank_nl.json (same ids, Dutch question/answer/hop_reasoning)",
+    "created": "2026-11-04",
+    "status": "DRAFT: answers must be reviewed by a person (ideally a mortgage expert) before use",
+    "page_numbering": "page = physical PDF page (1-95), not the printed page label",
+    "quote_normalization": "Quotes are copied from the PDF text. Line-break hyphenation and whitespace were joined. The euro sign (€), the multiplication sign (×) and characters like ï/é/ë were restored where text extraction dropped or garbled them. Table quotes give the row label followed by its value.",
+    "categories": ["single-hop", "two-hop", "multi-hop", "comparison-aggregation"]
+  },
+  "questions": [
+    {
+      "id": "S01",
+      "category": "single-hop",
+      "question": "What is the longest term a client can take for a mortgage loan?",
+      "answer": "30 years.",
+      "evidence": [
+        {"page": 8, "section": "1.1 Algemene regels", "quote": "De looptijd van een lening is maximaal 30 jaar."}
+      ],
+      "hop_reasoning": "One sentence in the general rules states the maximum loan term."
+    },
+    {
+      "id": "S02",
+      "category": "single-hop",
+      "question": "Who is allowed to be an applicant, in terms of legal form and age?",
+      "answer": "Only a natural person who is at least 18 years old.",
+      "evidence": [
+        {"page": 13, "section": "2.1 Algemeen", "quote": "Een aanvrager is een natuurlijk persoon en is minimaal 18 jaar."}
+      ],
+      "hop_reasoning": "One sentence in the applicant chapter defines both conditions."
+    },
+    {
+      "id": "S03",
+      "category": "single-hop",
+      "question": "Three siblings want to take out one mortgage together. Is that possible, and through which channel and under which conditions?",
+      "answer": "Normally an application has 1 or 2 debtors. An application with 3 to 5 debtors is possible, but only when submitted by an adviser of the Intermediary channel and only with Plus conditions (Plusvoorwaarden).",
+      "evidence": [
+        {"page": 13, "section": "2.2 Eigenaar, bewoner en debiteur", "quote": "Een aanvraag is met 1 of 2 debiteuren. Een aanvraag met 3 tot 5 debiteuren kan alleen door een adviseur van het Intermediair worden ingediend en alleen met Plusvoorwaarden."}
+      ],
+      "hop_reasoning": "A single bullet states both the normal number of debtors and the conditions for 3 to 5 debtors."
+    },
+    {
+      "id": "S04",
+      "category": "single-hop",
+      "question": "A client buys a home to live in that has an A+ energy rating. How much may be left out when determining the financing burden because of that rating?",
+      "answer": "Up to €20,000 (the table row for A+ and A++ homes).",
+      "evidence": [
+        {"page": 9, "section": "1.2.2 Verruimingen maximale hypotheek (Energielabel woning)", "quote": "Heeft of koopt de aanvrager een eigen woning als hoofdverblijf? Dan wordt, afhankelijk van het energielabel van deze woning, een bedrag buiten beschouwing gelaten bij het vaststellen van de financieringslast."},
+        {"page": 9, "section": "1.2.2 table Energielabel woning", "quote": "A+, A++ € 20.000"}
+      ],
+      "hop_reasoning": "The rule and its table form one passage (the 'Energielabel woning' paragraph). Note: a second energy table in the same section is about energy-saving measures and must not be used here."
+    },
+    {
+      "id": "S05",
+      "category": "single-hop",
+      "question": "Which Rabo Risk Rating outcomes are acceptable without any special handling?",
+      "answer": "Ratings 1 up to and including 16 may be accepted. Higher ratings are only possible in specific situations described in the Explain chapter.",
+      "evidence": [
+        {"page": 14, "section": "2.4.2 Rabo Risk Rating (RRR)", "quote": "Aanvragen met een RRR 1 t/m 16 mogen geaccepteerd worden."}
+      ],
+      "hop_reasoning": "The acceptable range is stated in one bullet of the RRR paragraph."
+    },
+    {
+      "id": "S06",
+      "category": "single-hop",
+      "question": "Which state-pension starting age does the policy assume by default, and when is a different date used?",
+      "answer": "By default the current maximum state-pension (AOW) age of 67 years and 3 months is used as the AOW start date. If the applicant reaches AOW age within 5 years, the definitively set AOW start date is used instead.",
+      "evidence": [
+        {"page": 16, "section": "Hoofdstuk 3 Inkomen, AOW-leeftijd", "quote": "De huidige maximale AOW-leeftijd is 67 jaar en 3 maanden. Dit wordt standaard gebruikt als de ingangsdatum AOW. Bereikt de aanvrager binnen 5 jaar de AOW-leeftijd? Dan wordt de definitief vastgestelde ingangsdatum AOW gebruikt."}
+      ],
+      "hop_reasoning": "One paragraph in the income chapter gives the default age and the exception."
+    },
+    {
+      "id": "S07",
+      "category": "single-hop",
+      "question": "When correcting for a DUO student debt, which gross-up factor is applied if the test interest rate of the application is not yet known?",
+      "answer": "A factor of 1.40.",
+      "evidence": [
+        {"page": 24, "section": "4.7 Studielening DUO", "quote": "Is er nog geen toetsrente bekend? Dan wordt factor 1,40 gebruikt"}
+      ],
+      "hop_reasoning": "The fallback factor is stated directly in the student-loan paragraph."
+    },
+    {
+      "id": "S08",
+      "category": "single-hop",
+      "question": "A client keeps living in their rented home while buying a property that will not be their main residence. What is the minimum monthly rent that is counted as an obligation?",
+      "answer": "The rent is corrected as an obligation, with a minimum of €750 per month.",
+      "evidence": [
+        {"page": 24, "section": "4.10 Lasten huurwoning", "quote": "Koopt de aanvrager een onderpand dat niet bedoeld is als hoofdverblijf? En blijft de aanvrager in de huurwoning wonen? Dan worden deze lasten gecorrigeerd."},
+        {"page": 24, "section": "4.10 Lasten huurwoning", "quote": "De huurlast die gecorrigeerd wordt is minimaal € 750 per maand."}
+      ],
+      "hop_reasoning": "Both sentences are in the same short paragraph, so it is single-hop."
+    },
+    {
+      "id": "S09",
+      "category": "single-hop",
+      "question": "A client posted abroad wants to rent out their home under the diplomat clause. For how long can permission be granted, and when can they ask again?",
+      "answer": "Approval is for at most 3 years. Renting under the diplomat clause for longer than 3 years is not possible. A new request is only possible after the client has lived in the home again for at least 1 year.",
+      "evidence": [
+        {"page": 57, "section": "Beheerbeleid 4.1.1 Verhuur op basis van de diplomatenclausule", "quote": "De goedkeuring is voor maximaal 3 jaar. Verhuur op basis van de diplomatenclausule voor een periode langer dan 3 jaar is niet mogelijk."},
+        {"page": 57, "section": "Beheerbeleid 4.1.1 Verhuur op basis van de diplomatenclausule", "quote": "Wil de aanvrager een nieuw verzoek doen voor tijdelijke verhuur op basis van de diplomatenclausule? Dan kan dit alleen wanneer de aanvrager weer minimaal 1 jaar in de woning heeft gewoond."}
+      ],
+      "hop_reasoning": "Both facts are consecutive bullets in the same list of conditions."
+    },
+    {
+      "id": "S10",
+      "category": "single-hop",
+      "question": "How often must the collateral be revalued when a client's total borrowing exceeds three million euros?",
+      "answer": "Every 3 years, with a valuation report that meets the Acceptatiebeleid rules.",
+      "evidence": [
+        {"page": 44, "section": "Beheerbeleid 1.6 Onderpanden met een lening van meer dan € 3 miljoen", "quote": "Onderpanden waarbij de totale lening van de aanvrager meer dan € 3 miljoen is, worden elke 3 jaar met een taxatierapport geherwaardeerd."}
+      ],
+      "hop_reasoning": "One sentence in the management policy answers it."
+    },
+
+    {
+      "id": "T01",
+      "category": "two-hop",
+      "question": "A client buying a holiday cottage wants to use the Energy Saving Budget to borrow up to 106% of its value. Is that possible?",
+      "answer": "No. The Energy Saving Budget (Energiebespaarbudget) can be financed up to 106% only for collateral whose maximum loan-to-value is 100%. A holiday home has a maximum of 90% of its market value, so the 106% extension does not apply.",
+      "evidence": [
+        {"page": 10, "section": "1.3 Maximale hypotheek op basis van het onderpand (Energiebespaarbudget)", "quote": "Het Energiebespaarbudget kan tot 106% van de marktwaarde van de woning worden gefinancierd."},
+        {"page": 10, "section": "1.3 Maximale hypotheek op basis van het onderpand (Energiebespaarbudget)", "quote": "Deze situatie geldt alleen voor de onderpanden waarbij de maximale verstrekkingsnorm 100% is."},
+        {"page": 31, "section": "5.5.13 Recreatiewoning", "quote": "De maximale verstrekkingsnorm is 90% van de marktwaarde-."}
+      ],
+      "hop_reasoning": "Chapter 1 gives the 106% rule and limits it to 100%-collateral, but doesn't say which types qualify. Chapter 5 gives the 90% limit for holiday homes. Neither passage answers alone."
+    },
+    {
+      "id": "T02",
+      "category": "two-hop",
+      "question": "For a terraced house valued with the standard Calcasa desktop valuation, what is the maximum loan-to-value, and can that valuation be used if the client wants part of the loan interest-only?",
+      "answer": "With a Calcasa desktop valuation the maximum is 90% of the market value (100% is only possible with a valuation report). The standard Calcasa desktop valuation is not allowed when the applicant has or wants interest-only borrowing, so the client needs a valuation report. The prohibition names the standard desktop valuation only, and there is an exception when a bridging mortgage is the only interest-only product on the new home.",
+      "evidence": [
+        {"page": 29, "section": "5.5.2 Reguliere woning", "quote": "De maximale verstrekkingsnorm is 90% van de marktwaarde uit de Rabobank Desktop Taxatie (Plus) van Calcasa of 100% van de marktwaarde uit het taxatierapport."},
+        {"page": 27, "section": "5.4 Waardebepaling onderpand", "quote": "Een Rabobank Desktop Taxatie van Calcasa is niet toegestaan als de aanvrager aflossingsvrij heeft of wil lenen."}
+      ],
+      "hop_reasoning": "The collateral section (5.5.2) gives the LTV for desktop vs report, while the valuation section (5.4) holds the interest-only restriction on desktop valuations."
+    },
+    {
+      "id": "T03",
+      "category": "two-hop",
+      "question": "A client buying an existing home with energy label E plans to spend €12,000 on a heat pump and solar panels. How much may be left out when determining the financing burden?",
+      "answer": "€12,000. Heat pumps and solar panels count as energy-saving measures. For an existing home with label E, F or G up to €20,000 may be left out, but never more than the actual costs, so the amount is €12,000.",
+      "evidence": [
+        {"page": 63, "section": "Bijlage 2 Definitielijst: Energiebesparende maatregelen", "quote": "douche-warmteterugwinningsysteem, energiezuinig ventilatiesysteem indien deze maatregel wordt getroffen in combinatie met andere energiebesparende maatregelen, warmtepompen en zonnepanelen."},
+        {"page": 9, "section": "1.2.2 Verruimingen maximale hypotheek (Energiebesparende maatregelen)", "quote": "Dan mag, afhankelijk van het energielabel, een bedrag buiten beschouwing worden gelaten bij het vaststellen van de financieringslast."},
+        {"page": 9, "section": "1.2.2 table Energielabel bestaande woning", "quote": "E, F, G 20.000"},
+        {"page": 9, "section": "1.2.2 Verruimingen maximale hypotheek (Energiebesparende maatregelen)", "quote": "Dit bedrag mag niet hoger zijn dan de werkelijke kosten."}
+      ],
+      "hop_reasoning": "The rule in 1.2.2 only refers to 'energy-saving measures' (with a footnote to the definitions). Whether heat pumps and solar panels qualify is only in the definitions appendix."
+    },
+    {
+      "id": "T04",
+      "category": "two-hop",
+      "question": "Can a mobile home on a permanent pitch be financed without the national mortgage guarantee, and if the guarantee is used, whose rules apply when they differ?",
+      "answer": "No, a mobile home on a fixed pitch (woonwagen met vaste standplaats) is only possible with NHG, and the total loan may not exceed the NHG cost limit for the mobile home. With NHG, both the Acceptatiebeleid and the NHG terms and standards apply. Where Rabobank's rules are stricter, Rabobank's rules apply.",
+      "evidence": [
+        {"page": 31, "section": "5.5.10 Woonwagen met vaste standplaats", "quote": "Alleen met NHG mogelijk"},
+        {"page": 31, "section": "5.5.10 Woonwagen met vaste standplaats", "quote": "De totale lening is niet hoger dan de NHG-kostengrens voor de woonwagen."},
+        {"page": 8, "section": "1.1.2 Nationale Hypotheek Garantie (NHG)", "quote": "Als de regels uit het Acceptatiebeleid strenger zijn dan de voorwaarden en normen van NHG, dan gelden de regels uit het Acceptatiebeleid."}
+      ],
+      "hop_reasoning": "The NHG requirement is in the collateral section (5.5.10), but the precedence rule between Rabobank and NHG is in the general rules (1.1.2)."
+    },
+    {
+      "id": "T05",
+      "category": "two-hop",
+      "question": "Four co-applicants apply together, and one of them appears in the EVA/SFH register but the investigation allows financing. Through which channel and under which conditions can this be submitted?",
+      "answer": "Only via an adviser of the Intermediary channel, and only with Plus conditions. A register hit that is cleared means the application can only be submitted with Plus conditions, and an application with 3 to 5 debtors can only be submitted by an Intermediary adviser with Plus conditions.",
+      "evidence": [
+        {"page": 14, "section": "2.4.1 EVA en SFH", "quote": "Mag er met de uitkomst van het onderzoek gefinancierd worden? Dan kan de aanvraag alleen met Plusvoorwaarden worden ingediend."},
+        {"page": 13, "section": "2.2 Eigenaar, bewoner en debiteur", "quote": "Een aanvraag met 3 tot 5 debiteuren kan alleen door een adviseur van het Intermediair worden ingediend en alleen met Plusvoorwaarden."}
+      ],
+      "hop_reasoning": "The register rule (2.4.1) sets the Plus requirement, while the channel restriction for 4 debtors comes from 2.2. Both are needed for the full answer."
+    },
+    {
+      "id": "T06",
+      "category": "two-hop",
+      "question": "A single applicant will reach state-pension age in six years and needs the custom solution for a temporary affordability shortfall for seniors. Do they qualify as a senior, and how long must the interest rate be fixed?",
+      "answer": "Yes. A single applicant counts as a senior if they reach AOW age within 10 years. For the 'Tijdelijk tekort senioren' solution the rate must be fixed at least until the applicant's AOW age. The general minimum fixed-rate period for seniors does not apply to this solution. At AOW age the loan must fit the annuity affordability test.",
+      "evidence": [
+        {"page": 34, "section": "6.1.1.1 Definitie senior", "quote": "Bij 1 aanvrager valt de aanvrager onder de doelgroep senior als: - de aanvrager de AOW-leeftijd heeft bereikt; of - de aanvrager binnen 10 jaar de AOW-leeftijd bereikt."},
+        {"page": 35, "section": "6.1.1.2 Tijdelijk tekort senioren", "quote": "De rente staat vast tot minimaal de AOW-leeftijd van de jongste of enige aanvrager, de minimale rentevaste periode bij senioren is hier niet van toepassing."}
+      ],
+      "hop_reasoning": "The definition of 'senior' is in the general rules of 6.1.1.1, and the fixed-rate rule specific to this solution is in 6.1.1.2. One is needed to qualify and the other for the rate period."
+    },
+    {
+      "id": "T07",
+      "category": "two-hop",
+      "question": "A client buys an existing home before selling the old one. How many months of double housing costs are assumed, and if they let the old home temporarily under the Vacancy Act, for how long at most and in which tax box is the loan placed?",
+      "answer": "If the old home is not yet (definitively) sold, the double-costs period is 12 months. Letting under the Vacancy Act (Leegstandwet) needs a municipal permit granted for at most 5 years (it can't be extended), and the loan is placed in box 3.",
+      "evidence": [
+        {"page": 11, "section": "1.4.1.3 Dubbele lasten (Aankoop bestaande bouw)", "quote": "Is de oude woning nog niet (definitief) verkocht? Dan is de periode van dubbele lasten 12 maanden."},
+        {"page": 58, "section": "Beheerbeleid 4.1.2 Verhuur op basis van de Leegstandwet", "quote": "Deze vergunning is verleend voor maximaal 5 jaar. De vergunning kan niet worden verlengd."},
+        {"page": 58, "section": "Beheerbeleid 4.1.2 Verhuur op basis van de Leegstandwet", "quote": "De lening wordt in box 3 geplaatst."}
+      ],
+      "hop_reasoning": "The double-costs period is in the Acceptatiebeleid (bridging section), and the Vacancy Act letting rules are in the Beheerbeleid. These are two different parts of the document."
+    },
+    {
+      "id": "T08",
+      "category": "two-hop",
+      "question": "A shopkeeper lives above their own shop. How much can be financed for each part of the building, and can the value be determined with a desktop valuation?",
+      "answer": "Up to 100% of the market value of the living part and 80% of the business part, provided more than 50% of the floor area is the client's main residence and the client uses the business space for their own business. A Calcasa desktop valuation is not possible for a home-with-shop; an NWWI-validated valuation report with separate values is required.",
+      "evidence": [
+        {"page": 29, "section": "5.5.4 Woon-/winkelpand of woon-/praktijkruimte", "quote": "De maximale verstrekkingsnorm is 100% van de marktwaarde van het woongedeelte en 80% van de marktwaarde van het bedrijvengedeelte."},
+        {"page": 29, "section": "5.5.4 Woon-/winkelpand of woon-/praktijkruimte", "quote": "Meer dan 50% van de gebruiksoppervlakte van de woning is de eigen woning als hoofdverblijf."},
+        {"page": 27, "section": "5.4 Waardebepaling onderpand", "quote": "Het onderpand is een woonboerderij, woon-/winkelpand of woon/praktijkruimte, bedrijfswoning, woonwagen met vaste standplaats, waterwoning, woonboot met vaste ligplaats, recreatiewoning, verhuurde woning."}
+      ],
+      "hop_reasoning": "5.5.4 gives the split LTV and conditions but only names the valuation report. The explicit exclusion of desktop valuations is in the separate list in 5.4."
+    },
+    {
+      "id": "T09",
+      "category": "two-hop",
+      "question": "For a self-build home, can the value be based on construction costs, and if the case does not fit the policy, can it go through the deviations route?",
+      "answer": "For self-build a valuation report is mandatory, so the value is not simply based on construction costs (stichtingskosten). A self-build or turnkey application where the market value is based on construction costs is explicitly excluded from the 'Afwijkingen' (deviations) route.",
+      "evidence": [
+        {"page": 28, "section": "5.5.1.6 Waardebepaling nieuwbouwwoning", "quote": "Er is sprake van zelfbouw, turnkey, CPO of een sloopwoning;"},
+        {"page": 34, "section": "Hoofdstuk 6 Explain (inleiding)", "quote": "Een aanvraag voor zelfbouw of turnkey waarbij de marktwaarde bepaald wordt op basis van stichtingskosten."}
+      ],
+      "hop_reasoning": "The valuation rule for new builds is in chapter 5, while the list of cases excluded from the deviations route is in the introduction of chapter 6."
+    },
+    {
+      "id": "T10",
+      "category": "two-hop",
+      "question": "An existing house has a right of superficies only for a utility connection. Does a specialist need to review it, and can a Calcasa desktop valuation be used?",
+      "answer": "No specialist review is needed for an existing right of superficies (opstal) on an existing building for energy, water and communication facilities. A desktop valuation is normally excluded when there is a ground lease or superficies right, but that exclusion does not apply if the superficies right is for a utility. So a desktop valuation remains possible, as far as this rule is concerned.",
+      "evidence": [
+        {"page": 26, "section": "5.2.2 Recht van opstal", "quote": "een bestaand opstalrecht bij bestaande bouw voor energie-, water- en communicatievoorzieningen"},
+        {"page": 27, "section": "5.4 Waardebepaling onderpand", "quote": "Er is sprake van het recht van erfpacht of opstal. Dit geldt niet als het recht van opstal voor een nutsvoorziening is."}
+      ],
+      "hop_reasoning": "The specialist-review exemption is in 5.2.2 (restricted rights), and the desktop-valuation exclusion with its utility exception is in 5.4 (valuation)."
+    },
+
+    {
+      "id": "M01",
+      "category": "multi-hop",
+      "question": "My client wants to buy a houseboat with a fixed mooring and keep part of the loan interest-only. Is that possible, how is the value determined, and how must the loan be repaid?",
+      "answer": "Interest-only is not possible: the policy decides per collateral type whether it is allowed, and for a houseboat it isn't. Max financing is 90% of the boat's market value plus 90% of the mooring's. The boat loan must be fully repaid within the boat's expected lifespan (max 30 years), and the mooring loan within 20 years. The value is determined by an E.M.C.I.-certified houseboat appraiser, with boat and mooring valued separately. NWWI validation is not required, and a Calcasa desktop valuation is not allowed for a houseboat.",
+      "evidence": [
+        {"page": 8, "section": "1.1.3 Aflossingsvrij lenen", "quote": "In het hoofdstuk Onderpand en waardebepaling staat per type onderpand of aflossingsvrij lenen is toegestaan."},
+        {"page": 31, "section": "5.5.12 Woonboot met vaste ligplaats", "quote": "De maximale verstrekkingsnorm is 90% van de marktwaarde van de woonboot en 90% van de marktwaarde van de ligplaats (de ligplaats hoeft hiervoor niet in eigendom te zijn)."},
+        {"page": 31, "section": "5.5.12 Woonboot met vaste ligplaats", "quote": "Aflossingsvrij lenen is niet toegestaan."},
+        {"page": 31, "section": "5.5.12 Woonboot met vaste ligplaats", "quote": "De marktwaarde van het onderpand wordt bepaald met een taxatierapport opgesteld door een E.M.C.I. gecertificeerde woonbotentaxateur. De waarde van de woonboot en de ligplaats zijn gesplitst. Validatie door NWWI is niet verplicht."},
+        {"page": 31, "section": "5.5.12 Woonboot met vaste ligplaats", "quote": "De lening op de ligplaats wordt in 20 jaar volledig afgelost."},
+        {"page": 27, "section": "5.4 Waardebepaling onderpand", "quote": "Het onderpand is een woonboerderij, woon-/winkelpand of woon/praktijkruimte, bedrijfswoning, woonwagen met vaste standplaats, waterwoning, woonboot met vaste ligplaats, recreatiewoning, verhuurde woning."}
+      ],
+      "hop_reasoning": "1.1.3 points from the general interest-only rule to the collateral chapter. 5.5.12 gives the houseboat limits and repayment. 5.4 adds the desktop-valuation exclusion, which 5.5.12 doesn't mention."
+    },
+    {
+      "id": "M02",
+      "category": "multi-hop",
+      "question": "A couple wants to downsize: the older partner already receives state pension, the younger reaches pension age in eight years. Do they count as seniors, what is the maximum loan-to-value from pension age, and what fixed-rate period and documentation are required?",
+      "answer": "Yes, they count as seniors, because the oldest has reached AOW age and the youngest reaches it within 10 years. From the youngest's AOW age the maximum mortgage is 80% of the market value at application, and any excess must be repaid with an annuity or linear loan before then. Because the youngest doesn't yet receive AOW, the rate must be fixed at least until 10 years after the youngest's AOW date. For any custom solution there must be an Explain form with justification, and the applicant needs a demonstrable minimum savings buffer of 30% of the Nibud BufferBerekenaar advice. Two custom solutions can't be combined.",
+      "evidence": [
+        {"page": 34, "section": "6.1.1.1 Definitie senior", "quote": "de oudste aanvrager de AOW-leeftijd heeft bereikt en de jongste aanvrager deze binnen 10 jaar bereikt."},
+        {"page": 35, "section": "6.1.1.1 Voorwaarden senior: Maximale Loan to Value (LTV)", "quote": "De maximaal toegestane hypotheek vanaf de AOW-leeftijd van de (jongste) aanvrager is 80% van de marktwaarde van de woning op het moment van de aanvraag."},
+        {"page": 35, "section": "6.1.1.1 Voorwaarden senior: Minimale rentevaste periode", "quote": "De (jongste) aanvrager ontvangt nog geen AOW: de rente staat minimaal vast tot 10 jaar na AOW-datum van de (jongste) aanvrager."},
+        {"page": 34, "section": "6.1 Maatwerk, Algemene regels", "quote": "Er is een Explainformulier met onderbouwing aanwezig."},
+        {"page": 34, "section": "6.1.1.1 Minimale vermogensbuffer", "quote": "Voor iedere aanvraag geldt dat de aanvrager een aantoonbare minimale vermogensbuffer heeft van 30% van de adviesuitkomst van de Nibud BufferBerekenaar."}
+      ],
+      "hop_reasoning": "The senior definition, the senior LTV and fixed-rate conditions, the general custom-solution rules (Explain form) and the buffer rule are separate subsections across pages 34–35. Each one adds a required condition."
+    },
+    {
+      "id": "M03",
+      "category": "multi-hop",
+      "question": "After a divorce, one partner wants to stay in the house with an NHG mortgage via the custom solution for release from joint liability. Which affordability tests must pass, does the single-person €17,000 extension apply, and what happens to a large interest-only part?",
+      "answer": "With NHG, both the non-annuity affordability test and the NHG Beheertoets must be approved (the non-annuity test is the stricter one). For this solution the management-phase financing percentages for single persons are used, and the €17,000 single-person extension does NOT apply. If interest-only exceeds 30% of the market value or €150,000, the remaining debtor may keep the existing interest-only amount up to 50% of the market value. Under the management policy an interest-only mortgage always gets an end date on release from joint liability, and there may be no current payment arrears or BKR irregularities at the moment of testing.",
+      "evidence": [
+        {"page": 34, "section": "6.1.1.1 Algemene regels niet-annuïtaire I/L-toets", "quote": "De niet-annuïtaire I/L-toets is strenger dan de NHG Beheertoets. De voorwaarde bij een aanvraag met NHG is dat beide toetsingen akkoord zijn."},
+        {"page": 35, "section": "6.1.1.2 Ontslag hoofdelijke aansprakelijkheid", "quote": "Bij deze maatwerkoplossing worden de financieringslastpercentages in beheer voor alleenstaanden gebruikt en is de verruiming van € 17.000 bij alleenstaanden niet van toepassing."},
+        {"page": 35, "section": "6.1.1.2 Ontslag hoofdelijke aansprakelijkheid", "quote": "Dan mag de achterblijvende debiteur het bestaande aflossingsvrije bedrag houden tot maximaal 50% van de marktwaarde van de woning"},
+        {"page": 53, "section": "Beheerbeleid 3.1 Ontslag hoofdelijke aansprakelijkheid", "quote": "Als er sprake is van een Aflossingsvrije hypotheek dan krijgt deze altijd een einddatum."},
+        {"page": 53, "section": "Beheerbeleid 3.1 Ontslag hoofdelijke aansprakelijkheid", "quote": "Op moment van toetsen is er geen sprake van actuele betalingsachterstanden op de lening, overige financiële verplichtingen of bijzonderheden zoals vermeld in BKR."}
+      ],
+      "hop_reasoning": "The NHG double test is in the general rules of 6.1.1.1, the €17,000 and 50% rules are in the custom solution itself (6.1.1.2), and the end-date and no-arrears conditions are in the Beheerbeleid life-events chapter, which the custom solution refers to."
+    },
+    {
+      "id": "M04",
+      "category": "multi-hop",
+      "question": "A client buys an apartment completed last year, wants to borrow 95% of its value and make 20% of the loan interest-only. Can a Calcasa desktop valuation be used, and is the requested financing possible with the right valuation?",
+      "answer": "A Calcasa desktop valuation can't be used, for three separate reasons: the property was delivered in the current or previous calendar year, the loan exceeds 90% of the market value, and the standard desktop valuation isn't allowed with interest-only borrowing. With an NWWI-validated valuation report an apartment can be financed up to 100% of market value, so 95% is possible. A 20% interest-only part is within the 30% / €150,000 limit, provided 20% of the value is no more than €150,000.",
+      "evidence": [
+        {"page": 27, "section": "5.4 Waardebepaling onderpand", "quote": "Het onderpand is opgeleverd in het huidige of vorige kalenderjaar."},
+        {"page": 27, "section": "5.4 Waardebepaling onderpand", "quote": "De benodigde of totale lening is meer dan 90% van de marktwaarde van het onderpand."},
+        {"page": 27, "section": "5.4 Waardebepaling onderpand", "quote": "Een Rabobank Desktop Taxatie van Calcasa is niet toegestaan als de aanvrager aflossingsvrij heeft of wil lenen."},
+        {"page": 29, "section": "5.5.3 Appartement", "quote": "De maximale verstrekkingsnorm is 90% van de marktwaarde uit de Rabobank Desktop Taxatie (Plus) van Calcasa of 100% van de marktwaarde uit het taxatierapport."},
+        {"page": 8, "section": "1.1.3 Aflossingsvrij lenen", "quote": "Aflossingsvrij lenen is toegestaan tot maximaal 30% van de marktwaarde van de woning en niet meer dan € 150.000."}
+      ],
+      "hop_reasoning": "5.4 rules out the desktop valuation, but whether 95% is possible needs the apartment limits in 5.5.3, and the interest-only size check needs the general limit in 1.1.3."
+    },
+    {
+      "id": "M05",
+      "category": "multi-hop",
+      "question": "A client buys a new-build home before selling their current one, which is valued with a Calcasa Desktop Taxatie Plus. How is the maximum bridging loan determined, how long is the double-housing-cost period, and how long can the construction deposit run?",
+      "answer": "If the old home isn't yet sold, the bridging loan (OverbruggingsHypotheek) is at most 90% of the market value from the Calcasa Desktop Taxatie Plus minus the current outstanding loans on the old home. If a savings or investment product is terminated and brought in, its surrender value is added: 100% of savings or 70% of investments. For a new build with the old home unsold, the double-costs period runs until the delivery date of the new home, with a minimum of 12 and a maximum of 24 months. The construction deposit (bouwdepot) runs for at most 24 months, or less if the work is finished earlier.",
+      "evidence": [
+        {"page": 10, "section": "1.4.1.1 Hoogte OverbruggingsHypotheek (Overige situaties)", "quote": "90% van de marktwaarde uit een Rabobank Desktop Taxatie Plus van Calcasa."},
+        {"page": 10, "section": "1.4.1.1 Hoogte OverbruggingsHypotheek (Overige situaties)", "quote": "de huidige hoogte van de bestaande leningen op de oude woning."},
+        {"page": 11, "section": "1.4.1.3 Dubbele lasten (Aankoop nieuwbouw)", "quote": "Is de oude woning nog niet (definitief) verkocht? Dan is de periode van dubbele lasten tot en met de opleverdatum van de nieuwbouwwoning met een minimum van 12 maanden en een maximum van 24 maanden."},
+        {"page": 11, "section": "1.4.2 Bouwdepot", "quote": "De looptijd van het bouwdepot is maximaal 24 maanden of eerder, als de bouw, verduurzaming of verbouwing van de woning klaar is."}
+      ],
+      "hop_reasoning": "The bridging amount (1.4.1.1), the double-costs period for new builds (1.4.1.3) and the construction deposit term (1.4.2) are three separate subsections, and each answers one part."
+    },
+    {
+      "id": "M06",
+      "category": "multi-hop",
+      "question": "Can an advisor combine the custom solution for a temporary shortfall for seniors with counting investment returns as income? And can they add drawing down private wealth on top of that?",
+      "answer": "'Tijdelijk tekort senioren' (a custom solution) plus 'Rendement uit vermogen' (an income exception) is allowed: a custom solution may be combined with one or more exceptions. Adding 'Onttrekken uit privévermogen' is not allowed. It's a second custom solution (custom solutions can't be combined), and custom solutions based on using wealth can't be combined with exceptions that deviate on income. Also, the non-annuity test may not be used in wealth-based custom solutions.",
+      "evidence": [
+        {"page": 34, "section": "6.1 Maatwerk, Combinatie van Explain", "quote": "Een combinatie van een maatwerkoplossing en één of meerdere uitzonderingen."},
+        {"page": 34, "section": "6.1 Maatwerk, Combinatie van Explain", "quote": "Een combinatie van maatwerkoplossingen. - Een combinatie van de maatwerkoplossingen door inzet van vermogen en de uitzonderingen die afwijken op inkomen."},
+        {"page": 35, "section": "6.1.1.2 Tijdelijk tekort senioren", "quote": "De niet-annuïtaire I/L-toets kan toegepast worden tot maximaal de AOW-leeftijd van de (jongste) aanvrager."},
+        {"page": 36, "section": "6.1.2 Maatwerk door inzet van vermogen", "quote": "Bij maatwerk door inzet van vermogen is het gebruik van de niet-annuïtaire I/L-toets niet toegestaan."},
+        {"page": 38, "section": "6.2.1.2 Inkomen: Rendement uit vermogen", "quote": "De aanvrager heeft vermogen waarvan het rendement als inkomen kan worden ingezet."}
+      ],
+      "hop_reasoning": "The combination rules (6.1) only speak of categories. To apply them you must look up that 'Tijdelijk tekort' is a custom solution (6.1.1.2), that 'Onttrekken' is a wealth-based custom solution (6.1.2), and that 'Rendement uit vermogen' is an income exception (6.2.1.2)."
+    },
+    {
+      "id": "M07",
+      "category": "multi-hop",
+      "question": "A client wants to buy a farmhouse with agricultural zoning on four hectares, living there while also using the barns and land for their business. Which collateral rules apply, how much can be financed, is interest-only allowed, and how is the value determined?",
+      "answer": "Because it's larger than 3 hectares and used for business, the rules for a business home with private and business use apply (5.5.8), not the farmhouse ≤3 ha rules. The maximum is 80% of the market value of the privately used part. Interest-only is not allowed, and the home may not be rented out. The value is determined with a valuation report according to the Rabobank bedrijven valuation policy, and a Calcasa desktop valuation isn't possible for farmhouses or business homes. If the barns or land need secured financing, that must be (or become) business financing at Rabobank (combifinanciering).",
+      "evidence": [
+        {"page": 29, "section": "5.5.6 Woonboerderij bestemming agrarisch en ≤ 3 HA", "quote": "Is er sprake van meer dan 3 hectare of zakelijk gebruik? Zie dan paragraaf 5.5.7 of 5.5.8."},
+        {"page": 30, "section": "5.5.8 Bedrijfswoning: privé en zakelijk gebruik", "quote": "De maximale verstrekkingsnorm is 80% van de marktwaarde van het particulier gebruikte gedeelte uit het taxatierapport."},
+        {"page": 30, "section": "5.5.8 Bedrijfswoning: privé en zakelijk gebruik", "quote": "Dan is de voorwaarde dat deze zakelijk gefinancierd (combifinanciering) is of wordt bij Rabobank."},
+        {"page": 30, "section": "5.5.8 Bedrijfswoning: privé en zakelijk gebruik", "quote": "De marktwaarde van het onderpand wordt bepaald met een taxatierapport opgesteld volgens het taxatiebeleid van Rabobank bedrijven."},
+        {"page": 27, "section": "5.4 Waardebepaling onderpand", "quote": "Het onderpand is een woonboerderij, woon-/winkelpand of woon/praktijkruimte, bedrijfswoning, woonwagen met vaste standplaats, waterwoning, woonboot met vaste ligplaats, recreatiewoning, verhuurde woning."}
+      ],
+      "hop_reasoning": "5.5.6 redirects cases over 3 ha or with business use. 5.5.8 holds the actual limits. 5.4 adds the desktop exclusion. The chain starts in one section and continues in another."
+    },
+    {
+      "id": "M08",
+      "category": "multi-hop",
+      "question": "A client working abroad rents out their home under the diplomat clause and, after the maximum period, wants to keep renting it out. What happens to the mortgage, and what does that mean for interest-only and maximum financing?",
+      "answer": "After 3 years, temporary letting under the diplomat clause is no longer possible and the home becomes an investment property. The mortgage must be changed to a 'Hypotheek voor de verhuurde woning', with full applicant testing and an annuity affordability test. Interest-only is not allowed. Under the collateral rules for a (partly) let home only Plus conditions apply, and the maximum is 85% of the market value in let condition. If the application doesn't fit and the client keeps letting, it counts as unauthorised letting.",
+      "evidence": [
+        {"page": 57, "section": "Beheerbeleid 4.1.1 Verhuur op basis van de diplomatenclausule", "quote": "Na 3 jaar is tijdelijke verhuur op basis van de diplomatenclausule niet meer mogelijk. De woning wordt dan een beleggingspand. Hiervoor gelden de acceptatieregels voor de Hypotheek voor de verhuurde woning."},
+        {"page": 58, "section": "Beheerbeleid 4.3 Hypotheek voor de verhuurde woning", "quote": "De hypotheek wordt gewijzigd naar een Hypotheek voor de verhuurde woning."},
+        {"page": 58, "section": "Beheerbeleid 4.3 Hypotheek voor de verhuurde woning (schema)", "quote": "Aflossingsvrij lenen is niet toegestaan."},
+        {"page": 32, "section": "5.5.15 Woning voor (gedeeltelijke) verhuur", "quote": "De maximale verstrekkingsnorm is 85% van de marktwaarde in verhuurde staat."}
+      ],
+      "hop_reasoning": "The diplomat-clause section points to the rental mortgage. Its own section (4.3) gives the testing and interest-only rules. The financing limit is only in the Acceptatiebeleid collateral section 5.5.15."
+    },
+    {
+      "id": "M09",
+      "category": "multi-hop",
+      "question": "A client buys an existing home with energy label F and a market value of €300,000, and only invests €15,000 in solar panels and a heat pump. What is the maximum mortgage, how much is left out of the affordability test, and what valuation is needed?",
+      "answer": "Solar panels and heat pumps count as energy-saving measures. When only energy-saving facilities are added, the maximum mortgage is 100% of the market value before renovation plus the actual costs: €300,000 + €15,000 = €315,000, capped at 106% of the market value after renovation. This extension only applies to collateral with a 100% maximum. For a regular home that requires a valuation report, because a desktop valuation caps the LTV at 90%, and the measures must be in the renovation specification or the valuation report. For label F up to €20,000 may be left out of the affordability test but not more than the actual costs, so €15,000.",
+      "evidence": [
+        {"page": 63, "section": "Bijlage 2 Definitielijst: Energiebesparende maatregelen", "quote": "maatregelen, warmtepompen en zonnepanelen."},
+        {"page": 9, "section": "1.3 Maximale hypotheek op basis van het onderpand (Energiebesparende voorzieningen)", "quote": "De maximale hypotheek is 100% van de marktwaarde voor verbouwing plus de werkelijke kosten voor energiebesparende voorzieningen. De maximale hypotheek is niet hoger dan 106% van de marktwaarde na verbouwing (inclusief energiebesparende voorzieningen)."},
+        {"page": 9, "section": "1.3 Maximale hypotheek op basis van het onderpand", "quote": "Deze situatie geldt alleen voor de onderpanden waarbij de maximale verstrekkingsnorm 100% is."},
+        {"page": 29, "section": "5.5.2 Reguliere woning", "quote": "De maximale verstrekkingsnorm is 90% van de marktwaarde uit de Rabobank Desktop Taxatie (Plus) van Calcasa of 100% van de marktwaarde uit het taxatierapport."},
+        {"page": 9, "section": "1.2.2 table Energielabel bestaande woning", "quote": "E, F, G 20.000"},
+        {"page": 9, "section": "1.2.2 Verruimingen maximale hypotheek", "quote": "Dit bedrag mag niet hoger zijn dan de werkelijke kosten."}
+      ],
+      "hop_reasoning": "The definitions appendix confirms the measures qualify. 1.3 gives the 106% formula and its 100%-collateral condition. 5.5.2 shows that only a valuation report gives the 100% norm. 1.2.2 gives the affordability-test amount. Four separate locations."
+    },
+    {
+      "id": "M10",
+      "category": "multi-hop",
+      "question": "A client buys a home on municipal leasehold land under Amsterdam's 2016 general ground-lease conditions, and the ground rent will be revised in five years. Is a specialist review needed, how is the ground rent counted in the affordability test, and can a desktop valuation be used?",
+      "answer": "No specialist review is needed: municipal ground-lease conditions that are already approved, with the municipality as landowner, are exempt, and Amsterdam 2016 is on the list of approved conditions in Appendix 1. Because the revision is less than 10 years away, the obligation counted is the higher of the current or future ground rent (canon): the future canon if known, otherwise the current canon × 1.5. A Calcasa desktop valuation is not possible when there is a ground lease (erfpacht).",
+      "evidence": [
+        {"page": 26, "section": "5.2.1 Recht van erfpacht", "quote": "Er is geen beoordeling door een specialist nodig als er sprake is van: - gemeentelijke erfpachtvoorwaarden die al zijn goedgekeurd en waarbij de gemeente grondeigenaar is."},
+        {"page": 62, "section": "Bijlage 1 Goedgekeurde erfpachtvoorwaarden", "quote": "Amsterdam 2016"},
+        {"page": 24, "section": "4.9.1 Canon en retributie", "quote": "Het hoogste bedrag van de huidige of toekomstige canon/retributie: - De toekomstige canon/retributie als deze bekend is; of - De huidige canon/retributie × factor 1,5 als de toekomstige canon/retributie niet bekend is."},
+        {"page": 27, "section": "5.4 Waardebepaling onderpand", "quote": "Er is sprake van het recht van erfpacht of opstal."}
+      ],
+      "hop_reasoning": "The exemption rule (5.2.1) refers to an appendix list (Appendix 1). The ground-rent correction is in the obligations chapter (4.9.1), and the desktop exclusion is in 5.4. Four separate locations."
+    },
+
+    {
+      "id": "C01",
+      "category": "comparison-aggregation",
+      "question": "For which types of collateral does the acceptance policy rule out interest-only borrowing?",
+      "answer": "Business home with private use (5.5.7), business home with private and business use (5.5.8), other buildings with a business zoning (5.5.9), mobile home on a fixed pitch (5.5.10), houseboat with fixed mooring (5.5.12), holiday home (5.5.13), separate garage box (5.5.14) and home for (partial) letting (5.5.15). In the Explain chapter it's also ruled out for an existing client's collateral that is no longer in the policy and for a membership right (6.2.1.3).",
+      "evidence": [
+        {"page": 30, "section": "5.5.7 / 5.5.8 / 5.5.9", "quote": "Aflossingsvrij lenen is niet toegestaan."},
+        {"page": 31, "section": "5.5.10 / 5.5.12 / 5.5.13", "quote": "Aflossingsvrij lenen is niet toegestaan."},
+        {"page": 32, "section": "5.5.14 / 5.5.15", "quote": "Aflossingsvrij lenen is niet toegestaan."},
+        {"page": 39, "section": "6.2.1.3 Onderpand", "quote": "Aflossingsvrij lenen is niet toegestaan."}
+      ],
+      "hop_reasoning": "The same restriction is repeated in eight collateral sections and two Explain sections. The answer can only be built by collecting all of them, while the general rule (1.1.3) only refers to chapter 5."
+    },
+    {
+      "id": "C02",
+      "category": "comparison-aggregation",
+      "question": "Compare a floating water home with a houseboat on a fixed mooring: how do maximum financing, interest-only and valuation differ?",
+      "answer": "Water home (waterwoning): max 100% of market value from the valuation report, an NWWI-validated report, and no interest-only restriction in its section. Houseboat (woonboot): max 90% of the boat plus 90% of the mooring, interest-only not allowed, valued by an E.M.C.I.-certified houseboat appraiser without mandatory NWWI validation, and stricter repayment terms. Calcasa desktop valuations are excluded for both.",
+      "evidence": [
+        {"page": 31, "section": "5.5.11 Waterwoning", "quote": "De maximale verstrekkingsnorm is 100% van de marktwaarde uit het taxatierapport."},
+        {"page": 31, "section": "5.5.12 Woonboot met vaste ligplaats", "quote": "De maximale verstrekkingsnorm is 90% van de marktwaarde van de woonboot en 90% van de marktwaarde van de ligplaats (de ligplaats hoeft hiervoor niet in eigendom te zijn)."},
+        {"page": 31, "section": "5.5.12 Woonboot met vaste ligplaats", "quote": "De marktwaarde van het onderpand wordt bepaald met een taxatierapport opgesteld door een E.M.C.I. gecertificeerde woonbotentaxateur."},
+        {"page": 27, "section": "5.4 Waardebepaling onderpand", "quote": "Het onderpand is een woonboerderij, woon-/winkelpand of woon/praktijkruimte, bedrijfswoning, woonwagen met vaste standplaats, waterwoning, woonboot met vaste ligplaats, recreatiewoning, verhuurde woning."}
+      ],
+      "hop_reasoning": "Two neighbouring but separate collateral sections must be contrasted, and the shared desktop exclusion comes from 5.4."
+    },
+    {
+      "id": "C03",
+      "category": "comparison-aggregation",
+      "question": "How do the valuation requirements differ between an agricultural farmhouse under three hectares, a holiday home and a separate garage box?",
+      "answer": "Farmhouse with agricultural zoning ≤3 ha: a valuation report by an appraiser in the LAV chamber of the NRVT, plus a plausibility statement from a second appraiser. Holiday home (recreational use): a report by an NRVT-registered appraiser using the current 'Taxatierapport woonruimte' model, NWWI validation not required. Garage box: a report by an NRVT-registered appraiser, NWWI validation not required.",
+      "evidence": [
+        {"page": 29, "section": "5.5.6 Woonboerderij bestemming agrarisch en ≤ 3 HA", "quote": "De marktwaarde van het onderpand wordt bepaald met een taxatierapport opgesteld door een taxateur ingeschreven in de kamer LAV van het NRVT. Er is een plausibiliteitsverklaring door een tweede taxateur afgegeven."},
+        {"page": 31, "section": "5.5.13 Recreatiewoning", "quote": "De marktwaarde van het onderpand, bij recreatief gebruik, wordt bepaald met een taxatierapport opgesteld door een taxateur ingeschreven bij het NRVT."},
+        {"page": 32, "section": "5.5.14 Losse garagebox", "quote": "De marktwaarde van het onderpand wordt bepaald met een taxatierapport opgesteld door een taxateur ingeschreven bij het NRVT. Validatie door NWWI is niet verplicht."}
+      ],
+      "hop_reasoning": "Each requirement is in a different collateral section on different pages. The comparison needs all three."
+    },
+    {
+      "id": "C04",
+      "category": "comparison-aggregation",
+      "question": "List the situations where the maximum loan-to-value is below 100% of the market value.",
+      "answer": "Regular home and apartment valued with a Calcasa desktop valuation: 90%. Business part of a home-with-shop or practice: 80%. Business home (private use, or private and business use): 80% (of the privately used part for 5.5.8). Other business-zoned buildings: 80%. Houseboat: 90% of boat + 90% of mooring. Holiday home: 90%. Garage box: 90%. Home for (partial) letting: 85% of the value in let condition. An existing client's collateral no longer in the policy (Explain): 90%. Seniors from AOW age: 80%.",
+      "evidence": [
+        {"page": 29, "section": "5.5.2 Reguliere woning / 5.5.3 Appartement", "quote": "De maximale verstrekkingsnorm is 90% van de marktwaarde uit de Rabobank Desktop Taxatie (Plus) van Calcasa of 100% van de marktwaarde uit het taxatierapport."},
+        {"page": 29, "section": "5.5.4 Woon-/winkelpand of woon-/praktijkruimte", "quote": "De maximale verstrekkingsnorm is 100% van de marktwaarde van het woongedeelte en 80% van de marktwaarde van het bedrijvengedeelte."},
+        {"page": 30, "section": "5.5.7 Bedrijfswoning: privégebruik", "quote": "De maximale verstrekkingsnorm is 80% van de marktwaarde uit het taxatierapport."},
+        {"page": 30, "section": "5.5.9 Overige panden met zakelijke bestemming", "quote": "De maximale verstrekkingsnorm is 80% van de marktwaarde van het object uit het taxatierapport."},
+        {"page": 32, "section": "5.5.14 Losse garagebox", "quote": "De maximale verstrekkingsnorm is 90% van de marktwaarde van de garagebox."},
+        {"page": 32, "section": "5.5.15 Woning voor (gedeeltelijke) verhuur", "quote": "De maximale verstrekkingsnorm is 85% van de marktwaarde in verhuurde staat."},
+        {"page": 39, "section": "6.2.1.3 Bestaande hypotheekklant met een onderpand dat niet meer in het Acceptatiebeleid is opgenomen", "quote": "De maximale verstrekkingsnorm is 90% van de marktwaarde uit het taxatierapport."},
+        {"page": 35, "section": "6.1.1.1 Voorwaarden senior: Maximale Loan to Value (LTV)", "quote": "De maximaal toegestane hypotheek vanaf de AOW-leeftijd van de (jongste) aanvrager is 80% van de marktwaarde van de woning op het moment van de aanvraag."}
+      ],
+      "hop_reasoning": "The general 100% rule (1.3) only says lower limits are 'mentioned at the collateral in chapter 5'. The full list is spread over many collateral sections plus the Explain chapter."
+    },
+    {
+      "id": "C05",
+      "category": "comparison-aggregation",
+      "question": "Compare temporary letting under the diplomat clause with letting under the Vacancy Act: maximum duration, purpose, tax box, and how the lease can be ended.",
+      "answer": "Diplomat clause: for a client working abroad who stays employed by their Dutch employer and returns to the home; approval for max 3 years; loan placed in box 3; the client may only end the lease on the agreed end date when moving back in, with a statutory notice period of 3, 4 or 5 months depending on tenancy length, and the tenant must agree (otherwise a court is needed). Clients moving temporarily to the UK are excluded. Vacancy Act: to make double housing costs affordable for the old home; municipal permit for max 5 years (not extendable); the home stays actively for sale; loan in box 3; can be ended in writing on the agreed end date with at least 3 months' notice, without the tenant's consent and without giving a reason. It ends automatically when the permit expires.",
+      "evidence": [
+        {"page": 57, "section": "Beheerbeleid 4.1.1 Diplomatenclausule", "quote": "De goedkeuring is voor maximaal 3 jaar."},
+        {"page": 57, "section": "Beheerbeleid 4.1.1 Diplomatenclausule", "quote": "De huurder moet met de opzegging instemmen."},
+        {"page": 57, "section": "Beheerbeleid 4.1.1 Diplomatenclausule", "quote": "Klanten die tijdelijk naar het Verenigd Koninkrijk verhuizen komen niet in aanmerking voor goedkeuring voor verhuur op basis van de diplomatenclausule."},
+        {"page": 58, "section": "Beheerbeleid 4.1.2 Leegstandwet", "quote": "De aanvrager kan goedkeuring vragen voor het tijdelijk verhuren van de oude woning op basis van de Leegstandwet om de periode van dubbele lasten betaalbaar te maken."},
+        {"page": 58, "section": "Beheerbeleid 4.1.2 Leegstandwet", "quote": "De woning blijft actief in de verkoop."},
+        {"page": 58, "section": "Beheerbeleid 4.1.2 Leegstandwet", "quote": "Er geldt een minimale opzegtermijn van 3 maanden. Toestemming van de huurder is niet vereist en er hoeft geen reden te worden opgegeven."}
+      ],
+      "hop_reasoning": "The two regimes are described in separate subsections (4.1.1 and 4.1.2). Contrasting them needs facts from both."
+    },
+    {
+      "id": "C06",
+      "category": "comparison-aggregation",
+      "question": "Section 1.2.2 has two energy-label tables. For a home with label C and for a home with label A+++, what amount does each table allow to be left out of the affordability test?",
+      "answer": "Table 'Energielabel woning' (label of the home itself): C → €5,000; A+++ → €25,000. Table 'Energielabel bestaande woning' (when investing in energy-saving measures): C → €15,000; A+++ → €0, and never more than the actual costs. So the two tables move in opposite directions: a better label gives more room in the first table and less in the second.",
+      "evidence": [
+        {"page": 9, "section": "1.2.2 table Energielabel woning", "quote": "C, D 5.000"},
+        {"page": 9, "section": "1.2.2 table Energielabel woning", "quote": "A+++ 25.000"},
+        {"page": 9, "section": "1.2.2 table Energielabel bestaande woning (energiebesparende maatregelen)", "quote": "C, D 15.000"},
+        {"page": 9, "section": "1.2.2 table Energielabel bestaande woning (energiebesparende maatregelen)", "quote": "A+++, A++++, A++++ met EP- 0"}
+      ],
+      "hop_reasoning": "The values come from two different tables with different meanings. A system that reads only one table gives a wrong answer."
+    },
+    {
+      "id": "C07",
+      "category": "comparison-aggregation",
+      "question": "In which situations can a client borrow more than 100% of the home's market value, and what is the ceiling in each case?",
+      "answer": "Up to 106%: investing in energy-saving facilities (106% of the value after renovation) and the Energiebespaarbudget, both only for collateral with a 100% maximum. Up to 115%: financing a residual debt (restschuld) from selling the old home (115% of the new home's value, via a Restschuldlening of max 15 years), taking over a seller's overdue owners' association payments (115% of the lower market value), necessary home improvement covered by a municipal scheme, and refinancing an interest contract including the switching costs (custom solution, total loan max 115%).",
+      "evidence": [
+        {"page": 9, "section": "1.3 Energiebesparende voorzieningen", "quote": "De maximale hypotheek is niet hoger dan 106% van de marktwaarde na verbouwing (inclusief energiebesparende voorzieningen)."},
+        {"page": 10, "section": "1.3 Energiebespaarbudget", "quote": "Het Energiebespaarbudget kan tot 106% van de marktwaarde van de woning worden gefinancierd."},
+        {"page": 10, "section": "1.3 Meefinancieren restschuld", "quote": "De restschuld kan tot maximaal 115% van de marktwaarde van de nieuwe woning worden gefinancierd."},
+        {"page": 10, "section": "1.3 Achterstallige betaling VvE", "quote": "De werkelijke kosten van de achterstallige betalingen mogen tot 115% van deze lagere marktwaarde van de woning worden gefinancierd."},
+        {"page": 10, "section": "1.3 Noodzakelijke woningverbetering", "quote": "De werkelijke kosten van de noodzakelijke woningverbetering kunnen tot 115% van de marktwaarde van de woning worden gefinancierd."},
+        {"page": 36, "section": "6.1.1.2 Oversluiten rentecontract met meefinancieren oversluitkosten", "quote": "De totale lening is maximaal 115% van de marktwaarde van de woning."}
+      ],
+      "hop_reasoning": "The above-100% cases are spread over several paragraphs of 1.3 on two pages, plus a custom solution in chapter 6. All must be collected."
+    },
+    {
+      "id": "C08",
+      "category": "comparison-aggregation",
+      "question": "Compare how test income is determined for a fixed-term employee without a declaration of intent and for a flexible worker without a perspective statement.",
+      "answer": "Both: income via IBL, or the average annual income of the last 3 full calendar years, capped at the income of the last calendar year. Benefit income may be included in the average, and a year without income counts as €0. Difference: for the fixed-term employee, the average is also capped at the total income from the employer's statement. For flexible workers, a phase C temp contract may be treated as permanent employment.",
+      "evidence": [
+        {"page": 17, "section": "3.1.3 Dienstverband voor bepaalde tijd zonder intentieverklaring", "quote": "Dit gemiddelde jaarinkomen is gemaximeerd op het totale inkomen vastgesteld met de werkgeversverklaring (3.1.2)."},
+        {"page": 17, "section": "3.1.3 Flexibel dienstverband zonder perspectiefverklaring", "quote": "Toetsinkomen: inkomen vastgesteld met IBL (3.1.1) of het gemiddelde jaarinkomen van de laatste 3 volledige kalenderjaren, het gemiddelde jaarinkomen is gemaximeerd tot het jaarinkomen van het laatste kalenderjaar."},
+        {"page": 17, "section": "3.1.3 Flexibel dienstverband zonder perspectiefverklaring", "quote": "Is er sprake van een uitzendcontract in fase C? Dan mag het toetsinkomen worden bepaald op basis van een dienstverband voor onbepaalde tijd."}
+      ],
+      "hop_reasoning": "The two employment types are separate paragraphs with near-identical wording. The comparison depends on spotting the extra cap and the phase C rule."
+    },
+    {
+      "id": "C09",
+      "category": "comparison-aggregation",
+      "question": "Compare the two custom solutions that use private wealth: temporarily drawing from private wealth versus drawing from private wealth. What do they share and how do they differ?",
+      "answer": "Shared: the applicant is in the Sr. PB or Wealth Management target group; the wealth is private savings, deposits or investments at Rabobank, in the applicant's name, in euros, not pledged and earmarked only for mortgage costs; the 'Inkomen uit vermogen' tool is used; and withdrawals may not bring freely spendable wealth below €1 million. Differences: 'Tijdelijk onttrekken' covers a shortfall of at most 1 year caused by an income drop within 10 years. 'Onttrekken' covers a shortfall during all or part of the term, and also requires total financing ≤67.5% of market value and ≤€5 million, a Rabo Vermogensplan no older than 3 months, and the calculation 70% × available wealth ÷ longest term (max 30 years) ≥ the shortfall.",
+      "evidence": [
+        {"page": 36, "section": "6.1.2 Tijdelijk onttrekken uit privévermogen", "quote": "Is er sprake van een tekort van maximaal 1 jaar op de toegestane last door een inkomensdaling binnen 10 jaar? Dan kan de aanvrager het tekort overbruggen door inzet van privévermogen."},
+        {"page": 36, "section": "6.1.2 Onttrekken uit privévermogen", "quote": "De totale financiering is niet hoger dan 67,5% van de marktwaarde van het onderpand en niet hoger dan € 5 miljoen."},
+        {"page": 36, "section": "6.1.2 Onttrekken uit privévermogen", "quote": "Er is een Rabo Vermogensplan niet ouder dan 3 maanden en de beoogde financiering is meegenomen in dit plan."},
+        {"page": 36, "section": "6.1.2 (beide oplossingen)", "quote": "De onttrekkingen zorgen er niet voor dat het vrij besteedbaar vermogen minder wordt dan € 1 miljoen."}
+      ],
+      "hop_reasoning": "The two solutions repeat most conditions, so the comparison means aligning two long lists and finding the conditions that only one of them has."
+    },
+    {
+      "id": "C10",
+      "category": "comparison-aggregation",
+      "question": "Which custom solutions based on the non-annuity affordability test can be combined with an NHG guarantee, and which cannot?",
+      "answer": "Marked 'NHG mogelijk': Goedkoper wonen voor senioren, Tijdelijk tekort senioren, Ontslag hoofdelijke aansprakelijkheid, and Oversluiten rentecontract met meefinancieren oversluitkosten. Not marked: Aanvullende lening woningverbetering senioren, Herfinancieren restschuld na te lage verkoopopbrengst, and Herfinancieren aflossingsvrij op einddatum. With NHG both the non-annuity test and the NHG Beheertoets must pass, and the NHG terms may add conditions.",
+      "evidence": [
+        {"page": 34, "section": "6.1 Maatwerk (NHG)", "quote": "In een aantal situaties is het mogelijk om maatwerk toe te passen bij een aanvraag met NHG. Is dit mogelijk? Dan staat er NHG mogelijk bij de maatwerkoplossing."},
+        {"page": 35, "section": "6.1.1.2 Goedkoper wonen voor senioren", "quote": "Goedkoper wonen voor senioren NHG mogelijk"},
+        {"page": 35, "section": "6.1.1.2 Tijdelijk tekort senioren", "quote": "Tijdelijk tekort senioren NHG mogelijk"},
+        {"page": 35, "section": "6.1.1.2 Ontslag hoofdelijke aansprakelijkheid", "quote": "Ontslag hoofdelijke aansprakelijkheid NHG mogelijk"},
+        {"page": 36, "section": "6.1.1.2 Oversluiten rentecontract met meefinancieren oversluitkosten", "quote": "Oversluiten rentecontract met meefinancieren oversluitkosten NHG mogelijk"},
+        {"page": 34, "section": "6.1.1.1 Algemene regels niet-annuïtaire I/L-toets", "quote": "De voorwaarde bij een aanvraag met NHG is dat beide toetsingen akkoord zijn."}
+      ],
+      "hop_reasoning": "The rule that a marker means NHG is possible is in 6.1, but the markers sit next to each solution's heading across pages 35–36. The 'not possible' list is only found by checking which headings lack the marker."
+    }
+  ]
+}

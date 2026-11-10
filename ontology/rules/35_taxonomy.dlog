@@ -1,0 +1,84 @@
+@prefix rabo: <https://linq.example.org/ontology/rabo-mortgage#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+# ---------------------------------------------------------------------------------------------
+# Rules that come with the collateral taxonomy (ontology/taxonomy_collateral.ttl).
+# Most are written ONCE against a class property (e.g. rabo:maxTermYears, rabo:requiresNHG), so a new
+# collateral type only needs data, not a new rule.
+# ---------------------------------------------------------------------------------------------
+
+# Type-specific maximum term (garage box 20 years, houseboat 30 years): data rabo:maxTermYears on the class
+[?app, rabo:checked, rabo:R_TypeMaxTerm] :-
+    [?app, rabo:hasCollateral, ?c], [?c, a, ?type], [?type, rabo:maxTermYears, ?max], [?app, rabo:termYears, ?y] .
+[?app, rabo:violates, rabo:R_TypeMaxTerm] :-
+    [?app, rabo:hasCollateral, ?c], [?c, a, ?type], [?type, rabo:maxTermYears, ?max],
+    [?app, rabo:termYears, ?y], FILTER(?y > ?max) .
+
+# AB-5.5.15  Letting is only possible for some building types
+#   ("Verhuur is mogelijk bij de reguliere woning, appartement, woon-/winkelpand of woon-/praktijkruimte,
+#     woonboerderij en waterwoning.")
+[?app, rabo:checked, rabo:R_LettingType] :- [?app, rabo:hasCollateral, ?c], [?c, a, rabo:PartlyLetHome] .
+[?c, rabo:violates, rabo:R_LettingType] :-
+    [?c, a, rabo:PartlyLetHome],
+    NOT EXISTS ?t IN ([?c, a, ?t], [?t, rabo:lettingAllowed, true]) .
+
+# AB-5.5.10  Mobile home only with NHG
+[?app, rabo:checked, rabo:R_RequiresNHG] :- [?app, rabo:hasCollateral, ?c], [?c, a, ?t], [?t, rabo:requiresNHG, true] .
+[?app, rabo:violates, rabo:R_RequiresNHG] :-
+    [?app, rabo:hasCollateral, ?c], [?c, a, ?t], [?t, rabo:requiresNHG, true], [?app, rabo:nhg, false] .
+[?app, rabo:missingFact, rabo:R_RequiresNHG] :-
+    [?app, rabo:hasCollateral, ?c], [?c, a, ?t], [?t, rabo:requiresNHG, true], NOT EXISTS ?x IN [?app, rabo:nhg, ?x] .
+
+# AB-5.5.9 / 5.5.14  The applicant must own a home that is financed by Rabobank
+[?app, rabo:checked, rabo:R_OwnHomeAtRabobank] :-
+    [?app, rabo:hasCollateral, ?c], [?c, a, ?t], [?t, rabo:requiresOwnHomeAtRabobank, true] .
+[?app, rabo:violates, rabo:R_OwnHomeAtRabobank] :-
+    [?app, rabo:hasCollateral, ?c], [?c, a, ?t], [?t, rabo:requiresOwnHomeAtRabobank, true],
+    [?app, rabo:ownHomeFinancedByRabobank, false] .
+[?app, rabo:missingFact, rabo:R_OwnHomeAtRabobank] :-
+    [?app, rabo:hasCollateral, ?c], [?c, a, ?t], [?t, rabo:requiresOwnHomeAtRabobank, true],
+    NOT EXISTS ?x IN [?app, rabo:ownHomeFinancedByRabobank, ?x] .
+
+# AB-5.5.6  Agricultural farmhouse: the whole at most 3 hectares, no business use (otherwise 5.5.7 / 5.5.8)
+[?app, rabo:checked, rabo:R_FarmArea] :- [?app, rabo:hasCollateral, ?c], [?c, a, ?t], [?t, rabo:maxAreaHectares, ?m] .
+[?c, rabo:violates, rabo:R_FarmArea] :-
+    [?c, a, ?t], [?t, rabo:maxAreaHectares, ?max], [?c, rabo:areaHectares, ?a], FILTER(?a > ?max) .
+[?c, rabo:missingFact, rabo:R_FarmArea] :-
+    [?c, a, ?t], [?t, rabo:maxAreaHectares, ?max], NOT EXISTS ?a IN [?c, rabo:areaHectares, ?a] .
+[?c, rabo:violates, rabo:R_FarmArea] :- [?c, a, ?t], [?t, rabo:noBusinessUse, true], [?c, rabo:businessUse, true] .
+
+# AB-5.4  When a desktop valuation is NOT possible, beyond the collateral type:
+#   new build delivered this or last calendar year, erfpacht or opstal (not for utilities),
+#   market value above EUR 1 million, or a loan above 90% of the market value.
+[?c, rabo:desktopExcluded, "a new build (delivered in the current or previous calendar year)"] :-
+    [?c, a, rabo:NewBuild] .
+[?c, rabo:desktopExcluded, "erfpacht"] :- [?c, a, rabo:ErfpachtCollateral] .
+[?c, rabo:desktopExcluded, "opstal (not for a utility)"] :-
+    [?c, a, rabo:OpstalCollateral], NOT [?c, a, rabo:OpstalUtilityCollateral] .
+[?c, rabo:desktopExcluded, "a market value above EUR 1 million"] :-
+    [?c, rabo:marketValue, ?mv], FILTER(?mv > 1000000) .
+[?c, rabo:desktopExcluded, "a loan above 90% of the market value"] :-
+    [?app, rabo:hasCollateral, ?c], [?app, rabo:loanAmount, ?a], [?c, rabo:marketValue, ?mv], FILTER(?a > 0.9 * ?mv) .
+[?app, rabo:checked, rabo:R_DesktopConditions] :-
+    [?app, rabo:hasCollateral, ?c], [?c, rabo:valuedBy, ?v], [?v, a, rabo:DesktopValuation] .
+[?c, rabo:violates, rabo:R_DesktopConditions] :-
+    [?c, rabo:valuedBy, ?v], [?v, a, rabo:DesktopValuation], [?c, rabo:desktopExcluded, ?why] .
+
+# AB-5.5.1.6  Construction-costs valuation (stichtingskosten): only for a new build, and not for
+#             self-build, turnkey, CPO or a demolition home (those need a valuation report)
+[?app, rabo:checked, rabo:R_ConstructionCosts] :-
+    [?app, rabo:hasCollateral, ?c], [?c, rabo:valuedBy, ?v], [?v, a, rabo:ConstructionCostsValuation] .
+[?c, rabo:violates, rabo:R_ConstructionCosts] :-
+    [?c, rabo:valuedBy, ?v], [?v, a, rabo:ConstructionCostsValuation], NOT [?c, a, rabo:NewBuild] .
+[?c, rabo:violates, rabo:R_ConstructionCosts] :-
+    [?c, rabo:valuedBy, ?v], [?v, a, rabo:ConstructionCostsValuation], [?c, a, ?kind], [?kind, rabo:requiresValuationReport, true] .
+
+# AB-5.2.1  Erfpacht: a specialist reviews the conditions, unless they are approved municipal conditions (Bijlage 1)
+[?app, rabo:checked, rabo:R_ErfpachtReview] :- [?app, rabo:hasCollateral, ?c], [?c, a, rabo:ErfpachtCollateral] .
+[?c, rabo:missingFact, rabo:R_ErfpachtReview] :-
+    [?c, a, rabo:ErfpachtCollateral], NOT [?c, rabo:erfpachtApprovedMunicipal, true] .
+
+# AB-5.2.2  Opstal: a specialist reviews it, unless it is for energy, water or communication utilities
+[?app, rabo:checked, rabo:R_OpstalReview] :- [?app, rabo:hasCollateral, ?c], [?c, a, rabo:OpstalCollateral] .
+[?c, rabo:missingFact, rabo:R_OpstalReview] :-
+    [?c, a, rabo:OpstalCollateral], NOT [?c, a, rabo:OpstalUtilityCollateral] .

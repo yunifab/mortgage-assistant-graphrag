@@ -1,0 +1,121 @@
+@prefix fibo-assessments: <https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Assessments/> .
+@prefix fibo-debt: <https://spec.edmcouncil.org/fibo/ontology/FBC/DebtAndEquities/Debt/> .
+@prefix fibo-legalpersons: <https://spec.edmcouncil.org/fibo/ontology/BE/LegalEntities/LegalPersons/> .
+@prefix fibo-loanapplications: <https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/LoanApplications/> .
+@prefix fibo-loans: <https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/> .
+@prefix fibo-mortgageorigination: <https://spec.edmcouncil.org/fibo/ontology/LOAN/RealEstateLoans/MortgageOrigination/> .
+@prefix fibo-mortgages: <https://spec.edmcouncil.org/fibo/ontology/LOAN/RealEstateLoans/Mortgages/> .
+@prefix fibo-realproperty: <https://spec.edmcouncil.org/fibo/ontology/FND/Places/RealProperty/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+fibo-legalpersons:LegallyCompetentNaturalPerson a owl:Class ;
+    rdfs:label "legally competent natural person" ;
+    rdfs:isDefinedBy fibo-legalpersons: ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/AgentsAndPeople/People/Person>,
+        <https://www.omg.org/spec/Commons/Organizations/LegalPerson> ;
+    skos:definition "person who is considered competent, under the circumstances, to enter into a contract, conduct business, or participate in other activities that generally require the mental ability to understand problems and make decisions on his or her own behalf" .
+
+fibo-debt:Borrower a owl:Class ;
+    rdfs:label "borrower" ;
+    rdfs:isDefinedBy fibo-debt: ;
+    rdfs:subClassOf fibo-debt:Debtor,
+        <https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/ContractParty>,
+        <https://spec.edmcouncil.org/fibo/ontology/FND/ProductsAndServices/ProductsAndServices/Customer> ;
+    skos:definition "party to a credit agreement that is obligated to repay the amount borrowed (principal) with interest and other fees according to the terms of the instrument" .
+
+fibo-debt:Collateral a owl:Class ;
+    rdfs:label "collateral" ;
+    rdfs:isDefinedBy fibo-debt: ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/PartiesAndSituations/Undergoer> ;
+    skos:definition "something pledged as security to ensure fulfillment of an obligation to another party, to lend money, extend credit, or provision securities" .
+
+fibo-debt:PrincipalRepaymentTerms a owl:Class ;
+    rdfs:label "principal repayment terms" ;
+    rdfs:isDefinedBy fibo-debt: ;
+    rdfs:subClassOf fibo-debt:DebtTerms ;
+    skos:definition "contract terms that specify requirements for repayment of the principal" .
+
+fibo-assessments:Appraisal a owl:Class ;
+    rdfs:label "appraisal" ;
+    rdfs:isDefinedBy fibo-assessments: ;
+    rdfs:subClassOf fibo-assessments:AssessmentReport ;
+    skos:definition "written estimate of the market value of something as of some point in time, typically provided by a qualified appraiser" .
+
+fibo-assessments:Appraiser a owl:Class ;
+    rdfs:label "appraiser" ;
+    rdfs:isDefinedBy fibo-assessments: ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/PartiesAndSituations/PartyRole> ;
+    skos:definition "party that evaluates or estimates the nature, quality, ability, or value of someone or something" .
+
+fibo-assessments:MarketValue a owl:Class ;
+    rdfs:label "market value" ;
+    rdfs:isDefinedBy fibo-assessments: ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/MonetaryAmount>,
+        fibo-assessments:QuantitativeValue ;
+    skos:definition "price an asset would sell for in the market" .
+
+fibo-realproperty:RealProperty a owl:Class ;
+    rdfs:label "real property"@en ;
+    rdfs:isDefinedBy fibo-realproperty: ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/OwnershipAndControl/Ownership/PhysicalAsset>,
+        fibo-realproperty:RealEstate ;
+    skos:definition "physical asset defined as land together with any structures that are permanently attached to that land, such as houses, trees, fences and improvements"@en .
+
+fibo-loanapplications:CreditRiskAssessment a owl:Class ;
+    rdfs:label "credit risk assessment" ;
+    rdfs:isDefinedBy fibo-loanapplications: ;
+    rdfs:subClassOf fibo-assessments:AssessmentActivity ;
+    skos:definition "risk assessment that focuses on determining the likelihood of a potential borrower repaying a loan" .
+
+fibo-loanapplications:LoanApplication a owl:Class ;
+    rdfs:label "loan application" ;
+    rdfs:isDefinedBy fibo-loanapplications: ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/Documents/Document> ;
+    skos:definition "request by a potential borrower to a potential lender to borrow money containing information used to decide whether to grant the loan" .
+
+fibo-loanapplications:UnderwritingDecision a owl:Class ;
+    rdfs:label "underwriting decision" ;
+    rdfs:isDefinedBy fibo-loanapplications: ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/Classifiers/Classifier> ;
+    skos:definition "classifier providing a loan approval recommendation determined either manually or by an automated underwriting system" .
+
+fibo-loanapplications:hasRequestedAmount a owl:ObjectProperty ;
+    rdfs:label "has requested amount" ;
+    rdfs:isDefinedBy fibo-loanapplications: ;
+    skos:definition "relates something, e.g. a request for a loan, to the amount of funds requested" .
+
+fibo-loans:Loan a owl:Class ;
+    rdfs:label "loan" ;
+    rdfs:isDefinedBy fibo-loans: ;
+    rdfs:subClassOf fibo-debt:CreditAgreementRepaidPeriodically,
+        <https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/DebtInstrument> ;
+    skos:definition "debt instrument whereby one party extends money or credit to another party (or parties) with the understanding that the borrowed money will be repaid according to the terms of the contract" .
+
+fibo-loans:LoanToValueRatio a owl:Class ;
+    rdfs:label "loan-to-value ratio" ;
+    rdfs:isDefinedBy fibo-loans: ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/PercentageMonetaryAmount> ;
+    skos:definition "ratio, expressed as a percentage, between the principal amount of the loan and the appraised value of the asset securing the financing" .
+
+fibo-loans:isInterestOnly a owl:DatatypeProperty ;
+    rdfs:label "is interest only"@en ;
+    rdfs:isDefinedBy fibo-loans: ;
+    skos:definition "indicates whether the contractual terms include or would have included interest only payments"@en .
+
+fibo-mortgageorigination:MortgageIndemnityGuarantee a owl:Class ;
+    rdfs:label "mortgage indemnity guarantee"@en ;
+    rdfs:isDefinedBy fibo-mortgageorigination: ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FBC/DebtAndEquities/Guaranty/InsuranceBackedGuaranty> ;
+    skos:definition "insurance-backed guarantee that protects lenders if the mortgage repayments cease for some reason, perhaps due to death or a homeowner being made redundant at work"@en .
+
+fibo-mortgages:Mortgage a owl:Class ;
+    rdfs:label "mortgage" ;
+    rdfs:isDefinedBy fibo-mortgages: ;
+    rdfs:subClassOf fibo-debt:SecurityAgreement ;
+    skos:definition "grant of financial interest in real property to a party that is not an owner of that real property and is recorded by a registration authority" .
+
+<https://spec.edmcouncil.org/fibo/ontology/slice> a owl:Ontology ;
+    rdfs:comment "Slice of FIBO terms reused by the Rabobank mortgage ontology. Generated by scripts/extract_fibo_slice.py from the local FIBO clone; do not edit by hand." .
+

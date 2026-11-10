@@ -1,0 +1,46 @@
+@prefix rabo: <https://linq.example.org/ontology/rabo-mortgage#> .
+
+# ---------------------------------------------------------------------------------------------
+# Explain (Acceptatiebeleid chapter 6) and temporary letting (Beheerbeleid 4.1.1)
+# ---------------------------------------------------------------------------------------------
+
+# AB-6  Any requested maatwerk or exception is only possible via the Explain route
+[?app, rabo:needsExplain, rabo:R_ExplainRoute] :- [?app, rabo:hasExplainRequest, ?x] .
+
+# AB-6.1  "Wat mag niet: een combinatie van maatwerkoplossingen; een combinatie van de
+#          maatwerkoplossingen door inzet van vermogen en de uitzonderingen die afwijken op inkomen."
+[?app, rabo:checked, rabo:R_ExplainCombination] :- [?app, rabo:hasExplainRequest, ?x] .
+[?app, rabo:numberOfMaatwerk, ?n] :-
+    AGGREGATE([?app, rabo:hasExplainRequest, ?x], [?x, a, rabo:Maatwerk] ON ?app BIND COUNT(?x) AS ?n) .
+[?app, rabo:violates, rabo:R_ExplainCombination] :- [?app, rabo:numberOfMaatwerk, ?n], FILTER(?n >= 2) .
+[?app, rabo:violates, rabo:R_ExplainCombination] :-
+    [?app, rabo:hasExplainRequest, ?x], [?x, a, rabo:MaatwerkVermogen],
+    [?app, rabo:hasExplainRequest, ?y], [?y, a, rabo:IncomeException] .
+
+# AB-6.1  Maatwerk: "Gedeeltelijke of volledige verhuur van de woning is niet toegestaan."
+[?app, rabo:violates, rabo:R_MaatwerkNoLetting] :-
+    [?app, rabo:hasExplainRequest, ?x], [?x, a, rabo:Maatwerk],
+    [?app, rabo:hasCollateral, ?c], [?c, a, rabo:PartlyLetHome] .
+
+# BB-4.1.1  Letting under the diplomat clause
+[?app, rabo:checked, rabo:R_DiplomatCountry] :- [?app, rabo:hasDiplomatRequest, ?d] .
+[?app, rabo:violates, rabo:R_DiplomatCountry] :- [?app, rabo:hasDiplomatRequest, ?d], [?d, rabo:country, "GB"] .
+
+[?app, rabo:checked, rabo:R_DiplomatDuration] :- [?app, rabo:hasDiplomatRequest, ?d], [?d, rabo:plannedYears, ?y] .
+[?app, rabo:violates, rabo:R_DiplomatDuration] :- [?app, rabo:hasDiplomatRequest, ?d], [?d, rabo:plannedYears, ?y], FILTER(?y > 3) .
+
+[?app, rabo:checked, rabo:R_DiplomatRepeat] :- [?app, rabo:hasDiplomatRequest, ?d] .
+[?app, rabo:violates, rabo:R_DiplomatRepeat] :-
+    [?app, rabo:hasDiplomatRequest, ?d], [?d, rabo:previousDiplomatLetting, true],
+    [?d, rabo:monthsLivedSinceReturn, ?m], FILTER(?m < 12) .
+[?app, rabo:missingFact, rabo:R_DiplomatRepeat] :-
+    [?app, rabo:hasDiplomatRequest, ?d], [?d, rabo:previousDiplomatLetting, true],
+    NOT EXISTS ?m IN [?d, rabo:monthsLivedSinceReturn, ?m] .
+
+[?app, rabo:checked, rabo:R_DiplomatEmployer] :- [?app, rabo:hasDiplomatRequest, ?d] .
+[?app, rabo:violates, rabo:R_DiplomatEmployer] :- [?app, rabo:hasDiplomatRequest, ?d], [?d, rabo:keepsDutchEmployer, false] .
+[?app, rabo:violates, rabo:R_DiplomatEmployer] :- [?app, rabo:hasDiplomatRequest, ?d], [?d, rabo:returnsToHome, false] .
+[?app, rabo:missingFact, rabo:R_DiplomatEmployer] :-
+    [?app, rabo:hasDiplomatRequest, ?d], NOT EXISTS ?x IN [?d, rabo:keepsDutchEmployer, ?x] .
+[?app, rabo:missingFact, rabo:R_DiplomatEmployer] :-
+    [?app, rabo:hasDiplomatRequest, ?d], NOT EXISTS ?x IN [?d, rabo:returnsToHome, ?x] .

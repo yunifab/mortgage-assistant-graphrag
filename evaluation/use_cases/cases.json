@@ -1,0 +1,167 @@
+{
+  "metadata": {
+    "description": "The facts of use cases UC1-UC9 as structured case data (what the 'Check a case' form produces). Same cases as the questions in run_use_cases.py.",
+    "note": "Only facts that are in the case text are filled in; everything else is left out on purpose (the rules then report missing facts)."
+  },
+  "cases": {
+    "UC1": {
+      "collateral": {
+        "type": "houseboat",
+        "market_value": 300000,
+        "mooring_value": 50000,
+        "expected_lifetime_years": 25,
+        "mooring_from_government": true
+      },
+      "loan": {
+        "amount": 320000,
+        "term_years": 30,
+        "parts": [
+          {
+            "type": "interest_only",
+            "amount": 80000
+          },
+          {
+            "type": "annuity",
+            "amount": 240000
+          }
+        ]
+      }
+    },
+    "UC2": {
+      "collateral": {
+        "type": "regular_house",
+        "market_value": 600000,
+        "valuation": "valuation_report"
+      },
+      "loan": {
+        "amount": 450000,
+        "parts": [
+          {
+            "type": "interest_only",
+            "amount": 100000
+          },
+          {
+            "type": "savings",
+            "amount": 200000,
+            "pledged": false
+          },
+          {
+            "type": "annuity",
+            "amount": 150000
+          }
+        ]
+      }
+    },
+    "UC3": {
+      "collateral": {
+        "type": "regular_house",
+        "market_value": 400000,
+        "valuation": "desktop"
+      },
+      "loan": {
+        "amount": 380000
+      }
+    },
+    "UC4": {
+      "collateral": {
+        "type": "regular_house",
+        "market_value": 300000,
+        "valuation": "valuation_report"
+      },
+      "energy": {
+        "cost": 25000,
+        "value_after_renovation": 320000,
+        "only_energy_measures": true
+      }
+    },
+    "UC5": {
+      "explain_requests": [
+        "maatwerk_vermogen",
+        "exception_income"
+      ]
+    },
+    "UC6": {
+      "diplomat": {
+        "country": "GB",
+        "planned_years": 2,
+        "keeps_dutch_employer": true,
+        "previous_diplomat_letting": true,
+        "months_lived_since_return": 6
+      }
+    },
+    "UC7": {
+      "applicants": [
+        {
+          "name": "father",
+          "age": 45
+        },
+        {
+          "name": "son",
+          "age": 17
+        },
+        {
+          "name": "family friend"
+        }
+      ],
+      "channel": "rabobank_advisor",
+      "conditions": "basis",
+      "rrr": 12,
+      "collateral": {
+        "type": "regular_house",
+        "market_value": 350000,
+        "valuation": "valuation_report"
+      },
+      "loan": {
+        "amount": 340000,
+        "term_years": 30,
+        "parts": [
+          {
+            "type": "interest_only",
+            "amount": 60000
+          },
+          {
+            "type": "annuity",
+            "amount": 280000
+          }
+        ]
+      }
+    },
+    "UC8": {
+      "collateral": {
+        "type": "recreation_home",
+        "market_value": 200000,
+        "valuation": "nrvt",
+        "zoning": "recreation",
+        "permanent_living": true,
+        "seller_is_permanent_resident_and_rabo_client": false
+      },
+      "loan": {
+        "amount": 180000,
+        "term_years": 25,
+        "parts": [
+          {
+            "type": "interest_only",
+            "amount": 50000
+          },
+          {
+            "type": "annuity",
+            "amount": 130000
+          }
+        ]
+      }
+    },
+    "UC9": {
+      "rrr": 18,
+      "collateral": {
+        "type": "houseboat",
+        "valuation": "emci",
+        "in_ship_register": true,
+        "mooring_from_government": true
+      },
+      "loan": {
+        "ltv": 0.85,
+        "term_years": 20
+      }
+    }
+  }
+}

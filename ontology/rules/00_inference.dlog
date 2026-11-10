@@ -1,0 +1,32 @@
+@prefix rabo: <https://linq.example.org/ontology/rabo-mortgage#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+# ---------------------------------------------------------------------------------------------
+# Basic reasoning used by all other rules.
+#
+# Outcomes are written as:   [?thing, rabo:violates,     ?rule]   policy rule broken
+#                            [?thing, rabo:needsExplain, ?rule]   only possible via Explain (chapter 6)
+#                            [?thing, rabo:missingFact,  ?rule]   a fact the rule needs is not given
+#                            [?app,   rabo:checked,      ?rule]   the rule was evaluated for this case
+# ?thing is the application, an applicant, or the collateral. Findings on an applicant or the
+# collateral are also attached to the application (bottom of this file).
+# ---------------------------------------------------------------------------------------------
+
+# Class hierarchy: a DesktopTaxatiePlus is also a DesktopValuation, a Valuation, ...
+[?x, a, ?super] :- [?x, a, ?class], [?class, rdfs:subClassOf, ?super] .
+
+# Everything that belongs to an application
+[?app, rabo:has, ?x] :- [?app, rabo:hasApplicant, ?x] .
+[?app, rabo:has, ?x] :- [?app, rabo:hasCollateral, ?x] .
+[?app, rabo:has, ?x] :- [?app, rabo:hasLoanPart, ?x] .
+
+# Requested loan amount: given explicitly, otherwise the sum of the loan parts
+[?app, rabo:loanAmount, ?a] :- [?app, rabo:requestedAmount, ?a] .
+[?app, rabo:loanAmount, ?s] :-
+    AGGREGATE([?app, rabo:hasLoanPart, ?p], [?p, rabo:amount, ?x] ON ?app BIND SUM(?x) AS ?s),
+    NOT EXISTS ?r IN [?app, rabo:requestedAmount, ?r] .
+
+# Findings about an applicant or the collateral are findings of the application
+[?app, rabo:violates, ?r]     :- [?app, rabo:has, ?x], [?x, rabo:violates, ?r] .
+[?app, rabo:needsExplain, ?r] :- [?app, rabo:has, ?x], [?x, rabo:needsExplain, ?r] .
+[?app, rabo:missingFact, ?r]  :- [?app, rabo:has, ?x], [?x, rabo:missingFact, ?r] .

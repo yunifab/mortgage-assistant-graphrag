@@ -1,0 +1,1535 @@
+{
+  "metadata": {
+    "source_document": "Rabobank Acceptatie- en Beheerbeleid, 14 september 2026 (resources/pdfs/rabobank_mortgage.pdf)",
+    "language": "en",
+    "paired_file": "qa_usecases_nl.json (same ids, Dutch question/answer/hop_reasoning)",
+    "status": "DRAFT: answers must be reviewed by a person (ideally a mortgage expert) before use",
+    "about": "72 questions derived from 9 use cases (ids UC1-01 ... UC9-08, 8 per use case). Many describe a client's application and ask whether it is acceptable; the use cases are explained in docs/USE_CASES.md.",
+    "unanswerable": "Category 'unanswerable': the policy does not contain the answer, or the question lacks facts needed to decide. A correct answer says so (and names what is missing) instead of guessing.",
+    "page_numbering": "page = physical PDF page (1-95), not the printed page label",
+    "quote_normalization": "Quotes are copied from the PDF text. Line-break hyphenation and whitespace were joined.",
+    "created": "2026-11-08",
+    "categories": [
+      "single-hop",
+      "two-hop",
+      "multi-hop",
+      "comparison-aggregation",
+      "unanswerable"
+    ]
+  },
+  "questions": [
+    {
+      "id": "UC1-01",
+      "category": "multi-hop",
+      "question": "A client buys a houseboat with a fixed mooring rented from the municipality. The boat is valued at €300,000 and the mooring at €50,000; the valuation report gives an expected lifetime of 25 years. The client asks for €320,000, of which €80,000 interest-only, over 30 years. Is this acceptable? Name every rule that is broken.",
+      "answer": "No. Four rules are broken: (1) the maximum loan is 90% of the boat (€270,000) plus 90% of the mooring (€45,000) = €315,000, so €320,000 is too high; (2) interest-only is not allowed for a houseboat; (3) the boat loan must be repaid within the expected lifetime of 25 years, so 30 years is too long; (4) the loan on the mooring must be repaid in 20 years. Not given in the case: whether the boat is in the ship register and has a shore connection.",
+      "evidence": [
+        {
+          "page": 31,
+          "section": "5.5.12 Woonboot met vaste ligplaats",
+          "quote": "De maximale verstrekkingsnorm is 90% van de marktwaarde van de woonboot en 90% van de marktwaarde van de ligplaats (de ligplaats hoeft hiervoor niet in eigendom te zijn)."
+        },
+        {
+          "page": 31,
+          "section": "5.5.12 Woonboot met vaste ligplaats",
+          "quote": "Aflossingsvrij lenen is niet toegestaan."
+        },
+        {
+          "page": 31,
+          "section": "5.5.12 Woonboot met vaste ligplaats",
+          "quote": "De lening op de woonboot wordt binnen de verwachte levensduur van de woonboot volledig afgelost, met een maximum van 30 jaar. De verwachte levensduur blijkt uit het taxatierapport."
+        },
+        {
+          "page": 31,
+          "section": "5.5.12 Woonboot met vaste ligplaats",
+          "quote": "De lening op de ligplaats wordt in 20 jaar volledig afgelost."
+        }
+      ],
+      "hop_reasoning": "All four limits are in 5.5.12, but the question does not name them: each case fact has to be checked against a different sentence of the section."
+    },
+    {
+      "id": "UC1-02",
+      "category": "single-hop",
+      "question": "Can part of a houseboat mortgage be interest-only?",
+      "answer": "No. Interest-only borrowing is not allowed for a houseboat with a fixed mooring.",
+      "evidence": [
+        {
+          "page": 8,
+          "section": "1.1.3 Aflossingsvrij lenen",
+          "quote": "In het hoofdstuk Onderpand en waardebepaling staat per type onderpand of aflossingsvrij lenen is toegestaan."
+        },
+        {
+          "page": 31,
+          "section": "5.5.12 Woonboot met vaste ligplaats",
+          "quote": "Aflossingsvrij lenen is niet toegestaan."
+        }
+      ],
+      "hop_reasoning": "The general rule (1.1.3) says the collateral chapter decides per type; 5.5.12 says it is not allowed."
+    },
+    {
+      "id": "UC1-03",
+      "category": "single-hop",
+      "question": "A houseboat is valued at €300,000 and its mooring at €50,000. What is the maximum loan?",
+      "answer": "€315,000: 90% of the boat (€270,000) plus 90% of the mooring (€45,000). The mooring does not have to be owned for this.",
+      "evidence": [
+        {
+          "page": 31,
+          "section": "5.5.12 Woonboot met vaste ligplaats",
+          "quote": "De maximale verstrekkingsnorm is 90% van de marktwaarde van de woonboot en 90% van de marktwaarde van de ligplaats (de ligplaats hoeft hiervoor niet in eigendom te zijn)."
+        }
+      ],
+      "hop_reasoning": "One sentence in 5.5.12 gives both percentages; the answer needs a small calculation."
+    },
+    {
+      "id": "UC1-04",
+      "category": "multi-hop",
+      "question": "Same houseboat (boat €300,000, mooring €50,000, expected lifetime 25 years, E.M.C.I. valuation, in the ship register, shore connection, municipal mooring). The client now asks €315,000, fully annuity, over 25 years. Is it acceptable now?",
+      "answer": "Not yet. Amount (€315,000 = the maximum), repayment type and the 25-year boat term are now fine, but the loan on the mooring must be repaid in 20 years. With one term of 25 years for the whole loan, the mooring part breaks that rule; the mooring part needs a term of at most 20 years.",
+      "evidence": [
+        {
+          "page": 31,
+          "section": "5.5.12 Woonboot met vaste ligplaats",
+          "quote": "De maximale verstrekkingsnorm is 90% van de marktwaarde van de woonboot en 90% van de marktwaarde van de ligplaats (de ligplaats hoeft hiervoor niet in eigendom te zijn)."
+        },
+        {
+          "page": 31,
+          "section": "5.5.12 Woonboot met vaste ligplaats",
+          "quote": "De lening op de woonboot wordt binnen de verwachte levensduur van de woonboot volledig afgelost, met een maximum van 30 jaar. De verwachte levensduur blijkt uit het taxatierapport."
+        },
+        {
+          "page": 31,
+          "section": "5.5.12 Woonboot met vaste ligplaats",
+          "quote": "De lening op de ligplaats wordt in 20 jaar volledig afgelost."
+        }
+      ],
+      "hop_reasoning": "The lifetime rule and the mooring rule are separate bullets of 5.5.12; fixing the first one does not fix the second."
+    },
+    {
+      "id": "UC1-05",
+      "category": "multi-hop",
+      "question": "Same houseboat (boat €300,000, mooring €50,000, expected lifetime 25 years, E.M.C.I. valuation, in the ship register, shore connection, municipal mooring). Loan €315,000, fully annuity, term 20 years. Does it meet the houseboat rules?",
+      "answer": "Yes. €315,000 is exactly the maximum (90% of €300,000 + 90% of €50,000), there is no interest-only part, 20 years is within the 25-year lifetime and meets the 20-year mooring rule, and the boat conditions (ship register, shore connection, government mooring, E.M.C.I. valuation) are met.",
+      "evidence": [
+        {
+          "page": 31,
+          "section": "5.5.12 Woonboot met vaste ligplaats",
+          "quote": "De maximale verstrekkingsnorm is 90% van de marktwaarde van de woonboot en 90% van de marktwaarde van de ligplaats (de ligplaats hoeft hiervoor niet in eigendom te zijn)."
+        },
+        {
+          "page": 31,
+          "section": "5.5.12 Woonboot met vaste ligplaats",
+          "quote": "De lening op de woonboot wordt binnen de verwachte levensduur van de woonboot volledig afgelost, met een maximum van 30 jaar. De verwachte levensduur blijkt uit het taxatierapport."
+        },
+        {
+          "page": 31,
+          "section": "5.5.12 Woonboot met vaste ligplaats",
+          "quote": "De lening op de ligplaats wordt in 20 jaar volledig afgelost."
+        },
+        {
+          "page": 31,
+          "section": "5.5.12 Woonboot met vaste ligplaats",
+          "quote": "De woonboot is ingeschreven in het scheepsregister."
+        },
+        {
+          "page": 31,
+          "section": "5.5.12 Woonboot met vaste ligplaats",
+          "quote": "De woonboot heeft een vaste ligplaats met een walaansluiting."
+        },
+        {
+          "page": 31,
+          "section": "5.5.12 Woonboot met vaste ligplaats",
+          "quote": "De ligplaatsvergunning of huurovereenkomst is van een overheidsinstelling (zoals gemeente, provincie of waterschap)."
+        }
+      ],
+      "hop_reasoning": "Every limit of 5.5.12 sits exactly on or within its boundary; the answer must not call the maximum amount 'too high'."
+    },
+    {
+      "id": "UC1-06",
+      "category": "single-hop",
+      "question": "Who must value a houseboat, and does the report need NWWI validation?",
+      "answer": "An E.M.C.I.-certified houseboat appraiser, with separate values for the boat and the mooring. NWWI validation is not required.",
+      "evidence": [
+        {
+          "page": 31,
+          "section": "5.5.12 Woonboot met vaste ligplaats",
+          "quote": "De marktwaarde van het onderpand wordt bepaald met een taxatierapport opgesteld door een E.M.C.I. gecertificeerde woonbotentaxateur. De waarde van de woonboot en de ligplaats zijn gesplitst. Validatie door NWWI is niet verplicht."
+        }
+      ],
+      "hop_reasoning": "The valuation paragraph of 5.5.12 answers it directly."
+    },
+    {
+      "id": "UC1-07",
+      "category": "two-hop",
+      "question": "Can the advisor use a Calcasa desktop valuation for a houseboat to save time?",
+      "answer": "No. A Rabobank Desktop Taxatie (Plus) of Calcasa is not possible for a houseboat with a fixed mooring; the value must come from a report by an E.M.C.I.-certified houseboat appraiser.",
+      "evidence": [
+        {
+          "page": 27,
+          "section": "5.4 Waardebepaling onderpand",
+          "quote": "Het onderpand is een woonboerderij, woon-/winkelpand of woon/praktijkruimte, bedrijfswoning, woonwagen met vaste standplaats, waterwoning, woonboot met vaste ligplaats, recreatiewoning, verhuurde woning."
+        },
+        {
+          "page": 31,
+          "section": "5.5.12 Woonboot met vaste ligplaats",
+          "quote": "De marktwaarde van het onderpand wordt bepaald met een taxatierapport opgesteld door een E.M.C.I. gecertificeerde woonbotentaxateur. De waarde van de woonboot en de ligplaats zijn gesplitst. Validatie door NWWI is niet verplicht."
+        }
+      ],
+      "hop_reasoning": "The exclusion is in the general valuation list of 5.4; the required valuation is in 5.5.12."
+    },
+    {
+      "id": "UC1-08",
+      "category": "unanswerable",
+      "question": "What interest rate does Rabobank charge on a houseboat mortgage?",
+      "answer": "The policy does not say. The Acceptatie- en Beheerbeleid sets acceptance rules (limits, terms, valuation), not interest rates.",
+      "evidence": [],
+      "hop_reasoning": "Out of scope: no section of the policy gives interest rates. A good answer says so instead of guessing."
+    },
+    {
+      "id": "UC2-01",
+      "category": "two-hop",
+      "question": "Regular house, €600,000 from a validated valuation report. The loan of €450,000 has three parts: €100,000 interest-only, €200,000 savings mortgage whose savings product is NOT pledged, and €150,000 annuity. Does this stay within the interest-only limit?",
+      "answer": "No. Because the savings product is not pledged, the whole €200,000 part counts as interest-only. Total interest-only is €300,000, above the cap of €150,000 (the lower of 30% of €600,000 = €180,000 and €150,000).",
+      "evidence": [
+        {
+          "page": 8,
+          "section": "1.1.3 Aflossingsvrij lenen",
+          "quote": "Aflossingsvrij lenen is toegestaan tot maximaal 30% van de marktwaarde van de woning en niet meer dan € 150.000."
+        },
+        {
+          "page": 8,
+          "section": "1.1.3 Aflossingsvrij lenen",
+          "quote": "Een aflossingsvrij gedeelte als onderdeel van de hypotheek met opbouwproduct (verkapt aflossingsvrij lenen) wordt ook gezien als aflossingsvrij en telt daardoor mee voor het maximale percentage en bedrag."
+        },
+        {
+          "page": 8,
+          "section": "1.1.3 Aflossingsvrij lenen",
+          "quote": "Als het opbouwproduct niet is verpand, dan wordt de gehele lening gezien als aflossingsvrij."
+        }
+      ],
+      "hop_reasoning": "The cap and the 'hidden interest-only' rule are both in 1.1.3, but in different paragraphs; reading only the cap gives the wrong answer."
+    },
+    {
+      "id": "UC2-02",
+      "category": "single-hop",
+      "question": "A savings mortgage part has a savings product that is not pledged. How much of that loan part counts as interest-only?",
+      "answer": "All of it: if the build-up product is not pledged, the whole loan part is treated as interest-only.",
+      "evidence": [
+        {
+          "page": 8,
+          "section": "1.1.3 Aflossingsvrij lenen",
+          "quote": "Als het opbouwproduct niet is verpand, dan wordt de gehele lening gezien als aflossingsvrij."
+        }
+      ],
+      "hop_reasoning": "One sentence in 1.1.3."
+    },
+    {
+      "id": "UC2-03",
+      "category": "two-hop",
+      "question": "Same case (house €600,000 with a validated report; €100,000 interest-only, €200,000 savings mortgage, €150,000 annuity, 30 years), but now the savings product IS pledged and its target capital covers the €200,000. Is the interest-only limit met?",
+      "answer": "Yes. With a pledged product the interest-only share follows from the target capital; if that covers the €200,000, none of it is interest-only. Total interest-only is then €100,000, within the €150,000 cap.",
+      "evidence": [
+        {
+          "page": 8,
+          "section": "1.1.3 Aflossingsvrij lenen",
+          "quote": "Op basis van het doelkapitaal van het opbouwproduct wordt bepaald hoeveel van de lening aflossingsvrij is."
+        },
+        {
+          "page": 8,
+          "section": "1.1.3 Aflossingsvrij lenen",
+          "quote": "Aflossingsvrij lenen is toegestaan tot maximaal 30% van de marktwaarde van de woning en niet meer dan € 150.000."
+        }
+      ],
+      "hop_reasoning": "Needs both the target-capital sentence and the cap of 1.1.3."
+    },
+    {
+      "id": "UC2-04",
+      "category": "single-hop",
+      "question": "A house is worth €400,000. What is the maximum interest-only amount?",
+      "answer": "€120,000: interest-only is allowed up to 30% of the market value (€120,000) and not more than €150,000; the lower amount applies.",
+      "evidence": [
+        {
+          "page": 8,
+          "section": "1.1.3 Aflossingsvrij lenen",
+          "quote": "Aflossingsvrij lenen is toegestaan tot maximaal 30% van de marktwaarde van de woning en niet meer dan € 150.000."
+        }
+      ],
+      "hop_reasoning": "One sentence in 1.1.3 plus a calculation."
+    },
+    {
+      "id": "UC2-05",
+      "category": "single-hop",
+      "question": "House €600,000 (validated report). Loan €450,000 over 30 years: €150,000 interest-only and €300,000 annuity. Is the interest-only part allowed?",
+      "answer": "Yes. €150,000 is exactly the cap (the lower of 30% × €600,000 = €180,000 and €150,000), so it is allowed.",
+      "evidence": [
+        {
+          "page": 8,
+          "section": "1.1.3 Aflossingsvrij lenen",
+          "quote": "Aflossingsvrij lenen is toegestaan tot maximaal 30% van de marktwaarde van de woning en niet meer dan € 150.000."
+        }
+      ],
+      "hop_reasoning": "Boundary case on the cap of 1.1.3: 'not more than' includes the amount itself."
+    },
+    {
+      "id": "UC2-06",
+      "category": "two-hop",
+      "question": "A client wants an interest-only part. Can the house be valued with the standard Rabobank Desktop Taxatie of Calcasa?",
+      "answer": "No. The standard Rabobank Desktop Taxatie of Calcasa is not allowed when the applicant has or wants interest-only borrowing; a validated valuation report is needed (exception: a bridging mortgage that is the only interest-only product on the new home).",
+      "evidence": [
+        {
+          "page": 27,
+          "section": "5.4 Waardebepaling onderpand",
+          "quote": "Een Rabobank Desktop Taxatie van Calcasa is niet toegestaan als de aanvrager aflossingsvrij heeft of wil lenen."
+        }
+      ],
+      "hop_reasoning": "The interest-only topic is in 1.1.3, but the valuation restriction is in 5.4."
+    },
+    {
+      "id": "UC2-07",
+      "category": "single-hop",
+      "question": "Do mortgage loans the client has with another lender count towards the interest-only maximum?",
+      "answer": "Yes. Mortgage loans with third parties are also counted when determining the maximum interest-only amount.",
+      "evidence": [
+        {
+          "page": 8,
+          "section": "1.1.3 Aflossingsvrij lenen",
+          "quote": "Bij het bepalen van de maximale hoogte voor aflossingsvrij lenen worden ook hypothecaire leningen bij derden meegeteld."
+        }
+      ],
+      "hop_reasoning": "One sentence in 1.1.3."
+    },
+    {
+      "id": "UC2-08",
+      "category": "unanswerable",
+      "question": "A client has €120,000 interest-only and a €100,000 savings mortgage. Does this fit within the interest-only limit?",
+      "answer": "That cannot be decided with these facts. The answer depends on (1) the market value of the home (the cap is 30% of it, at most €150,000) and (2) whether the savings product is pledged (if not, the full €100,000 also counts as interest-only, giving €220,000, which is above €150,000 in any case).",
+      "evidence": [
+        {
+          "page": 8,
+          "section": "1.1.3 Aflossingsvrij lenen",
+          "quote": "Aflossingsvrij lenen is toegestaan tot maximaal 30% van de marktwaarde van de woning en niet meer dan € 150.000."
+        },
+        {
+          "page": 8,
+          "section": "1.1.3 Aflossingsvrij lenen",
+          "quote": "Als het opbouwproduct niet is verpand, dan wordt de gehele lening gezien als aflossingsvrij."
+        }
+      ],
+      "hop_reasoning": "Missing facts: a good answer names what is missing instead of assuming values."
+    },
+    {
+      "id": "UC3-01",
+      "category": "two-hop",
+      "question": "Detached house with a market value of €400,000 from a Rabobank Desktop Taxatie of Calcasa. The client needs a €380,000 mortgage. Is that within the maximum loan-to-value, and if not, what can the advisor do?",
+      "answer": "No. With a desktop valuation the maximum is 90% = €360,000, and a desktop valuation is not even possible for a loan above 90% of the value. The advisor can order an NWWI-validated valuation report: then the maximum is 100% = €400,000 and €380,000 fits.",
+      "evidence": [
+        {
+          "page": 29,
+          "section": "5.5.2 Reguliere woning",
+          "quote": "De maximale verstrekkingsnorm is 90% van de marktwaarde uit de Rabobank Desktop Taxatie (Plus) van Calcasa of 100% van de marktwaarde uit het taxatierapport."
+        },
+        {
+          "page": 27,
+          "section": "5.4 Waardebepaling onderpand",
+          "quote": "De benodigde of totale lening is meer dan 90% van de marktwaarde van het onderpand."
+        }
+      ],
+      "hop_reasoning": "The 90%/100% norms are in 5.5.2; the rule that a desktop valuation is excluded above 90% is in 5.4."
+    },
+    {
+      "id": "UC3-02",
+      "category": "comparison-aggregation",
+      "question": "List all situations in which a Rabobank Desktop Taxatie (Plus) of Calcasa cannot be used.",
+      "answer": "(1) The collateral is a farmhouse, home with shop or practice, business dwelling, mobile home, water home, houseboat, recreation home or let home. (2) It was delivered in the current or previous calendar year. (3) There is a ground lease (erfpacht) or right of superficies (opstal), unless the opstal is for a utility. (4) There is a purchase scheme (koopoplossing), except the SVn Starterslening. (5) The reliability level of the desktop valuation is below 5. (6) The market value is above €1 million. (7) The loan is more than 90% of the market value. In addition, the standard (non-Plus) desktop valuation is not allowed when the client has or wants interest-only borrowing.",
+      "evidence": [
+        {
+          "page": 27,
+          "section": "5.4 Waardebepaling onderpand",
+          "quote": "Het onderpand is een woonboerderij, woon-/winkelpand of woon/praktijkruimte, bedrijfswoning, woonwagen met vaste standplaats, waterwoning, woonboot met vaste ligplaats, recreatiewoning, verhuurde woning."
+        },
+        {
+          "page": 27,
+          "section": "5.4 Waardebepaling onderpand",
+          "quote": "Het onderpand is opgeleverd in het huidige of vorige kalenderjaar."
+        },
+        {
+          "page": 27,
+          "section": "5.4 Waardebepaling onderpand",
+          "quote": "Er is sprake van het recht van erfpacht of opstal. Dit geldt niet als het recht van opstal voor een nutsvoorziening is."
+        },
+        {
+          "page": 27,
+          "section": "5.4 Waardebepaling onderpand",
+          "quote": "Er is sprake van een koopoplossing. Met uitzondering van de SVn Starterslening, dan is een Rabobank Desktop Taxatie (Plus) van Calcasa wel toegestaan."
+        },
+        {
+          "page": 27,
+          "section": "5.4 Waardebepaling onderpand",
+          "quote": "Het betrouwbaarheidsniveau van de Rabobank Desktop Taxatie (Plus) van Calcasa is lager dan 5."
+        },
+        {
+          "page": 27,
+          "section": "5.4 Waardebepaling onderpand",
+          "quote": "De marktwaarde van de woning is hoger dan € 1 miljoen."
+        },
+        {
+          "page": 27,
+          "section": "5.4 Waardebepaling onderpand",
+          "quote": "De benodigde of totale lening is meer dan 90% van de marktwaarde van het onderpand."
+        },
+        {
+          "page": 27,
+          "section": "5.4 Waardebepaling onderpand",
+          "quote": "Een Rabobank Desktop Taxatie van Calcasa is niet toegestaan als de aanvrager aflossingsvrij heeft of wil lenen."
+        }
+      ],
+      "hop_reasoning": "All exclusions are in 5.4, but as a list of seven bullets plus a separate sentence on interest-only; a complete answer collects all of them."
+    },
+    {
+      "id": "UC3-03",
+      "category": "single-hop",
+      "question": "Detached house, market value €400,000, now from an NWWI-validated valuation report. Mortgage €380,000, 30 years. Is that within the maximum loan-to-value?",
+      "answer": "Yes. With a valuation report the maximum is 100% of the market value = €400,000, so €380,000 (95%) fits.",
+      "evidence": [
+        {
+          "page": 29,
+          "section": "5.5.2 Reguliere woning",
+          "quote": "De maximale verstrekkingsnorm is 90% van de marktwaarde uit de Rabobank Desktop Taxatie (Plus) van Calcasa of 100% van de marktwaarde uit het taxatierapport."
+        }
+      ],
+      "hop_reasoning": "Same section as UC3-01 (5.5.2), other valuation method."
+    },
+    {
+      "id": "UC3-04",
+      "category": "two-hop",
+      "question": "Detached house, €400,000 from a Rabobank Desktop Taxatie of Calcasa. Mortgage €360,000, 30 years, no interest-only. Is this allowed?",
+      "answer": "Yes. €360,000 is exactly 90% of €400,000: the maximum with a desktop valuation. The desktop is only excluded for a loan of MORE than 90%, so it can be used here.",
+      "evidence": [
+        {
+          "page": 29,
+          "section": "5.5.2 Reguliere woning",
+          "quote": "De maximale verstrekkingsnorm is 90% van de marktwaarde uit de Rabobank Desktop Taxatie (Plus) van Calcasa of 100% van de marktwaarde uit het taxatierapport."
+        },
+        {
+          "page": 27,
+          "section": "5.4 Waardebepaling onderpand",
+          "quote": "De benodigde of totale lening is meer dan 90% van de marktwaarde van het onderpand."
+        }
+      ],
+      "hop_reasoning": "Boundary on two rules at once: the 90% norm (5.5.2) and the 'more than 90%' exclusion (5.4)."
+    },
+    {
+      "id": "UC3-05",
+      "category": "single-hop",
+      "question": "An apartment is valued at €250,000 with a Calcasa desktop valuation. What is the maximum mortgage?",
+      "answer": "€225,000 (90% of €250,000). With a valuation report it would be €250,000 (100%).",
+      "evidence": [
+        {
+          "page": 29,
+          "section": "5.5.3 Appartement",
+          "quote": "De maximale verstrekkingsnorm is 90% van de marktwaarde uit de Rabobank Desktop Taxatie (Plus) van Calcasa of 100% van de marktwaarde uit het taxatierapport."
+        }
+      ],
+      "hop_reasoning": "One sentence in 5.5.3 plus a calculation."
+    },
+    {
+      "id": "UC3-06",
+      "category": "two-hop",
+      "question": "Detached house valued at €1,200,000 with a Rabobank Desktop Taxatie of Calcasa. Mortgage €900,000 (75%), 30 years. Can this desktop valuation be used?",
+      "answer": "No. A desktop valuation is not possible when the market value of the home is above €1 million, even though 75% is well within the 90% norm. A validated valuation report is needed.",
+      "evidence": [
+        {
+          "page": 27,
+          "section": "5.4 Waardebepaling onderpand",
+          "quote": "De marktwaarde van de woning is hoger dan € 1 miljoen."
+        },
+        {
+          "page": 29,
+          "section": "5.5.2 Reguliere woning",
+          "quote": "De maximale verstrekkingsnorm is 90% van de marktwaarde uit de Rabobank Desktop Taxatie (Plus) van Calcasa of 100% van de marktwaarde uit het taxatierapport."
+        }
+      ],
+      "hop_reasoning": "The LTV norm (5.5.2) is met, but the exclusion list in 5.4 blocks the valuation method."
+    },
+    {
+      "id": "UC3-07",
+      "category": "two-hop",
+      "question": "Detached house, €400,000 from a (standard) Rabobank Desktop Taxatie of Calcasa. Mortgage €350,000 over 30 years, of which €50,000 interest-only. Is this in order?",
+      "answer": "No. The loan (87.5%) is within the 90% norm and €50,000 is within the interest-only cap, but the standard Rabobank Desktop Taxatie of Calcasa is not allowed when the applicant wants interest-only borrowing. A validated valuation report is needed.",
+      "evidence": [
+        {
+          "page": 27,
+          "section": "5.4 Waardebepaling onderpand",
+          "quote": "Een Rabobank Desktop Taxatie van Calcasa is niet toegestaan als de aanvrager aflossingsvrij heeft of wil lenen."
+        },
+        {
+          "page": 29,
+          "section": "5.5.2 Reguliere woning",
+          "quote": "De maximale verstrekkingsnorm is 90% van de marktwaarde uit de Rabobank Desktop Taxatie (Plus) van Calcasa of 100% van de marktwaarde uit het taxatierapport."
+        },
+        {
+          "page": 8,
+          "section": "1.1.3 Aflossingsvrij lenen",
+          "quote": "Aflossingsvrij lenen is toegestaan tot maximaal 30% van de marktwaarde van de woning en niet meer dan € 150.000."
+        }
+      ],
+      "hop_reasoning": "The amounts pass 5.5.2 and 1.1.3; the problem is a separate sentence in 5.4."
+    },
+    {
+      "id": "UC3-08",
+      "category": "unanswerable",
+      "question": "How much does a Rabobank Desktop Taxatie of Calcasa cost the client?",
+      "answer": "The policy does not say. It describes when a desktop valuation may be used, not its price.",
+      "evidence": [],
+      "hop_reasoning": "Out of scope: no section gives prices."
+    },
+    {
+      "id": "UC4-01",
+      "category": "two-hop",
+      "question": "A client owns a regular house (main residence) worth €300,000 before renovation and €320,000 after, valued with a validated valuation report. They only invest €25,000 in energy-saving measures. What is the maximum mortgage?",
+      "answer": "€325,000: 100% of the value before renovation (€300,000) plus the actual costs (€25,000). This stays below the cap of 106% of the value after renovation (€339,200). The rule applies because a regular house with a valuation report has the 100% norm.",
+      "evidence": [
+        {
+          "page": 9,
+          "section": "1.3 Maximale hypotheek op basis van het onderpand (Energiebesparende voorzieningen)",
+          "quote": "De maximale hypotheek is 100% van de marktwaarde voor verbouwing plus de werkelijke kosten voor energiebesparende voorzieningen."
+        },
+        {
+          "page": 9,
+          "section": "1.3 Maximale hypotheek op basis van het onderpand (Energiebesparende voorzieningen)",
+          "quote": "De maximale hypotheek is niet hoger dan 106% van de marktwaarde na verbouwing (inclusief energiebesparende voorzieningen)."
+        },
+        {
+          "page": 9,
+          "section": "1.3 Maximale hypotheek op basis van het onderpand (Energiebesparende voorzieningen)",
+          "quote": "Deze situatie geldt alleen voor de onderpanden waarbij de maximale verstrekkingsnorm 100% is."
+        },
+        {
+          "page": 29,
+          "section": "5.5.2 Reguliere woning",
+          "quote": "De maximale verstrekkingsnorm is 90% van de marktwaarde uit de Rabobank Desktop Taxatie (Plus) van Calcasa of 100% van de marktwaarde uit het taxatierapport."
+        }
+      ],
+      "hop_reasoning": "The formula and cap are in 1.3, but it only applies to collateral with a 100% norm, which follows from 5.5.2."
+    },
+    {
+      "id": "UC4-02",
+      "category": "two-hop",
+      "question": "Same house (€300,000 before, €320,000 after renovation, validated valuation report), but the energy-saving measures now cost €45,000. What is the maximum mortgage?",
+      "answer": "€339,200. €300,000 + €45,000 = €345,000 is above the cap of 106% of the value after renovation (106% × €320,000 = €339,200), so the cap applies.",
+      "evidence": [
+        {
+          "page": 9,
+          "section": "1.3 Maximale hypotheek op basis van het onderpand (Energiebesparende voorzieningen)",
+          "quote": "De maximale hypotheek is 100% van de marktwaarde voor verbouwing plus de werkelijke kosten voor energiebesparende voorzieningen."
+        },
+        {
+          "page": 9,
+          "section": "1.3 Maximale hypotheek op basis van het onderpand (Energiebesparende voorzieningen)",
+          "quote": "De maximale hypotheek is niet hoger dan 106% van de marktwaarde na verbouwing (inclusief energiebesparende voorzieningen)."
+        },
+        {
+          "page": 9,
+          "section": "1.3 Maximale hypotheek op basis van het onderpand (Energiebesparende voorzieningen)",
+          "quote": "Deze situatie geldt alleen voor de onderpanden waarbij de maximale verstrekkingsnorm 100% is."
+        },
+        {
+          "page": 29,
+          "section": "5.5.2 Reguliere woning",
+          "quote": "De maximale verstrekkingsnorm is 90% van de marktwaarde uit de Rabobank Desktop Taxatie (Plus) van Calcasa of 100% van de marktwaarde uit het taxatierapport."
+        }
+      ],
+      "hop_reasoning": "Now the cap, not the formula, decides: both sentences of 1.3 are needed."
+    },
+    {
+      "id": "UC4-03",
+      "category": "two-hop",
+      "question": "A client owns a holiday home worth €200,000 (NRVT valuation report) and invests €20,000 in energy-saving measures. Can they use the energy-saving rule to borrow up to 106% of the value after renovation?",
+      "answer": "No. The energy-saving extension only applies to collateral with a 100% norm, and a holiday home has a maximum of 90% of its market value. The maximum stays 90% × €200,000 = €180,000.",
+      "evidence": [
+        {
+          "page": 9,
+          "section": "1.3 Maximale hypotheek op basis van het onderpand (Energiebesparende voorzieningen)",
+          "quote": "Deze situatie geldt alleen voor de onderpanden waarbij de maximale verstrekkingsnorm 100% is."
+        },
+        {
+          "page": 31,
+          "section": "5.5.13 Recreatiewoning",
+          "quote": "De maximale verstrekkingsnorm is 90% van de marktwaarde."
+        }
+      ],
+      "hop_reasoning": "1.3 limits the extension to 100%-collateral; the 90% for a holiday home is in 5.5.13."
+    },
+    {
+      "id": "UC4-04",
+      "category": "single-hop",
+      "question": "If a client only invests in energy-saving measures, what is the upper limit of the mortgage?",
+      "answer": "100% of the market value before renovation plus the actual costs of the energy-saving measures, but never more than 106% of the market value after renovation. The measures must be in the renovation specification or the valuation report.",
+      "evidence": [
+        {
+          "page": 9,
+          "section": "1.3 Maximale hypotheek op basis van het onderpand (Energiebesparende voorzieningen)",
+          "quote": "De aanvrager investeert in energiebesparende maatregelen die zijn opgenomen in de verbouwingsspecificatie of het taxatierapport."
+        },
+        {
+          "page": 9,
+          "section": "1.3 Maximale hypotheek op basis van het onderpand (Energiebesparende voorzieningen)",
+          "quote": "De maximale hypotheek is 100% van de marktwaarde voor verbouwing plus de werkelijke kosten voor energiebesparende voorzieningen."
+        },
+        {
+          "page": 9,
+          "section": "1.3 Maximale hypotheek op basis van het onderpand (Energiebesparende voorzieningen)",
+          "quote": "De maximale hypotheek is niet hoger dan 106% van de marktwaarde na verbouwing (inclusief energiebesparende voorzieningen)."
+        }
+      ],
+      "hop_reasoning": "One paragraph of 1.3."
+    },
+    {
+      "id": "UC4-05",
+      "category": "single-hop",
+      "question": "A house is worth €300,000 now. The client spends €25,000 on energy-saving measures and also renovates the kitchen, which raises the value to €320,000 (without the energy measures) and €335,000 including them. What is the maximum mortgage?",
+      "answer": "€345,000: 100% of the value without the increase from the energy measures but with the kitchen (€320,000) plus the energy costs (€25,000). The cap is 106% of the value after all works (106% × €335,000 = €355,100), so €345,000 applies. This assumes the house has the 100% norm (e.g. a validated valuation report).",
+      "evidence": [
+        {
+          "page": 9,
+          "section": "1.3 Maximale hypotheek op basis van het onderpand (Energiebesparende voorzieningen)",
+          "quote": "Dan is de maximale hypotheek 100% van de marktwaarde zonder de waardestijging door energiebesparende voorzieningen, maar met de waardestijging door verbouwing en de werkelijke kosten voor energiebesparende voorzieningen."
+        },
+        {
+          "page": 9,
+          "section": "1.3 Maximale hypotheek op basis van het onderpand (Energiebesparende voorzieningen)",
+          "quote": "De maximale hypotheek is niet hoger dan 106% van de marktwaarde na verbouwing (inclusief energiebesparende voorzieningen en verbouwing)."
+        },
+        {
+          "page": 9,
+          "section": "1.3 Maximale hypotheek op basis van het onderpand (Energiebesparende voorzieningen)",
+          "quote": "Deze situatie geldt alleen voor de onderpanden waarbij de maximale verstrekkingsnorm 100% is."
+        }
+      ],
+      "hop_reasoning": "The second bullet of 1.3 (energy measures plus other renovations) has its own formula and cap."
+    },
+    {
+      "id": "UC4-06",
+      "category": "single-hop",
+      "question": "Do a heat pump and solar panels count as energy-saving measures in the policy?",
+      "answer": "Yes. The definitions list includes heat pumps and solar panels as energy-saving measures.",
+      "evidence": [
+        {
+          "page": 63,
+          "section": "Bijlage 2 Definitielijst: Energiebesparende maatregelen",
+          "quote": "douche-warmteterugwinningsysteem, energiezuinig ventilatiesysteem indien deze maatregel wordt getroffen in combinatie met andere energiebesparende maatregelen, warmtepompen en zonnepanelen."
+        }
+      ],
+      "hop_reasoning": "The definition is only in Appendix 2 (definitions), not in section 1.3."
+    },
+    {
+      "id": "UC4-07",
+      "category": "single-hop",
+      "question": "A client wants extra room for energy-saving measures but does not know yet which measures. Can that be financed, and up to what level?",
+      "answer": "Yes, with the Energiebespaarbudget: it can be financed up to 106% of the market value and does not have to be in a renovation specification or valuation report. It only applies to collateral with a 100% norm.",
+      "evidence": [
+        {
+          "page": 10,
+          "section": "1.3 Maximale hypotheek op basis van het onderpand (Energiebespaarbudget)",
+          "quote": "Het staat nog niet vast welke energiebesparende maatregelen er worden getroffen."
+        },
+        {
+          "page": 10,
+          "section": "1.3 Maximale hypotheek op basis van het onderpand (Energiebespaarbudget)",
+          "quote": "Het Energiebespaarbudget kan tot 106% van de marktwaarde van de woning worden gefinancierd."
+        },
+        {
+          "page": 10,
+          "section": "1.3 Maximale hypotheek op basis van het onderpand (Energiebespaarbudget)",
+          "quote": "Het Energiebespaarbudget hoeft niet te zijn opgenomen in een verbouwingsspecificatie of het taxatierapport."
+        },
+        {
+          "page": 10,
+          "section": "1.3 Maximale hypotheek op basis van het onderpand (Energiebespaarbudget)",
+          "quote": "Deze situatie geldt alleen voor de onderpanden waarbij de maximale verstrekkingsnorm 100% is."
+        }
+      ],
+      "hop_reasoning": "The Energiebespaarbudget paragraph of 1.3."
+    },
+    {
+      "id": "UC4-08",
+      "category": "unanswerable",
+      "question": "How much government subsidy can the client get for the solar panels?",
+      "answer": "The policy does not say. It covers how energy-saving measures affect the mortgage, not government subsidies.",
+      "evidence": [],
+      "hop_reasoning": "Out of scope."
+    },
+    {
+      "id": "UC5-01",
+      "category": "single-hop",
+      "question": "The client wants tailor-made financing by using assets (maatwerk door inzet van vermogen) and also needs an exception for his income as a professional football player. Is this combination allowed?",
+      "answer": "No. A combination of maatwerk by using assets and exceptions that deviate on income is explicitly not allowed. (A professional football player's income is an income exception, 6.2.1.2.)",
+      "evidence": [
+        {
+          "page": 34,
+          "section": "6.1 Maatwerk (Combinatie van Explain)",
+          "quote": "Een combinatie van de maatwerkoplossingen door inzet van vermogen en de uitzonderingen die afwijken op inkomen."
+        }
+      ],
+      "hop_reasoning": "The 'what is not allowed' list of 6.1 answers it once you know the football income is an income exception."
+    },
+    {
+      "id": "UC5-02",
+      "category": "single-hop",
+      "question": "The client wants maatwerk based on the non-annuity affordability test (niet-annuïtaire I/L-toets) and an exception for his income as a professional football player. Is this combination allowed?",
+      "answer": "Yes. A combination of one maatwerk solution and one or more exceptions is allowed; only maatwerk by using assets may not be combined with income exceptions. It still goes through the Explain route, with an Explain form and justification.",
+      "evidence": [
+        {
+          "page": 34,
+          "section": "6.1 Maatwerk (Combinatie van Explain)",
+          "quote": "Een combinatie van een maatwerkoplossing en één of meerdere uitzonderingen."
+        },
+        {
+          "page": 34,
+          "section": "6.1 Maatwerk (Combinatie van Explain)",
+          "quote": "Een combinatie van de maatwerkoplossingen door inzet van vermogen en de uitzonderingen die afwijken op inkomen."
+        },
+        {
+          "page": 34,
+          "section": "6.1 Maatwerk",
+          "quote": "Er is een Explainformulier met onderbouwing aanwezig."
+        }
+      ],
+      "hop_reasoning": "Both the allowed and the not-allowed list of 6.1 are needed to see that this case is on the allowed side."
+    },
+    {
+      "id": "UC5-03",
+      "category": "single-hop",
+      "question": "Can a client combine maatwerk based on the non-annuity affordability test with maatwerk by using assets?",
+      "answer": "No. A combination of maatwerk solutions is not allowed. On top of that, the non-annuity test may not be used with maatwerk by using assets.",
+      "evidence": [
+        {
+          "page": 34,
+          "section": "6.1 Maatwerk (Combinatie van Explain)",
+          "quote": "Een combinatie van maatwerkoplossingen."
+        },
+        {
+          "page": 36,
+          "section": "6.1.2 Maatwerk door inzet van vermogen",
+          "quote": "Bij maatwerk door inzet van vermogen is het gebruik van de niet-annuïtaire I/L-toets niet toegestaan."
+        }
+      ],
+      "hop_reasoning": "6.1 forbids combining maatwerk; 6.1.2 adds a second reason."
+    },
+    {
+      "id": "UC5-04",
+      "category": "single-hop",
+      "question": "Can an application use two Explain exceptions at once, for example one on income and one on the collateral?",
+      "answer": "Yes. A combination of exceptions is allowed. The application still goes through the Explain route with an Explain form and justification.",
+      "evidence": [
+        {
+          "page": 34,
+          "section": "6.1 Maatwerk (Combinatie van Explain)",
+          "quote": "Een combinatie van uitzonderingen."
+        },
+        {
+          "page": 34,
+          "section": "6.1 Maatwerk",
+          "quote": "Er is een Explainformulier met onderbouwing aanwezig."
+        }
+      ],
+      "hop_reasoning": "The 'what is allowed' list of 6.1."
+    },
+    {
+      "id": "UC5-05",
+      "category": "comparison-aggregation",
+      "question": "Within Explain, which combinations of maatwerk solutions and exceptions are allowed, and which are not?",
+      "answer": "Allowed: one maatwerk solution with one or more exceptions, and a combination of exceptions. Not allowed: a combination of maatwerk solutions, and maatwerk by using assets combined with exceptions that deviate on income. (The two kinds of maatwerk are the non-annuity affordability test and using assets.)",
+      "evidence": [
+        {
+          "page": 34,
+          "section": "6.1 Maatwerk (Combinatie van Explain)",
+          "quote": "Een combinatie van een maatwerkoplossing en één of meerdere uitzonderingen."
+        },
+        {
+          "page": 34,
+          "section": "6.1 Maatwerk (Combinatie van Explain)",
+          "quote": "Een combinatie van uitzonderingen."
+        },
+        {
+          "page": 34,
+          "section": "6.1 Maatwerk (Combinatie van Explain)",
+          "quote": "Een combinatie van maatwerkoplossingen."
+        },
+        {
+          "page": 34,
+          "section": "6.1 Maatwerk (Combinatie van Explain)",
+          "quote": "Een combinatie van de maatwerkoplossingen door inzet van vermogen en de uitzonderingen die afwijken op inkomen."
+        },
+        {
+          "page": 34,
+          "section": "6.1 Maatwerk",
+          "quote": "Bij Rabobank is maatwerk mogelijk op basis van de niet-annuïtaire I/L-toets (6.1.1) en door inzet van vermogen (6.1.2)."
+        }
+      ],
+      "hop_reasoning": "The 'what is allowed' and 'what is not allowed' lists of 6.1 must be put side by side."
+    },
+    {
+      "id": "UC5-06",
+      "category": "single-hop",
+      "question": "For a professional football player whose loan term is longer than his employment contract, how is the test income determined?",
+      "answer": "The lowest of: the average annual income of the last 3 full calendar years (capped at the income of the last calendar year), or the earning capacity from the Arbeidsmarktscan.",
+      "evidence": [
+        {
+          "page": 38,
+          "section": "6.2.1.2 Inkomen (Profvoetballer)",
+          "quote": "De looptijd van de lening is langer dan de duur van de arbeidsovereenkomst of uitkering"
+        },
+        {
+          "page": 38,
+          "section": "6.2.1.2 Inkomen (Profvoetballer)",
+          "quote": "het gemiddelde jaarinkomen van de laatste 3 volledige kalenderjaren, tot maximaal het jaarinkomen van het laatste kalenderjaar; of"
+        },
+        {
+          "page": 38,
+          "section": "6.2.1.2 Inkomen (Profvoetballer)",
+          "quote": "de verdiencapaciteit uit de Arbeidsmarktscan (zie voorwaarden paragraaf 3.1.3)."
+        }
+      ],
+      "hop_reasoning": "The professional football player paragraph of 6.2.1.2, the 'term longer than the contract' branch."
+    },
+    {
+      "id": "UC5-07",
+      "category": "multi-hop",
+      "question": "A professional football player wants maatwerk by drawing from private wealth, wants his income tested with the football-player exception, and also wants the non-annuity affordability test applied. Which parts of this request are allowed?",
+      "answer": "None of the combinations work: (1) maatwerk by using assets cannot be combined with an income exception; (2) the non-annuity test is itself a second maatwerk solution, and maatwerk solutions cannot be combined; (3) the non-annuity test may not be used with maatwerk by using assets. Each part alone could be possible, but not together.",
+      "evidence": [
+        {
+          "page": 34,
+          "section": "6.1 Maatwerk (Combinatie van Explain)",
+          "quote": "Een combinatie van maatwerkoplossingen."
+        },
+        {
+          "page": 34,
+          "section": "6.1 Maatwerk (Combinatie van Explain)",
+          "quote": "Een combinatie van de maatwerkoplossingen door inzet van vermogen en de uitzonderingen die afwijken op inkomen."
+        },
+        {
+          "page": 36,
+          "section": "6.1.2 Maatwerk door inzet van vermogen",
+          "quote": "Bij maatwerk door inzet van vermogen is het gebruik van de niet-annuïtaire I/L-toets niet toegestaan."
+        }
+      ],
+      "hop_reasoning": "Three separate prohibitions from 6.1 and 6.1.2 each block a part; the request has to be split into its parts first."
+    },
+    {
+      "id": "UC5-08",
+      "category": "unanswerable",
+      "question": "How many working days does Rabobank take to decide on an Explain request?",
+      "answer": "The policy does not say. It describes when Explain is possible and which form is needed, not processing times.",
+      "evidence": [],
+      "hop_reasoning": "Out of scope."
+    },
+    {
+      "id": "UC6-01",
+      "category": "two-hop",
+      "question": "A client will work in the United Kingdom for 2 years, stays employed by his Dutch employer, and wants to rent out his home under the diplomat clause. He did this once before and moved back 6 months ago. Can he?",
+      "answer": "No, for two reasons: clients moving temporarily to the United Kingdom are not eligible for the diplomat clause, and a new request is only possible after living in the home again for at least 1 year (6 months is not enough).",
+      "evidence": [
+        {
+          "page": 57,
+          "section": "Beheerbeleid 4.1.1 Verhuur op basis van de diplomatenclausule",
+          "quote": "Klanten die tijdelijk naar het Verenigd Koninkrijk verhuizen komen niet in aanmerking voor goedkeuring voor verhuur op basis van de diplomatenclausule."
+        },
+        {
+          "page": 57,
+          "section": "Beheerbeleid 4.1.1 Verhuur op basis van de diplomatenclausule",
+          "quote": "Wil de aanvrager een nieuw verzoek doen voor tijdelijke verhuur op basis van de diplomatenclausule? Dan kan dit alleen wanneer de aanvrager weer minimaal 1 jaar in de woning heeft gewoond."
+        }
+      ],
+      "hop_reasoning": "The repeat rule is in the condition list, but the UK exclusion is a separate sentence further down in BB 4.1.1."
+    },
+    {
+      "id": "UC6-02",
+      "category": "single-hop",
+      "question": "A client will work in Germany for 2 years, stays employed by his Dutch employer, will move back into his home afterwards, and has never used the diplomat clause before. Can he rent out his home under the diplomat clause?",
+      "answer": "Yes, the conditions are met: work abroad while staying employed by the Dutch employer, moving back into the home, and at most 3 years. Further conditions apply (pledged rent, a signed lease meeting the listed points, loan in box 3).",
+      "evidence": [
+        {
+          "page": 57,
+          "section": "Beheerbeleid 4.1.1 Verhuur op basis van de diplomatenclausule",
+          "quote": "De aanvrager gaat voor werk voor een langere periode naar het buitenland en blijft tijdens deze periode in loondienst bij de huidige werkgever in Nederland."
+        },
+        {
+          "page": 57,
+          "section": "Beheerbeleid 4.1.1 Verhuur op basis van de diplomatenclausule",
+          "quote": "De aanvrager gaat bij terugkomst weer in de eigen woning wonen."
+        },
+        {
+          "page": 57,
+          "section": "Beheerbeleid 4.1.1 Verhuur op basis van de diplomatenclausule",
+          "quote": "De goedkeuring is voor maximaal 3 jaar. Verhuur op basis van de diplomatenclausule voor een periode langer dan 3 jaar is niet mogelijk."
+        }
+      ],
+      "hop_reasoning": "The condition list of BB 4.1.1."
+    },
+    {
+      "id": "UC6-03",
+      "category": "single-hop",
+      "question": "A client will work in Germany for 4 years for his Dutch employer and then return to his home. Can he rent it out for those 4 years under the diplomat clause?",
+      "answer": "No. Approval is for at most 3 years; letting under the diplomat clause for longer than 3 years is not possible.",
+      "evidence": [
+        {
+          "page": 57,
+          "section": "Beheerbeleid 4.1.1 Verhuur op basis van de diplomatenclausule",
+          "quote": "De goedkeuring is voor maximaal 3 jaar. Verhuur op basis van de diplomatenclausule voor een periode langer dan 3 jaar is niet mogelijk."
+        }
+      ],
+      "hop_reasoning": "One bullet of BB 4.1.1."
+    },
+    {
+      "id": "UC6-04",
+      "category": "single-hop",
+      "question": "A client used the diplomat clause before and has now lived in his home again for exactly 12 months. He will work in Belgium for 2 years for his Dutch employer and then return. Can he make a new request?",
+      "answer": "Yes. A new request is possible once the client has lived in the home again for at least 1 year; 12 months meets that. The other conditions (Dutch employer, return, at most 3 years) are also met.",
+      "evidence": [
+        {
+          "page": 57,
+          "section": "Beheerbeleid 4.1.1 Verhuur op basis van de diplomatenclausule",
+          "quote": "Wil de aanvrager een nieuw verzoek doen voor tijdelijke verhuur op basis van de diplomatenclausule? Dan kan dit alleen wanneer de aanvrager weer minimaal 1 jaar in de woning heeft gewoond."
+        },
+        {
+          "page": 57,
+          "section": "Beheerbeleid 4.1.1 Verhuur op basis van de diplomatenclausule",
+          "quote": "De aanvrager gaat voor werk voor een langere periode naar het buitenland en blijft tijdens deze periode in loondienst bij de huidige werkgever in Nederland."
+        },
+        {
+          "page": 57,
+          "section": "Beheerbeleid 4.1.1 Verhuur op basis van de diplomatenclausule",
+          "quote": "De goedkeuring is voor maximaal 3 jaar. Verhuur op basis van de diplomatenclausule voor een periode langer dan 3 jaar is niet mogelijk."
+        }
+      ],
+      "hop_reasoning": "Boundary on the 1-year repeat rule of BB 4.1.1."
+    },
+    {
+      "id": "UC6-05",
+      "category": "single-hop",
+      "question": "In which tax box is the loan placed while the home is let under the diplomat clause?",
+      "answer": "Box 3.",
+      "evidence": [
+        {
+          "page": 57,
+          "section": "Beheerbeleid 4.1.1 Verhuur op basis van de diplomatenclausule",
+          "quote": "De lening wordt in box 3 geplaatst."
+        }
+      ],
+      "hop_reasoning": "One bullet of BB 4.1.1."
+    },
+    {
+      "id": "UC6-06",
+      "category": "single-hop",
+      "question": "A client moves to the United States for 2 years and switches to an American employer. He will return to his home afterwards. Can he rent it out under the diplomat clause?",
+      "answer": "No. The client must stay employed by his current employer in the Netherlands during the period abroad.",
+      "evidence": [
+        {
+          "page": 57,
+          "section": "Beheerbeleid 4.1.1 Verhuur op basis van de diplomatenclausule",
+          "quote": "De aanvrager gaat voor werk voor een langere periode naar het buitenland en blijft tijdens deze periode in loondienst bij de huidige werkgever in Nederland."
+        }
+      ],
+      "hop_reasoning": "The first condition of BB 4.1.1."
+    },
+    {
+      "id": "UC6-07",
+      "category": "multi-hop",
+      "question": "After the 3 years under the diplomat clause, the client wants to keep renting out his home. What happens to the mortgage, and what does that mean for interest-only and the maximum loan?",
+      "answer": "Temporary letting under the diplomat clause is no longer possible; the home becomes an investment property and the rules of the Hypotheek voor de verhuurde woning apply. Interest-only is not allowed, and the maximum is 85% of the market value in let condition.",
+      "evidence": [
+        {
+          "page": 57,
+          "section": "Beheerbeleid 4.1.1 Verhuur op basis van de diplomatenclausule",
+          "quote": "Na 3 jaar is tijdelijke verhuur op basis van de diplomatenclausule niet meer mogelijk. De woning wordt dan een beleggingspand. Hiervoor gelden de acceptatieregels voor de Hypotheek voor de verhuurde woning."
+        },
+        {
+          "page": 58,
+          "section": "Beheerbeleid 4.3 Hypotheek voor de verhuurde woning (schema)",
+          "quote": "Aflossingsvrij lenen is niet toegestaan."
+        },
+        {
+          "page": 32,
+          "section": "5.5.15 Woning voor (gedeeltelijke) verhuur",
+          "quote": "De maximale verstrekkingsnorm is 85% van de marktwaarde in verhuurde staat."
+        }
+      ],
+      "hop_reasoning": "BB 4.1.1 points to the rental mortgage; its rules are in BB 4.3 and the 85% limit in AB 5.5.15."
+    },
+    {
+      "id": "UC6-08",
+      "category": "unanswerable",
+      "question": "How much rent may the client charge his tenant under the diplomat clause?",
+      "answer": "The policy does not say. It sets conditions on the lease (dates, pledged rent, eviction clause), not the rent level.",
+      "evidence": [],
+      "hop_reasoning": "Out of scope."
+    },
+    {
+      "id": "UC7-01",
+      "category": "multi-hop",
+      "question": "Please check this application. Applicants: a father (45), his son (17) and a family friend as third debtor; submitted by a Rabobank advisor with Basis conditions. Terraced house, €350,000 from a validated valuation report. Loan €340,000, of which €60,000 interest-only, 30 years. RRR 12. Is everything in order?",
+      "answer": "No. (1) The son is 17; an applicant must be at least 18. (2) An application with 3 debtors can only be submitted by an Intermediair advisor and only with Plus conditions; this is a Rabobank advisor with Basis. The friend's age is not given. The rest is fine: €340,000 is within 100% of €350,000, €60,000 interest-only is within the cap of €105,000, 30 years is the maximum term and RRR 12 is acceptable.",
+      "evidence": [
+        {
+          "page": 13,
+          "section": "2.1 Algemeen",
+          "quote": "Een aanvrager is een natuurlijk persoon en is minimaal 18 jaar."
+        },
+        {
+          "page": 13,
+          "section": "2.2 Eigenaar, bewoner en debiteur",
+          "quote": "Een aanvraag is met 1 of 2 debiteuren. Een aanvraag met 3 tot 5 debiteuren kan alleen door een adviseur van het Intermediair worden ingediend en alleen met Plusvoorwaarden."
+        },
+        {
+          "page": 29,
+          "section": "5.5.2 Reguliere woning",
+          "quote": "De maximale verstrekkingsnorm is 90% van de marktwaarde uit de Rabobank Desktop Taxatie (Plus) van Calcasa of 100% van de marktwaarde uit het taxatierapport."
+        },
+        {
+          "page": 8,
+          "section": "1.1.3 Aflossingsvrij lenen",
+          "quote": "Aflossingsvrij lenen is toegestaan tot maximaal 30% van de marktwaarde van de woning en niet meer dan € 150.000."
+        },
+        {
+          "page": 8,
+          "section": "1.1 Algemene regels",
+          "quote": "De looptijd van een lening is maximaal 30 jaar."
+        },
+        {
+          "page": 14,
+          "section": "2.4.2 Rabo Risk Rating (RRR)",
+          "quote": "Aanvragen met een RRR 1 t/m 16 mogen geaccepteerd worden."
+        }
+      ],
+      "hop_reasoning": "The question is about a house and a loan, but the problems are in the applicant chapter (2.1, 2.2); the loan checks (1.1, 1.1.3, 5.5.2, 2.4.2) all pass."
+    },
+    {
+      "id": "UC7-02",
+      "category": "single-hop",
+      "question": "Can a 17-year-old be a co-applicant on a mortgage?",
+      "answer": "No. An applicant is a natural person of at least 18 years old.",
+      "evidence": [
+        {
+          "page": 13,
+          "section": "2.1 Algemeen",
+          "quote": "Een aanvrager is een natuurlijk persoon en is minimaal 18 jaar."
+        }
+      ],
+      "hop_reasoning": "One sentence in 2.1."
+    },
+    {
+      "id": "UC7-03",
+      "category": "multi-hop",
+      "question": "Same application, but the son is now 18 and the family friend is 50: father, son and friend as debtors, submitted by a Rabobank advisor with Basis conditions; house €350,000 (validated report), loan €340,000 of which €60,000 interest-only, 30 years, RRR 12. Is everything in order now?",
+      "answer": "Not yet. The age problem is solved, but 3 debtors are still only possible via an Intermediair advisor with Plus conditions, and this is a Rabobank advisor with Basis conditions.",
+      "evidence": [
+        {
+          "page": 13,
+          "section": "2.1 Algemeen",
+          "quote": "Een aanvrager is een natuurlijk persoon en is minimaal 18 jaar."
+        },
+        {
+          "page": 13,
+          "section": "2.2 Eigenaar, bewoner en debiteur",
+          "quote": "Een aanvraag is met 1 of 2 debiteuren. Een aanvraag met 3 tot 5 debiteuren kan alleen door een adviseur van het Intermediair worden ingediend en alleen met Plusvoorwaarden."
+        }
+      ],
+      "hop_reasoning": "Fixing one finding (2.1) leaves the other (2.2)."
+    },
+    {
+      "id": "UC7-04",
+      "category": "multi-hop",
+      "question": "Father (45), son (18) and family friend (50) apply together through an Intermediair advisor with Plus conditions. House €350,000 (validated report), loan €340,000 of which €60,000 interest-only, 30 years, RRR 12. Is everything in order?",
+      "answer": "Yes. All applicants are 18 or older, 3 debtors are allowed via the Intermediair with Plus conditions, and the loan (within 100% of the value), interest-only (within €105,000), term (30 years) and RRR 12 all meet the rules.",
+      "evidence": [
+        {
+          "page": 13,
+          "section": "2.1 Algemeen",
+          "quote": "Een aanvrager is een natuurlijk persoon en is minimaal 18 jaar."
+        },
+        {
+          "page": 13,
+          "section": "2.2 Eigenaar, bewoner en debiteur",
+          "quote": "Een aanvraag is met 1 of 2 debiteuren. Een aanvraag met 3 tot 5 debiteuren kan alleen door een adviseur van het Intermediair worden ingediend en alleen met Plusvoorwaarden."
+        },
+        {
+          "page": 29,
+          "section": "5.5.2 Reguliere woning",
+          "quote": "De maximale verstrekkingsnorm is 90% van de marktwaarde uit de Rabobank Desktop Taxatie (Plus) van Calcasa of 100% van de marktwaarde uit het taxatierapport."
+        },
+        {
+          "page": 8,
+          "section": "1.1.3 Aflossingsvrij lenen",
+          "quote": "Aflossingsvrij lenen is toegestaan tot maximaal 30% van de marktwaarde van de woning en niet meer dan € 150.000."
+        },
+        {
+          "page": 8,
+          "section": "1.1 Algemene regels",
+          "quote": "De looptijd van een lening is maximaal 30 jaar."
+        },
+        {
+          "page": 14,
+          "section": "2.4.2 Rabo Risk Rating (RRR)",
+          "quote": "Aanvragen met een RRR 1 t/m 16 mogen geaccepteerd worden."
+        }
+      ],
+      "hop_reasoning": "The same six checks as UC7-01, now all passing."
+    },
+    {
+      "id": "UC7-05",
+      "category": "multi-hop",
+      "question": "Only the father (45) and his son (18) apply, through a Rabobank advisor with Basis conditions. House €350,000 (validated report), loan €340,000 of which €60,000 interest-only, 30 years, RRR 12. Is everything in order?",
+      "answer": "Yes. Two debtors is the normal case and needs no special channel or Plus conditions; both are adults, and the loan, interest-only part, term and RRR all meet the rules.",
+      "evidence": [
+        {
+          "page": 13,
+          "section": "2.1 Algemeen",
+          "quote": "Een aanvrager is een natuurlijk persoon en is minimaal 18 jaar."
+        },
+        {
+          "page": 13,
+          "section": "2.2 Eigenaar, bewoner en debiteur",
+          "quote": "Een aanvraag is met 1 of 2 debiteuren. Een aanvraag met 3 tot 5 debiteuren kan alleen door een adviseur van het Intermediair worden ingediend en alleen met Plusvoorwaarden."
+        },
+        {
+          "page": 29,
+          "section": "5.5.2 Reguliere woning",
+          "quote": "De maximale verstrekkingsnorm is 90% van de marktwaarde uit de Rabobank Desktop Taxatie (Plus) van Calcasa of 100% van de marktwaarde uit het taxatierapport."
+        },
+        {
+          "page": 8,
+          "section": "1.1.3 Aflossingsvrij lenen",
+          "quote": "Aflossingsvrij lenen is toegestaan tot maximaal 30% van de marktwaarde van de woning en niet meer dan € 150.000."
+        },
+        {
+          "page": 8,
+          "section": "1.1 Algemene regels",
+          "quote": "De looptijd van een lening is maximaal 30 jaar."
+        },
+        {
+          "page": 14,
+          "section": "2.4.2 Rabo Risk Rating (RRR)",
+          "quote": "Aanvragen met een RRR 1 t/m 16 mogen geaccepteerd worden."
+        }
+      ],
+      "hop_reasoning": "Same checks as UC7-01; with 2 debtors the channel rule of 2.2 does not apply."
+    },
+    {
+      "id": "UC7-06",
+      "category": "single-hop",
+      "question": "For a terraced house worth €350,000, what is the maximum interest-only part?",
+      "answer": "€105,000: 30% of €350,000, which is below the €150,000 ceiling.",
+      "evidence": [
+        {
+          "page": 8,
+          "section": "1.1.3 Aflossingsvrij lenen",
+          "quote": "Aflossingsvrij lenen is toegestaan tot maximaal 30% van de marktwaarde van de woning en niet meer dan € 150.000."
+        }
+      ],
+      "hop_reasoning": "One sentence in 1.1.3 plus a calculation."
+    },
+    {
+      "id": "UC7-07",
+      "category": "single-hop",
+      "question": "To allow a third debtor, can the advisor put part of the loan under Plus conditions and keep the rest under Basis conditions?",
+      "answer": "No. A combination of conditions on one collateral is not possible; the whole loan must be under Plus conditions (and with 3 debtors it must also come through an Intermediair advisor).",
+      "evidence": [
+        {
+          "page": 8,
+          "section": "1.1.1 Basisvoorwaarden en Plusvoorwaarden",
+          "quote": "Een combinatie van voorwaarden op één onderpand is niet mogelijk."
+        },
+        {
+          "page": 13,
+          "section": "2.2 Eigenaar, bewoner en debiteur",
+          "quote": "Een aanvraag is met 1 of 2 debiteuren. Een aanvraag met 3 tot 5 debiteuren kan alleen door een adviseur van het Intermediair worden ingediend en alleen met Plusvoorwaarden."
+        }
+      ],
+      "hop_reasoning": "1.1.1 forbids mixing conditions; 2.2 gives the 3-debtor rule."
+    },
+    {
+      "id": "UC7-08",
+      "category": "unanswerable",
+      "question": "In the application of father (45), son (17) and a family friend, may the family friend be an applicant?",
+      "answer": "That cannot be decided: the friend's age is not given. An applicant must be a natural person of at least 18. (The application fails anyway on the son's age and on the 3-debtor rule.)",
+      "evidence": [
+        {
+          "page": 13,
+          "section": "2.1 Algemeen",
+          "quote": "Een aanvrager is een natuurlijk persoon en is minimaal 18 jaar."
+        }
+      ],
+      "hop_reasoning": "Missing fact: the answer must ask for the age instead of assuming the friend is an adult."
+    },
+    {
+      "id": "UC8-01",
+      "category": "two-hop",
+      "question": "Please check this application. The client buys a chalet on a holiday park (zoning: recreation only), €200,000 from an NRVT valuation report. Loan €180,000 of which €50,000 interest-only, 25 years. The client will sell his apartment and live in the chalet permanently. The seller is not a Rabobank client. Is everything in order?",
+      "answer": "No. (1) Interest-only is not allowed for a recreation home. (2) Permanent living is not allowed: the exceptions need either a double zoning (recreation and living) or a seller who already lives there permanently and is an existing Rabobank mortgage client. The amount is fine: €180,000 is exactly 90% of €200,000.",
+      "evidence": [
+        {
+          "page": 31,
+          "section": "5.5.13 Recreatiewoning",
+          "quote": "Aflossingsvrij lenen is niet toegestaan."
+        },
+        {
+          "page": 31,
+          "section": "5.5.13 Recreatiewoning",
+          "quote": "Permanente bewoning is niet toegestaan."
+        },
+        {
+          "page": 31,
+          "section": "5.5.13 Recreatiewoning",
+          "quote": "Er is een dubbele bestemming: recreatie en wonen. De normpercentages voor box 1 mogen voor de aanvraag gebruikt worden."
+        },
+        {
+          "page": 31,
+          "section": "5.5.13 Recreatiewoning",
+          "quote": "De aanvrager koopt een recreatiewoning zonder bestemming wonen en wil hier permanent gaan wonen. De verkoper woont al permanent in de woning en is een bestaande hypotheekklant van Rabobank. De normpercentages voor box 3 worden voor de aanvraag gebruikt."
+        },
+        {
+          "page": 31,
+          "section": "5.5.13 Recreatiewoning",
+          "quote": "De maximale verstrekkingsnorm is 90% van de marktwaarde."
+        }
+      ],
+      "hop_reasoning": "Both problems are in 5.5.13 but the question hides them in the story; the amount is exactly on the 90% boundary."
+    },
+    {
+      "id": "UC8-02",
+      "category": "single-hop",
+      "question": "Same chalet (recreation zoning, €200,000, NRVT report), but the client uses it only for holidays and borrows €180,000 fully annuity over 25 years. Is it in order?",
+      "answer": "Yes. Without interest-only and without permanent living, the case meets 5.5.13: €180,000 is exactly the 90% maximum and the NRVT report is the required valuation.",
+      "evidence": [
+        {
+          "page": 31,
+          "section": "5.5.13 Recreatiewoning",
+          "quote": "De maximale verstrekkingsnorm is 90% van de marktwaarde."
+        },
+        {
+          "page": 31,
+          "section": "5.5.13 Recreatiewoning",
+          "quote": "De marktwaarde van het onderpand, bij recreatief gebruik, wordt bepaald met een taxatierapport opgesteld door een taxateur ingeschreven bij het NRVT."
+        }
+      ],
+      "hop_reasoning": "The same section as UC8-01, with both problems removed."
+    },
+    {
+      "id": "UC8-03",
+      "category": "single-hop",
+      "question": "The client buys a chalet with recreation-only zoning (€200,000, NRVT report) and wants to live there permanently. The seller already lives there permanently and is an existing Rabobank mortgage client. Loan €180,000, fully annuity, 25 years. Is this possible?",
+      "answer": "Yes. This is one of the two situations where permanent living is allowed. The box 3 norm percentages are used for the application.",
+      "evidence": [
+        {
+          "page": 31,
+          "section": "5.5.13 Recreatiewoning",
+          "quote": "De aanvrager koopt een recreatiewoning zonder bestemming wonen en wil hier permanent gaan wonen. De verkoper woont al permanent in de woning en is een bestaande hypotheekklant van Rabobank. De normpercentages voor box 3 worden voor de aanvraag gebruikt."
+        },
+        {
+          "page": 31,
+          "section": "5.5.13 Recreatiewoning",
+          "quote": "De maximale verstrekkingsnorm is 90% van de marktwaarde."
+        }
+      ],
+      "hop_reasoning": "The second exception in 5.5.13."
+    },
+    {
+      "id": "UC8-04",
+      "category": "single-hop",
+      "question": "A chalet with recreation zoning is valued at €200,000 (NRVT report). The client uses it for holidays and wants to borrow €185,000, fully annuity, 25 years. Is that possible?",
+      "answer": "No. The maximum for a recreation home is 90% of the market value = €180,000; €185,000 (92.5%) is too high.",
+      "evidence": [
+        {
+          "page": 31,
+          "section": "5.5.13 Recreatiewoning",
+          "quote": "De maximale verstrekkingsnorm is 90% van de marktwaarde."
+        }
+      ],
+      "hop_reasoning": "One sentence of 5.5.13 plus a calculation."
+    },
+    {
+      "id": "UC8-05",
+      "category": "single-hop",
+      "question": "The client buys a holiday home with a double zoning (recreation and living) worth €200,000 (NRVT report) and wants to live there permanently. Loan €180,000, fully annuity, 25 years. Is permanent living allowed, and which norm percentages are used?",
+      "answer": "Yes. With a double zoning of recreation and living, permanent living is allowed and the box 1 norm percentages may be used.",
+      "evidence": [
+        {
+          "page": 31,
+          "section": "5.5.13 Recreatiewoning",
+          "quote": "Er is een dubbele bestemming: recreatie en wonen. De normpercentages voor box 1 mogen voor de aanvraag gebruikt worden."
+        },
+        {
+          "page": 31,
+          "section": "5.5.13 Recreatiewoning",
+          "quote": "De maximale verstrekkingsnorm is 90% van de marktwaarde."
+        }
+      ],
+      "hop_reasoning": "The first exception in 5.5.13."
+    },
+    {
+      "id": "UC8-06",
+      "category": "single-hop",
+      "question": "May the owner of a recreation home rent it out?",
+      "answer": "Yes, but only for short periods for recreation, next to their own use.",
+      "evidence": [
+        {
+          "page": 31,
+          "section": "5.5.13 Recreatiewoning",
+          "quote": "De recreatiewoning mag naast het eigen gebruik ook voor korte duur verhuurd worden voor recreatie."
+        }
+      ],
+      "hop_reasoning": "One condition in 5.5.13."
+    },
+    {
+      "id": "UC8-07",
+      "category": "two-hop",
+      "question": "How must a chalet with recreation zoning be valued? Is a Calcasa desktop valuation possible?",
+      "answer": "With a valuation report from an NRVT-registered appraiser (model 'Taxatierapport woonruimte'); NWWI validation is not required. A Calcasa desktop valuation is not possible for a recreation home.",
+      "evidence": [
+        {
+          "page": 31,
+          "section": "5.5.13 Recreatiewoning",
+          "quote": "De marktwaarde van het onderpand, bij recreatief gebruik, wordt bepaald met een taxatierapport opgesteld door een taxateur ingeschreven bij het NRVT."
+        },
+        {
+          "page": 27,
+          "section": "5.4 Waardebepaling onderpand",
+          "quote": "Het onderpand is een woonboerderij, woon-/winkelpand of woon/praktijkruimte, bedrijfswoning, woonwagen met vaste standplaats, waterwoning, woonboot met vaste ligplaats, recreatiewoning, verhuurde woning."
+        }
+      ],
+      "hop_reasoning": "The valuation method is in 5.5.13; the desktop exclusion is in the list of 5.4."
+    },
+    {
+      "id": "UC8-08",
+      "category": "unanswerable",
+      "question": "A client buys a chalet for €150,000 and borrows €135,000. He wants to live there permanently. Is that allowed?",
+      "answer": "That cannot be decided with these facts. It depends on the zoning (permanent living is allowed with a double zoning of recreation and living) or, with recreation-only zoning, on whether the seller already lives there permanently and is an existing Rabobank mortgage client. The amount (90%) is within the limit for a recreation home.",
+      "evidence": [
+        {
+          "page": 31,
+          "section": "5.5.13 Recreatiewoning",
+          "quote": "Permanente bewoning is niet toegestaan."
+        },
+        {
+          "page": 31,
+          "section": "5.5.13 Recreatiewoning",
+          "quote": "Er is een dubbele bestemming: recreatie en wonen. De normpercentages voor box 1 mogen voor de aanvraag gebruikt worden."
+        },
+        {
+          "page": 31,
+          "section": "5.5.13 Recreatiewoning",
+          "quote": "De aanvrager koopt een recreatiewoning zonder bestemming wonen en wil hier permanent gaan wonen. De verkoper woont al permanent in de woning en is een bestaande hypotheekklant van Rabobank. De normpercentages voor box 3 worden voor de aanvraag gebruikt."
+        }
+      ],
+      "hop_reasoning": "Missing facts: zoning and the seller's situation."
+    },
+    {
+      "id": "UC9-01",
+      "category": "multi-hop",
+      "question": "Please check this application. The client buys a woonark with a fixed mooring rented from the municipality, registered in the ship register and valued by an E.M.C.I. appraiser. Loan 85% of the value, fully repaid in 20 years. The client's Rabo Risk Rating is R18. Can the application be accepted?",
+      "answer": "Not under the standard rules. Only RRR 1 to 16 may be accepted; R18 is only possible through the Explain route (R17-R20 in specific situations from the Kapitaalmodel Hypotheken). The houseboat rules apply to a woonark, and 85% is within the 90% limit. Still to be checked: the boat's expected lifetime (from the valuation report) and a shore connection.",
+      "evidence": [
+        {
+          "page": 14,
+          "section": "2.4.2 Rabo Risk Rating (RRR)",
+          "quote": "Aanvragen met een RRR 1 t/m 16 mogen geaccepteerd worden."
+        },
+        {
+          "page": 14,
+          "section": "2.4.2 Rabo Risk Rating (RRR)",
+          "quote": "In een aantal situaties is het mogelijk om aanvragen met een hogere RRR dan 1 t/m 16 te accepteren. Zie hiervoor het hoofdstuk Explain."
+        },
+        {
+          "page": 37,
+          "section": "6.2.1.1 Aanvrager (Rabo Risk Rating)",
+          "quote": "In het document Kapitaalmodel Hypotheken staan voorbeelden van situaties waarbij het mogelijk is om een aanvraag te accepteren met een RRR van R17 t/m R20 of een onterechte Default rating."
+        },
+        {
+          "page": 31,
+          "section": "5.5.12 Woonboot met vaste ligplaats",
+          "quote": "De woonboot, woonschip of woonark ligt in Nederland op of in het water."
+        },
+        {
+          "page": 31,
+          "section": "5.5.12 Woonboot met vaste ligplaats",
+          "quote": "De maximale verstrekkingsnorm is 90% van de marktwaarde van de woonboot en 90% van de marktwaarde van de ligplaats (de ligplaats hoeft hiervoor niet in eigendom te zijn)."
+        }
+      ],
+      "hop_reasoning": "The RRR rule (2.4.2) points to Explain (6.2.1.1); the houseboat rules (5.5.12) are fine; the verdict is 'Explain', not 'accept' or 'reject'."
+    },
+    {
+      "id": "UC9-02",
+      "category": "two-hop",
+      "question": "A client has a Rabo Risk Rating of R17. Can the application be accepted?",
+      "answer": "Not under the standard rules: only RRR 1 to 16 may be accepted. A higher rating can be accepted in specific situations through Explain; examples for R17 to R20 are in the document Kapitaalmodel Hypotheken.",
+      "evidence": [
+        {
+          "page": 14,
+          "section": "2.4.2 Rabo Risk Rating (RRR)",
+          "quote": "Aanvragen met een RRR 1 t/m 16 mogen geaccepteerd worden."
+        },
+        {
+          "page": 14,
+          "section": "2.4.2 Rabo Risk Rating (RRR)",
+          "quote": "In een aantal situaties is het mogelijk om aanvragen met een hogere RRR dan 1 t/m 16 te accepteren. Zie hiervoor het hoofdstuk Explain."
+        },
+        {
+          "page": 37,
+          "section": "6.2.1.1 Aanvrager (Rabo Risk Rating)",
+          "quote": "In het document Kapitaalmodel Hypotheken staan voorbeelden van situaties waarbij het mogelijk is om een aanvraag te accepteren met een RRR van R17 t/m R20 of een onterechte Default rating."
+        }
+      ],
+      "hop_reasoning": "2.4.2 gives the range and points to Explain; 6.2.1.1 says where the examples are."
+    },
+    {
+      "id": "UC9-03",
+      "category": "multi-hop",
+      "question": "Woonark valued at €200,000 by an E.M.C.I. appraiser (expected lifetime 30 years), in the ship register, fixed mooring with shore connection rented from the municipality. Loan €170,000 (85%), fully repaid in 20 years. RRR 12. Can the application be accepted?",
+      "answer": "Yes. RRR 12 is within 1 to 16, the woonark falls under the houseboat rules and meets them: 85% is within 90%, 20 years is within the 30-year lifetime, and the register, shore connection, government mooring and E.M.C.I. valuation are all in order.",
+      "evidence": [
+        {
+          "page": 14,
+          "section": "2.4.2 Rabo Risk Rating (RRR)",
+          "quote": "Aanvragen met een RRR 1 t/m 16 mogen geaccepteerd worden."
+        },
+        {
+          "page": 31,
+          "section": "5.5.12 Woonboot met vaste ligplaats",
+          "quote": "De woonboot, woonschip of woonark ligt in Nederland op of in het water."
+        },
+        {
+          "page": 31,
+          "section": "5.5.12 Woonboot met vaste ligplaats",
+          "quote": "De maximale verstrekkingsnorm is 90% van de marktwaarde van de woonboot en 90% van de marktwaarde van de ligplaats (de ligplaats hoeft hiervoor niet in eigendom te zijn)."
+        },
+        {
+          "page": 31,
+          "section": "5.5.12 Woonboot met vaste ligplaats",
+          "quote": "De lening op de woonboot wordt binnen de verwachte levensduur van de woonboot volledig afgelost, met een maximum van 30 jaar. De verwachte levensduur blijkt uit het taxatierapport."
+        },
+        {
+          "page": 31,
+          "section": "5.5.12 Woonboot met vaste ligplaats",
+          "quote": "De woonboot is ingeschreven in het scheepsregister."
+        },
+        {
+          "page": 31,
+          "section": "5.5.12 Woonboot met vaste ligplaats",
+          "quote": "De woonboot heeft een vaste ligplaats met een walaansluiting."
+        },
+        {
+          "page": 31,
+          "section": "5.5.12 Woonboot met vaste ligplaats",
+          "quote": "De ligplaatsvergunning of huurovereenkomst is van een overheidsinstelling (zoals gemeente, provincie of waterschap)."
+        }
+      ],
+      "hop_reasoning": "All houseboat conditions of 5.5.12 plus the RRR range of 2.4.2."
+    },
+    {
+      "id": "UC9-04",
+      "category": "single-hop",
+      "question": "Same woonark (€200,000, all houseboat conditions met, RRR 12), but the loan is €190,000 (95%), repaid in 20 years. Is that possible?",
+      "answer": "No. For a houseboat the maximum is 90% of the boat's market value = €180,000 (plus 90% of a separately valued mooring, if any).",
+      "evidence": [
+        {
+          "page": 31,
+          "section": "5.5.12 Woonboot met vaste ligplaats",
+          "quote": "De maximale verstrekkingsnorm is 90% van de marktwaarde van de woonboot en 90% van de marktwaarde van de ligplaats (de ligplaats hoeft hiervoor niet in eigendom te zijn)."
+        }
+      ],
+      "hop_reasoning": "One sentence in 5.5.12 plus a calculation."
+    },
+    {
+      "id": "UC9-05",
+      "category": "comparison-aggregation",
+      "question": "Compare a woonark (houseboat) with a recreation home: maximum loan, interest-only and valuation.",
+      "answer": "Woonark: the houseboat rules apply; max 90% of the boat plus 90% of the mooring; no interest-only; valuation by an E.M.C.I.-certified houseboat appraiser, NWWI validation not required. Recreation home: max 90% of the market value; no interest-only; valuation by an NRVT-registered appraiser, NWWI validation not required. A Calcasa desktop valuation is excluded for both.",
+      "evidence": [
+        {
+          "page": 31,
+          "section": "5.5.12 Woonboot met vaste ligplaats",
+          "quote": "De woonboot, woonschip of woonark ligt in Nederland op of in het water."
+        },
+        {
+          "page": 31,
+          "section": "5.5.12 Woonboot met vaste ligplaats",
+          "quote": "De maximale verstrekkingsnorm is 90% van de marktwaarde van de woonboot en 90% van de marktwaarde van de ligplaats (de ligplaats hoeft hiervoor niet in eigendom te zijn)."
+        },
+        {
+          "page": 31,
+          "section": "5.5.12 Woonboot met vaste ligplaats",
+          "quote": "Aflossingsvrij lenen is niet toegestaan."
+        },
+        {
+          "page": 31,
+          "section": "5.5.12 Woonboot met vaste ligplaats",
+          "quote": "De marktwaarde van het onderpand wordt bepaald met een taxatierapport opgesteld door een E.M.C.I. gecertificeerde woonbotentaxateur. De waarde van de woonboot en de ligplaats zijn gesplitst. Validatie door NWWI is niet verplicht."
+        },
+        {
+          "page": 31,
+          "section": "5.5.13 Recreatiewoning",
+          "quote": "De maximale verstrekkingsnorm is 90% van de marktwaarde."
+        },
+        {
+          "page": 31,
+          "section": "5.5.13 Recreatiewoning",
+          "quote": "Aflossingsvrij lenen is niet toegestaan."
+        },
+        {
+          "page": 31,
+          "section": "5.5.13 Recreatiewoning",
+          "quote": "De marktwaarde van het onderpand, bij recreatief gebruik, wordt bepaald met een taxatierapport opgesteld door een taxateur ingeschreven bij het NRVT."
+        },
+        {
+          "page": 27,
+          "section": "5.4 Waardebepaling onderpand",
+          "quote": "Het onderpand is een woonboerderij, woon-/winkelpand of woon/praktijkruimte, bedrijfswoning, woonwagen met vaste standplaats, waterwoning, woonboot met vaste ligplaats, recreatiewoning, verhuurde woning."
+        }
+      ],
+      "hop_reasoning": "Two neighbouring collateral sections (5.5.12, 5.5.13) plus the shared desktop exclusion in 5.4."
+    },
+    {
+      "id": "UC9-06",
+      "category": "single-hop",
+      "question": "Same woonark (€200,000, loan €170,000, 20 years, RRR 12, all other conditions met), but the mooring is rented from a private marina owner. Is that acceptable?",
+      "answer": "No. The mooring permit or lease must come from a government body (such as a municipality, province or water board), unless the mooring is owned.",
+      "evidence": [
+        {
+          "page": 31,
+          "section": "5.5.12 Woonboot met vaste ligplaats",
+          "quote": "De ligplaatsvergunning of huurovereenkomst is van een overheidsinstelling (zoals gemeente, provincie of waterschap)."
+        }
+      ],
+      "hop_reasoning": "One condition in 5.5.12."
+    },
+    {
+      "id": "UC9-07",
+      "category": "single-hop",
+      "question": "Same woonark (€200,000, loan €170,000, 20 years, RRR 12, municipal mooring), but the mooring has no shore connection. Is that acceptable?",
+      "answer": "No. A houseboat must have a fixed mooring with a shore connection.",
+      "evidence": [
+        {
+          "page": 31,
+          "section": "5.5.12 Woonboot met vaste ligplaats",
+          "quote": "De woonboot heeft een vaste ligplaats met een walaansluiting."
+        }
+      ],
+      "hop_reasoning": "One condition in 5.5.12."
+    },
+    {
+      "id": "UC9-08",
+      "category": "unanswerable",
+      "question": "Which specific situations allow an application with RRR R18 to be accepted?",
+      "answer": "The policy does not list them. It only says that examples for R17 to R20 are in a separate document, the Kapitaalmodel Hypotheken, which is not part of this policy.",
+      "evidence": [
+        {
+          "page": 37,
+          "section": "6.2.1.1 Aanvrager (Rabo Risk Rating)",
+          "quote": "In het document Kapitaalmodel Hypotheken staan voorbeelden van situaties waarbij het mogelijk is om een aanvraag te accepteren met een RRR van R17 t/m R20 of een onterechte Default rating."
+        }
+      ],
+      "hop_reasoning": "The answer is in a referenced document that is not available; a good answer says so instead of inventing situations."
+    }
+  ]
+}

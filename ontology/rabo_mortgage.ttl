@@ -1,0 +1,211 @@
+@prefix rabo:  <https://linq.example.org/ontology/rabo-mortgage#> .
+@prefix fibo-loanapplications: <https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/LoanApplications/> .
+@prefix fibo-loans: <https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/> .
+@prefix fibo-debt: <https://spec.edmcouncil.org/fibo/ontology/FBC/DebtAndEquities/Debt/> .
+@prefix fibo-assessments: <https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Assessments/> .
+@prefix fibo-legalpersons: <https://spec.edmcouncil.org/fibo/ontology/BE/LegalEntities/LegalPersons/> .
+@prefix fibo-realproperty: <https://spec.edmcouncil.org/fibo/ontology/FND/Places/RealProperty/> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+
+# =====================================================================================
+# Rabobank mortgage policy ontology (prototype)
+#
+# Layer 2 of the design (see docs/ONTOLOGY_PLAN.md):
+#   - classes for the things the policy talks about, built on FIBO terms (ontology/fibo_slice.ttl)
+#   - Dutch + English labels and synonyms (also the "concept layer" for retrieval)
+#   - the policy LIMITS as data (LTV norms, interest-only allowed per collateral type, ...)
+#   - the list of RULES with their source section (= :Section id in Neo4j and the PDF)
+# The rule LOGIC is in ontology/rules/*.dlog (Datalog for RDFox).
+#
+# The namespace is a placeholder for the prototype (linq.example.org).
+# Source: Rabobank Acceptatie- en Beheerbeleid, 14 september 2026.
+# =====================================================================================
+
+rabo: a owl:Ontology ;
+    rdfs:label "Rabobank mortgage policy ontology (prototype)"@en ;
+    rdfs:comment "Concepts, limits and rules from the Rabobank Acceptatie- en Beheerbeleid (14 Sep 2026), built on a slice of FIBO."@en ;
+    owl:versionInfo "0.1.0 (2026-11-05)" .
+
+# ---------------------------------------------------------------- the application
+rabo:MortgageApplication a owl:Class ;
+    rdfs:subClassOf fibo-loanapplications:LoanApplication ;
+    skos:prefLabel "mortgage application"@en, "hypotheekaanvraag"@nl ;
+    skos:altLabel "aanvraag"@nl, "application"@en, "financieringsaanvraag"@nl .
+
+rabo:Applicant a owl:Class ;
+    rdfs:subClassOf fibo-debt:Borrower ;
+    rdfs:comment "Policy 2.1: an applicant is a natural person of at least 18 years. In FIBO terms the applicant must be a legally competent natural person."@en ;
+    rabo:relatedFiboConcept fibo-legalpersons:LegallyCompetentNaturalPerson ;
+    skos:prefLabel "applicant"@en, "aanvrager"@nl ;
+    skos:altLabel "debiteur"@nl, "debtor"@en, "borrower"@en, "co-borrower"@en ;
+    rabo:definedIn "AB-2.1", "AB-2.2" .
+
+rabo:Channel a owl:Class ; skos:prefLabel "submission channel"@en, "kanaal"@nl .
+rabo:RabobankAdvisor a rabo:Channel ; skos:prefLabel "Rabobank advisor"@en, "adviseur van Rabobank"@nl .
+rabo:Intermediair a rabo:Channel ; skos:prefLabel "Intermediair advisor"@en, "adviseur van het Intermediair"@nl ;
+    skos:altLabel "intermediary"@en, "tussenpersoon"@nl .
+rabo:HypotheekVerhogenZonderAdvies a rabo:Channel ; skos:prefLabel "Hypotheek Verhogen Zonder Advies"@nl .
+
+rabo:ConditionSet a owl:Class ; skos:prefLabel "conditions"@en, "voorwaarden"@nl ; rabo:definedIn "AB-1.1.1" .
+rabo:Basis a rabo:ConditionSet ; skos:prefLabel "Basis conditions"@en, "Basisvoorwaarden"@nl .
+rabo:Plus a rabo:ConditionSet ; skos:prefLabel "Plus conditions"@en, "Plusvoorwaarden"@nl .
+
+# ---------------------------------------------------------------- loan parts
+rabo:LoanPart a owl:Class ;
+    rdfs:subClassOf fibo-loans:Loan ;
+    skos:prefLabel "loan part"@en, "leningdeel"@nl .
+rabo:InterestOnlyPart a owl:Class ; rdfs:subClassOf rabo:LoanPart ;
+    rdfs:comment "Corresponds to a FIBO loan with fibo-loans:isInterestOnly true."@en ;
+    skos:prefLabel "interest-only part"@en, "aflossingsvrij leningdeel"@nl ;
+    skos:altLabel "Aflossingsvrije hypotheek"@nl, "aflossingsvrij"@nl, "interest-only"@en ;
+    rabo:definedIn "AB-1.1.3", "BIJ-B2" .
+rabo:AnnuityPart a owl:Class ; rdfs:subClassOf rabo:LoanPart ;
+    skos:prefLabel "annuity part"@en, "annuïteitenhypotheek"@nl ; skos:altLabel "annuity"@en, "annuïtair"@nl .
+rabo:LinearPart a owl:Class ; rdfs:subClassOf rabo:LoanPart ;
+    skos:prefLabel "linear part"@en, "lineaire hypotheek"@nl ; skos:altLabel "linear"@en, "lineair"@nl .
+rabo:SavingsPart a owl:Class ; rdfs:subClassOf rabo:LoanPart ;
+    rdfs:comment "Loan part repaid with a build-up product (opbouwproduct). If the build-up product is NOT pledged, the whole part counts as interest-only (verkapt aflossingsvrij, policy 1.1.3)."@en ;
+    skos:prefLabel "loan part with build-up product"@en, "hypotheek met opbouwproduct"@nl ;
+    skos:altLabel "savings mortgage"@en, "spaarhypotheek"@nl, "opbouwproduct"@nl, "SpaarZeker Hypotheek"@nl, "Rabo OpbouwHypotheek"@nl ;
+    rabo:definedIn "AB-1.1.3" .
+
+# ---------------------------------------------------------------- collateral, valuation, LTV norms
+# Moved to ontology/taxonomy_collateral.ttl (the collateral taxonomy: building type, use, construction,
+# legal right; valuation types; LTV norms and other limits per type).
+
+# ---------------------------------------------------------------- Explain (maatwerk + exceptions)
+rabo:ExplainRequest a owl:Class ;
+    skos:prefLabel "Explain request (deviation from the standard rules)"@en, "Explain"@nl ;
+    rabo:definedIn "AB-6" .
+rabo:Maatwerk a owl:Class ; rdfs:subClassOf rabo:ExplainRequest ;
+    skos:prefLabel "tailor-made solution"@en, "maatwerk"@nl ; rabo:definedIn "AB-6.1" .
+rabo:MaatwerkNietAnnuitair a owl:Class ; rdfs:subClassOf rabo:Maatwerk ;
+    skos:prefLabel "maatwerk op basis van de niet-annuïtaire I/L-toets"@nl ;
+    skos:altLabel "non-annuity affordability test"@en ; rabo:definedIn "AB-6.1.1" .
+rabo:MaatwerkVermogen a owl:Class ; rdfs:subClassOf rabo:Maatwerk ;
+    skos:prefLabel "maatwerk door inzet van vermogen"@nl ; skos:altLabel "tailor-made using assets"@en ;
+    rabo:definedIn "AB-6.1.2" .
+rabo:PolicyException a owl:Class ; rdfs:subClassOf rabo:ExplainRequest ;
+    skos:prefLabel "exception"@en, "uitzondering"@nl ; rabo:definedIn "AB-6.2" .
+rabo:ApplicantException a owl:Class ; rdfs:subClassOf rabo:PolicyException ;
+    skos:prefLabel "exception on the applicant"@en, "uitzondering aanvrager"@nl ; rabo:definedIn "AB-6.2.1.1" .
+rabo:IncomeException a owl:Class ; rdfs:subClassOf rabo:PolicyException ;
+    skos:prefLabel "exception on income"@en, "uitzondering inkomen"@nl ;
+    skos:altLabel "professional football player"@en, "profvoetballer"@nl, "buitenlands pensioen"@nl ;
+    rabo:definedIn "AB-6.2.1.2" .
+rabo:CollateralException a owl:Class ; rdfs:subClassOf rabo:PolicyException ;
+    skos:prefLabel "exception on collateral"@en, "uitzondering onderpand"@nl ; rabo:definedIn "AB-6.2.1.3" .
+rabo:DocumentException a owl:Class ; rdfs:subClassOf rabo:PolicyException ;
+    skos:prefLabel "exception on documents"@en, "uitzondering documentenlijst"@nl ; rabo:definedIn "AB-6.2.1.4" .
+
+# ---------------------------------------------------------------- temporary letting (Beheerbeleid)
+rabo:DiplomatClauseRequest a owl:Class ;
+    skos:prefLabel "letting under the diplomat clause"@en, "verhuur op basis van de diplomatenclausule"@nl ;
+    skos:altLabel "diplomat clause"@en, "diplomatenclausule"@nl ;
+    rabo:definedIn "BB-4.1.1" .
+
+rabo:EnergyInvestment a owl:Class ;
+    skos:prefLabel "investment in energy-saving measures"@en, "energiebesparende voorzieningen"@nl ;
+    skos:altLabel "energy-saving measures"@en, "energiebesparende maatregelen"@nl, "verduurzaming"@nl ;
+    rabo:definedIn "AB-1.3", "BIJ-B2" .
+
+# ---------------------------------------------------------------- rules and outcomes
+rabo:Rule a owl:Class ; skos:prefLabel "policy rule"@en, "beleidsregel"@nl ;
+    rdfs:comment "A rule that RDFox evaluates. Its logic is in ontology/rules/*.dlog; rabo:source links it to the policy section."@en .
+rabo:Outcome a owl:Class .
+rabo:Violated a rabo:Outcome ; skos:prefLabel "violated"@en, "niet toegestaan"@nl .
+rabo:NeedsExplain a rabo:Outcome ; skos:prefLabel "only possible via Explain"@en, "alleen via Explain"@nl .
+rabo:MissingFact a rabo:Outcome ; skos:prefLabel "fact missing"@en, "gegeven ontbreekt"@nl .
+rabo:Checked a rabo:Outcome ; skos:prefLabel "checked: OK"@en, "gecontroleerd: OK"@nl .
+
+rabo:R_MaxTerm a rabo:Rule ; rabo:source "AB-1.1" ;
+    rdfs:label "Maximum term 30 years"@en ; skos:definition "De looptijd van een lening is maximaal 30 jaar."@nl .
+rabo:R_TermKnown a rabo:Rule ; rabo:source "AB-1.1" ;
+    rdfs:label "Loan term is needed"@en .
+rabo:R_MinAge a rabo:Rule ; rabo:source "AB-2.1" ;
+    rdfs:label "Applicant is at least 18"@en ; skos:definition "Een aanvrager is een natuurlijk persoon en is minimaal 18 jaar."@nl .
+rabo:R_Debtors a rabo:Rule ; rabo:source "AB-2.2" ;
+    rdfs:label "1-2 debtors; 3-5 only via the Intermediair with Plus conditions"@en ;
+    skos:definition "Een aanvraag is met 1 of 2 debiteuren. Een aanvraag met 3 tot 5 debiteuren kan alleen door een adviseur van het Intermediair worden ingediend en alleen met Plusvoorwaarden."@nl .
+rabo:R_RRR a rabo:Rule ; rabo:source "AB-2.4.2" ; rabo:explainSource "AB-6.2.1.1" ;
+    rdfs:label "Rabo Risk Rating 1-16; R17-R20 only via Explain"@en ;
+    skos:definition "Aanvragen met een RRR 1 t/m 16 mogen geaccepteerd worden. In een aantal situaties is het mogelijk om aanvragen met een hogere RRR te accepteren (Explain)."@nl .
+rabo:R_InterestOnlyCounts a rabo:Rule ; rabo:source "AB-1.1.3" ;
+    rdfs:label "Build-up product not pledged: the whole loan part counts as interest-only"@en ;
+    skos:definition "Als het opbouwproduct niet is verpand, dan wordt de gehele lening gezien als aflossingsvrij."@nl .
+rabo:R_InterestOnlyCap a rabo:Rule ; rabo:source "AB-1.1.3" ;
+    rdfs:label "Interest-only at most 30% of market value and at most EUR 150,000"@en ;
+    skos:definition "Aflossingsvrij lenen is toegestaan tot maximaal 30% van de marktwaarde van de woning en niet meer dan € 150.000."@nl .
+rabo:R_InterestOnlyType a rabo:Rule ; rabo:source "AB-5.5" ;
+    rdfs:label "Interest-only only for collateral types that allow it (not for houseboat, recreation home, letting)"@en .
+rabo:R_DesktopInterestOnly a rabo:Rule ; rabo:source "AB-5.4" ;
+    rdfs:label "No interest-only when valued with a standard Desktop Taxatie"@en ;
+    skos:definition "Een Rabobank Desktop Taxatie van Calcasa is niet toegestaan als de aanvrager aflossingsvrij heeft of wil lenen."@nl .
+rabo:R_ValuationMethod a rabo:Rule ; rabo:source "AB-5.4" ;
+    rdfs:label "Valuation method must be allowed for this type of collateral"@en .
+rabo:R_ValuationKnown a rabo:Rule ; rabo:source "AB-5.4" ;
+    rdfs:label "Market value and valuation method are needed"@en .
+rabo:R_MaxLoan a rabo:Rule ; rabo:source "AB-1.3" ;
+    rdfs:label "Loan within the maximum loan-to-value for this collateral and valuation"@en ;
+    skos:definition "De maximale verstrekkingsnorm op basis van de marktwaarde van het onderpand is 100%. Geldt er een lagere verstrekkingsnorm? Dan staat dit bij het onderpand in hoofdstuk 5 genoemd."@nl .
+rabo:R_Energy106 a rabo:Rule ; rabo:source "AB-1.3" ;
+    rdfs:label "Energy-saving measures: 100% of value before renovation + costs, at most 106% of value after (only for 100% collateral)"@en .
+rabo:R_HouseboatLifetime a rabo:Rule ; rabo:source "AB-5.5.12" ;
+    rdfs:label "Houseboat loan repaid within the expected lifetime of the boat (max 30 years)"@en .
+rabo:R_MooringTerm a rabo:Rule ; rabo:source "AB-5.5.12" ;
+    rdfs:label "Loan on the mooring repaid in 20 years"@en .
+rabo:R_HouseboatRegister a rabo:Rule ; rabo:source "AB-5.5.12" ;
+    rdfs:label "Houseboat registered in the ship register"@en .
+rabo:R_HouseboatShore a rabo:Rule ; rabo:source "AB-5.5.12" ;
+    rdfs:label "Houseboat has a fixed mooring with a shore connection"@en .
+rabo:R_HouseboatMooringPermit a rabo:Rule ; rabo:source "AB-5.5.12" ;
+    rdfs:label "Mooring permit or lease from a government body, or mooring owned"@en .
+rabo:R_RecreationPermanent a rabo:Rule ; rabo:source "AB-5.5.13" ;
+    rdfs:label "Recreation home: no permanent living, unless one of the 2 exceptions applies"@en .
+rabo:R_RequiredConditions a rabo:Rule ; rabo:source "AB-5.5.15" ;
+    rdfs:label "Collateral that needs Plus conditions (partly let home, garage box) has Plus conditions"@en ;
+    skos:definition "Alleen Plusvoorwaarden (5.5.14 Losse garagebox, 5.5.15 Woning voor (gedeeltelijke) verhuur)."@nl .
+rabo:R_TypeMaxTerm a rabo:Rule ; rabo:source "AB-5.5.14" ;
+    rdfs:label "Term within the maximum for this collateral type (garage box 20 years, houseboat 30 years)"@en ;
+    skos:definition "De lening wordt maximaal in 20 jaar volledig afgelost."@nl .
+rabo:R_LettingType a rabo:Rule ; rabo:source "AB-5.5.15" ;
+    rdfs:label "Letting only for a regular house, apartment, home with shop/practice, farmhouse or water home"@en ;
+    skos:definition "Verhuur is mogelijk bij de reguliere woning, appartement, woon-/winkelpand of woon-/praktijkruimte, woonboerderij en waterwoning."@nl .
+rabo:R_RequiresNHG a rabo:Rule ; rabo:source "AB-5.5.10" ;
+    rdfs:label "Mobile home on a fixed pitch: only with NHG"@en ; skos:definition "Alleen met NHG mogelijk."@nl .
+rabo:R_OwnHomeAtRabobank a rabo:Rule ; rabo:source "AB-5.5.14" ;
+    rdfs:label "Applicant owns a home that is financed by Rabobank (garage box, other business-zoned property)"@en ;
+    skos:definition "De aanvrager heeft een eigen woning in bezit en deze is bij Rabobank gefinancierd."@nl .
+rabo:R_FarmArea a rabo:Rule ; rabo:source "AB-5.5.6" ;
+    rdfs:label "Agricultural farmhouse: at most 3 hectares and no business use (otherwise 5.5.7 / 5.5.8)"@en ;
+    skos:definition "Het geheel is niet groter dan 3 hectare. Er is sprake van eigen bewoning en geen sprake van zakelijk gebruik."@nl .
+rabo:R_DesktopConditions a rabo:Rule ; rabo:source "AB-5.4" ;
+    rdfs:label "Desktop valuation only when allowed: not for a new build, erfpacht/opstal, value above EUR 1 million or a loan above 90%"@en ;
+    skos:definition "In de volgende situaties is de Rabobank Desktop Taxatie (Plus) van Calcasa niet mogelijk: ... opgeleverd in het huidige of vorige kalenderjaar; recht van erfpacht of opstal; marktwaarde hoger dan € 1 miljoen; lening meer dan 90% van de marktwaarde."@nl .
+rabo:R_ConstructionCosts a rabo:Rule ; rabo:source "AB-5.5.1.6" ;
+    rdfs:label "Value from construction costs only for a new build, and not for self-build, turnkey, CPO or a demolition home"@en .
+rabo:R_ErfpachtReview a rabo:Rule ; rabo:source "AB-5.2.1" ;
+    rdfs:label "Erfpacht conditions approved (municipal conditions from Bijlage 1) or reviewed by a specialist"@en ;
+    skos:definition "Is er sprake van erfpacht? Dan worden de erfpachtvoorwaarden door een specialist beoordeeld."@nl .
+rabo:R_OpstalReview a rabo:Rule ; rabo:source "AB-5.2.2" ;
+    rdfs:label "Right of superficies (opstal) reviewed by a specialist, unless it is for utilities"@en ;
+    skos:definition "Is er sprake van opstal? Dan wordt het recht van opstal door een specialist beoordeeld."@nl .
+rabo:R_ExplainCombination a rabo:Rule ; rabo:source "AB-6.1" ;
+    rdfs:label "Allowed Explain combinations"@en ;
+    skos:definition "Wat mag niet: een combinatie van maatwerkoplossingen; een combinatie van de maatwerkoplossingen door inzet van vermogen en de uitzonderingen die afwijken op inkomen."@nl .
+rabo:R_MaatwerkNoLetting a rabo:Rule ; rabo:source "AB-6.1" ;
+    rdfs:label "Maatwerk: (partial) letting of the home is not allowed"@en .
+rabo:R_ExplainRoute a rabo:Rule ; rabo:source "AB-6" ;
+    rdfs:label "A requested maatwerk or exception goes through the Explain route"@en .
+rabo:R_DiplomatCountry a rabo:Rule ; rabo:source "BB-4.1.1" ;
+    rdfs:label "Diplomat clause: the country is not the United Kingdom"@en .
+rabo:R_DiplomatDuration a rabo:Rule ; rabo:source "BB-4.1.1" ;
+    rdfs:label "Diplomat clause approval for at most 3 years"@en .
+rabo:R_DiplomatRepeat a rabo:Rule ; rabo:source "BB-4.1.1" ;
+    rdfs:label "New diplomat-clause request only after living in the home again for at least 1 year"@en .
+rabo:R_DiplomatEmployer a rabo:Rule ; rabo:source "BB-4.1.1" ;
+    rdfs:label "Stays employed by the current employer in the Netherlands and returns to the home"@en .

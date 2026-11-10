@@ -1,0 +1,104 @@
+{
+  "metadata": {
+    "description": "Held-out test cases HO1-HO8, written AFTER the rules were built (UC1-UC9 were used to design them). They test rules and combinations that UC1-UC9 do not.",
+    "caveat": "Written by the same author as the rules (the assistant), so not fully independent. A truly blind test needs cases written by a colleague or a mortgage expert.",
+    "status": "DRAFT: expected outcomes checked against the policy text by the assistant, to be reviewed by a person"
+  },
+  "cases": {
+    "HO1": {
+      "question": "Check this application: two applicants (34 and 36), Rabobank advisor, Basis conditions, RRR 5. Apartment, market value EUR 280,000 according to a Rabobank Desktop Taxatie (the standard one, not Plus). Loan EUR 250,000, of which EUR 70,000 interest-only, term 30 years. Is it OK?",
+      "facts": {"applicants": [{"age": 34}, {"age": 36}], "channel": "rabobank_advisor", "conditions": "basis", "rrr": 5,
+                "collateral": {"type": "apartment", "market_value": 280000, "valuation": "desktop"},
+                "loan": {"amount": 250000, "term_years": 30, "parts": [{"type": "interest_only", "amount": 70000}]}},
+      "expected": {
+        "verdict": "reject",
+        "required": ["A (standard) Rabobank Desktop Taxatie is not allowed when the client borrows interest-only (AB 5.4)"],
+        "forbidden": ["Saying the loan-to-value is too high (EUR 250,000 is within 90% of EUR 280,000 = EUR 252,000)",
+                      "Saying the interest-only amount exceeds the cap (EUR 70,000 is within 30% of EUR 280,000 = EUR 84,000)"]
+      }
+    },
+    "HO2": {
+      "question": "Check this application: one applicant (40), Rabobank advisor, Basis conditions, RRR 3. The client buys a house that will be partly let out (with permission), valued at EUR 400,000 by a validated NWWI valuation report. Loan EUR 360,000 annuity, term 30 years. Is it OK?",
+      "facts": {"applicants": [{"age": 40}], "channel": "rabobank_advisor", "conditions": "basis", "rrr": 3,
+                "collateral": {"type": "rental_home", "market_value": 400000, "valuation": "valuation_report"},
+                "loan": {"amount": 360000, "term_years": 30, "parts": [{"type": "annuity", "amount": 360000}]}},
+      "expected": {
+        "verdict": "reject",
+        "required": ["For a home for (partial) letting the maximum is 85% of the value = EUR 340,000, so EUR 360,000 is too high (AB 5.5.15)",
+                     "A home for (partial) letting is only possible with Plus conditions; this case has Basis conditions (AB 5.5.15)"],
+        "forbidden": ["Saying the term of 30 years is too long"]
+      }
+    },
+    "HO3": {
+      "question": "Check this application: four applicants (30, 32, 58 and 60) submitted via an Intermediair advisor with Plus conditions. Regular house, market value EUR 500,000 from a validated valuation report. Loan EUR 450,000 annuity, term 25 years. Their Rabo Risk Rating is R17. Can it be accepted?",
+      "facts": {"applicants": [{"age": 30}, {"age": 32}, {"age": 58}, {"age": 60}], "channel": "intermediair",
+                "conditions": "plus", "rrr": 17,
+                "collateral": {"type": "regular_house", "market_value": 500000, "valuation": "valuation_report"},
+                "loan": {"amount": 450000, "term_years": 25, "parts": [{"type": "annuity", "amount": 450000}]}},
+      "expected": {
+        "verdict": "explain",
+        "required": ["RRR 17 is outside the standard 1-16; acceptance is only possible via the Explain route (AB 2.4.2)",
+                     "4 debtors are allowed because the case is submitted via the Intermediair with Plus conditions (AB 2.2)"],
+        "forbidden": ["Saying 4 debtors are not allowed", "Saying the loan-to-value is too high (90% of a valuation-report value is within 100%)"]
+      }
+    },
+    "HO4": {
+      "question": "A client owns a holiday home (recreation zoning) worth EUR 250,000 according to an NRVT valuation report. He wants to invest EUR 15,000 in energy-saving measures, after which the home is worth EUR 260,000. What is the maximum mortgage, and can the energy-saving measures be financed on top of the normal maximum?",
+      "facts": {"collateral": {"type": "recreation_home", "market_value": 250000, "valuation": "nrvt", "zoning": "recreation"},
+                "energy": {"cost": 15000, "value_after_renovation": 260000, "only_energy_measures": true}},
+      "expected": {
+        "verdict": "amount",
+        "required": ["The maximum mortgage is 90% of the market value = EUR 225,000 (AB 5.5.13)",
+                     "The extra financing for energy-saving measures (up to 106%) only applies to collateral with a 100% norm, so not to a recreation home (AB 1.3)"],
+        "forbidden": ["Giving a maximum above EUR 225,000", "Applying the 106% energy rule to this recreation home"]
+      }
+    },
+    "HO5": {
+      "question": "My client goes to work in Germany for 4 years, stays employed by his Dutch employer and will return to his house afterwards. It is the first time he uses the diplomat clause. Can he rent out his house under the diplomat clause for that period?",
+      "facts": {"diplomat": {"country": "DE", "planned_years": 4, "keeps_dutch_employer": true, "returns_to_home": true,
+                             "previous_diplomat_letting": false}},
+      "expected": {
+        "verdict": "reject",
+        "required": ["Approval under the diplomat clause is for at most 3 years; 4 years is not possible (BB 4.1.1)"],
+        "forbidden": ["Saying Germany is excluded", "Saying he must first live in the home for 1 year"]
+      }
+    },
+    "HO6": {
+      "question": "Check this application: two applicants (29 and 31), Rabobank advisor, Basis conditions, RRR 8. Regular house, market value EUR 420,000 from a validated valuation report. Loan EUR 400,000: EUR 100,000 interest-only and EUR 300,000 annuity, term 30 years. Is everything in order?",
+      "facts": {"applicants": [{"age": 29}, {"age": 31}], "channel": "rabobank_advisor", "conditions": "basis", "rrr": 8,
+                "collateral": {"type": "regular_house", "market_value": 420000, "valuation": "valuation_report"},
+                "loan": {"amount": 400000, "term_years": 30,
+                         "parts": [{"type": "interest_only", "amount": 100000}, {"type": "annuity", "amount": 300000}]}},
+      "expected": {
+        "verdict": "accept",
+        "required": ["The application meets the checked rules (acceptable)",
+                     "The interest-only amount of EUR 100,000 is within the cap of 30% of EUR 420,000 = EUR 126,000 (AB 1.1.3)"],
+        "forbidden": ["Claiming any rule is violated", "Saying the loan-to-value is too high (EUR 400,000 is within 100%)"]
+      }
+    },
+    "HO7": {
+      "question": "A senior client wants tailor-made financing based on the non-annuity affordability test (niet-annuïtaire I/L-toets) and, in the same application, maatwerk by using his assets (inzet van vermogen). Is that combination allowed?",
+      "facts": {"explain_requests": ["maatwerk_niet_annuitair", "maatwerk_vermogen"]},
+      "expected": {
+        "verdict": "reject",
+        "required": ["A combination of two maatwerk solutions is not allowed (AB 6.1)"],
+        "forbidden": ["Saying the combination is allowed"]
+      }
+    },
+    "HO8": {
+      "question": "Check this application: one applicant (50), Rabobank advisor, Basis conditions, RRR 10. The client buys a woonschip valued at EUR 150,000 by an E.M.C.I. certified valuer, plus the mooring he will own, valued at EUR 40,000. The boat is in the ship register, has a shore connection, and the expected lifetime is 35 years. Loan EUR 160,000 annuity over 30 years. Is it OK?",
+      "facts": {"applicants": [{"age": 50}], "channel": "rabobank_advisor", "conditions": "basis", "rrr": 10,
+                "collateral": {"type": "houseboat", "market_value": 150000, "mooring_value": 40000, "valuation": "emci",
+                               "expected_lifetime_years": 35, "in_ship_register": true, "shore_connection": true,
+                               "mooring_from_government": true},
+                "loan": {"amount": 160000, "term_years": 30, "parts": [{"type": "annuity", "amount": 160000}]}},
+      "expected": {
+        "verdict": "reject",
+        "required": ["The loan on the mooring must be repaid in 20 years, so a single 30-year term is not allowed for the mooring part (AB 5.5.12)"],
+        "forbidden": ["Saying the loan-to-value is too high (max = 90% x 150,000 + 90% x 40,000 = EUR 171,000)",
+                      "Saying the 30-year term exceeds the boat's expected lifetime (35 years)",
+                      "Saying a woonschip cannot be financed"]
+      }
+    }
+  }
+}
