@@ -746,4 +746,19 @@ cd RDFox-win64-x86_64-7.5b
 
 ---
 
+## Step 16: A list of potential improvements (2026-11-11) 📝
+
+**What we did**
+- Reviewed the ontology, the rules and the results, and collected every gap in one to-do list:
+  [`docs/IMPROVEMENTS.md`](docs/IMPROVEMENTS.md) (what is wrong, why, what to do, with a priority).
+
+**What we learned**
+- **The ontology is smaller and looser than it looks:** 65 classes, 36 rules, 20 of 183 sections; the properties that
+  connect the classes are used by the rules but never declared, and the classes have no definitions.
+- **Most errors in the use-case eval came from reading the question**, not from the rules (e.g. "gevalideerd").
+- **The Neo4j copy of the ontology shows only the class tree and the links to the text**, so it looks like a word list;
+  the limits and norms that make it a T-Box are only in the `.ttl` files.
+
+---
+
 <!-- Next steps will be added below as we build. -->
