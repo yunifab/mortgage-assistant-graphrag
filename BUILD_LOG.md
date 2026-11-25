@@ -687,6 +687,8 @@ cd RDFox-win64-x86_64-7.5b
   - every quote is in the policy text on the given page
   - the RAG files match the master
   - with RDFox running, the engine still gives each expected verdict and findings
+- **Prompt:** the method is written down in [`docs/QA_USECASE_PROMPT.md`](docs/QA_USECASE_PROMPT.md) (added later, on 2026-11-18;
+  the set itself was built without a saved prompt).
 - **Explanation of the use cases:** [`docs/USE_CASES.md`](docs/USE_CASES.md) (one card per case: situation, trap,
   correct answer, results), and a new table slide "Nine test cases, each with a trap" in the deck.
 

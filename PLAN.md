@@ -155,4 +155,3 @@ Each phase ends with something you can **see and try**.
 
 - Source documents: [`resources/README.md`](resources/README.md)
 - FIBO: [`fibo/`](fibo) (EDM Council clone, untouched)
-- Inspiration: `treat-almende` (HeLiFit + RDFox rules + Gradio)

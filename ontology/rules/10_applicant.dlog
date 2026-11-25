@@ -9,8 +9,8 @@
 [?p, rabo:violates, rabo:R_MinAge] :- [?app, rabo:hasApplicant, ?p], [?p, rabo:age, ?age], FILTER(?age < 18) .
 [?p, rabo:missingFact, rabo:R_MinAge] :- [?app, rabo:hasApplicant, ?p], NOT EXISTS ?a IN [?p, rabo:age, ?a] .
 
-# AB-2.2  "Een aanvraag is met 1 of 2 debiteuren. Een aanvraag met 3 tot 5 debiteuren kan alleen
-#          door een adviseur van het Intermediair worden ingediend en alleen met Plusvoorwaarden."
+# AB-2.2  "An application may involve 1 or 2 debtors. An application involving 3 to 5 debtors can only
+#          be submitted by an advisor from the intermediary and only with 'Plus' terms and conditions."
 [?app, rabo:numberOfDebtors, ?n] :- AGGREGATE([?app, rabo:hasApplicant, ?p] ON ?app BIND COUNT(?p) AS ?n) .
 [?app, rabo:checked, rabo:R_Debtors] :- [?app, rabo:numberOfDebtors, ?n] .
 [?app, rabo:violates, rabo:R_Debtors] :- [?app, rabo:numberOfDebtors, ?n], FILTER(?n > 5) .
